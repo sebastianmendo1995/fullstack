@@ -44,15 +44,34 @@ class SessionSignupForm extends React.Component {
     }
 
     renderErrors() {
-        return (
-            <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {error}
-                    </li>
-                ))}
-            </ul>
-        );
+        $(".input").each(function () {
+            if ($(this).val().trim() == '')
+                $(this).css('border-color', 'red');
+            else
+                $(this).css('border-color', '');
+        });
+
+        let errorEmail=null;
+        let errorFirstName=null;
+        let errorLastName=null;
+        let errorPassword=null;
+
+        this.props.errors.forEach( error => {
+            if (error.includes('Email') ){
+                errorEmail = error;  
+            } else if (error.includes('First')) {
+                errorFirstName = error  
+            } else if(error.includes('Last')) {
+                errorLastName = error 
+            } else if(error.includes('Password')) {
+                errorPassword = error
+            } 
+        });
+
+        const errorArr = [<p>{errorFirstName}</p>, <p>{errorLastName}</p>, <p>{errorEmail}</p>, <p>{errorPassword}</p>]
+
+        return errorArr;
+
     }
 
     render() {
@@ -73,50 +92,54 @@ class SessionSignupForm extends React.Component {
                     <p>or</p>
                 </div>
 
-                <form>
+                <form className='form-signup'>
                     <input
                         type="text"
                         value={this.state.first_name}
                         onChange={this.handleInput('first_name')}
                         placeholder="First Name" 
-                        id="firstName"
+                        className='input signup-first-name'
                     />
+                    {this.props.errors ? this.renderErrors()[0] : null}
                     <input
                         type="text"
                         value={this.state.last_name}
                         onChange={this.handleInput('last_name')}
                         placeholder="Last Name" 
-                        id="lastName"
+                        className='input signup-last-name'
                     />
+                    {this.props.errors ? this.renderErrors()[1] : null}
                     <input
                         type="text"
                         value={this.state.jobTitle}
                         onChange={this.handleInput('jobTitle')}
                         placeholder="Job Title (Optional)" 
-                        id="jobTitle"
+                        id='jobTitle'
                     />
                     <input
                         type="text"
                         value={this.state.companyName}
                         onChange={this.handleInput('companyName')}
                         placeholder="Company Name (Optional)" 
-                        id="companyName"
+                        id='companyName'
                     />
                     <input
                         type="email"
                         value={this.state.email}
                         onChange={this.handleInput('email')}
                         placeholder="Email" 
-                        id="email"
+                        className='input signup-email'
                     />
+                    {this.props.errors ? this.renderErrors()[2] : null}
                     <input
                         type="password"
                         value={this.state.password}
                         onChange={this.handleInput('password')}
                         placeholder="Password"
-                        id="password"
+                        className='input signup-password'
                     />
-                    {this.props.errors ? this.renderErrors() : null}
+                    {this.props.errors ? this.renderErrors()[3] : null}
+                    
                     <button className="btn session-login" onClick={this.handleSubmit}>Sign Up</button>
                 </form>
                 <div className="text-center-password">

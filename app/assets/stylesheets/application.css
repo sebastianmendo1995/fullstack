@@ -231,8 +231,8 @@
 
 input[type='email'],
 input[type='password'],
-#firstName,
-#lastName,
+.signup-first-name,
+.signup-last-name,
 #jobTitle,
 #companyName{
     display: block;
@@ -264,6 +264,15 @@ input[type='password'],
 .text-center-password p a {
     padding-left: 5px;
     color: #52a2b1;
+}
+
+.form-signup p{
+    font-size: 12px;
+    margin-left: 45px;
+    text-align: left;
+    color: red;
+    transform: translateY(-50%);
+    /* margin-bottom: 10px; */
 }
 
 
@@ -582,3 +591,9 @@ h3{
     color: white;
 }
 
+.errors li{
+    margin-left: 45px;
+    text-align: left;
+    color: red;
+    padding-bottom: 20px;
+}

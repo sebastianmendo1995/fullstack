@@ -41,8 +41,15 @@ class SessionLoginForm extends React.Component {
     }
 
     renderErrors() {
+        $(".input").each(function () {
+            if ($(this).val().trim() == '')
+                $(this).css('border-color', 'red');
+            else
+                $(this).css('border-color', '');
+        });
+
         return (
-            <ul>
+            <ul className='errors'>
                 {this.props.errors.map((error, i) => (
                     <li key={`error-${i}`}>
                         {error}
@@ -53,9 +60,6 @@ class SessionLoginForm extends React.Component {
     }
 
     render() {
-        console.log('errors from form')
-        console.log(this.props.errors)
-
         return (
             <div>
                 <div className="modal-banner">
@@ -74,18 +78,19 @@ class SessionLoginForm extends React.Component {
                 </div>
 
                 <form>
-                    <input 
+                    <input
                         type="email"
                         value={this.state.email}
                         onChange={this.handleInput('email')}
-                        placeholder="Email" id="email" 
+                        placeholder="Email" 
+                        className="input login-email" 
                     />
-                    <input 
+                    <input
                         type="password"
                         value={this.state.password} 
                         onChange={this.handleInput('password')}
                         placeholder="Password" 
-                        id="password"
+                        className=" input login-password"
                     />
                     {this.props.errors ? this.renderErrors() : null}
                     <button className="btn session-login" onClick={this.handleSubmit}>Log In</button>

@@ -13,6 +13,11 @@ const App = () => (
         </header>
 
         <Route exact path="/" component={HomeContainer} />
+
+
+
+
+        
         <Route path='/' component={FooterContainer} />
     </div>
     
