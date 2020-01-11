@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host_id: 1
+  address: MyString
+  unit: 1
+  city: MyString
+  state: MyString
+  zip_code: 1
+  title: MyString
+  description: MyText
+  square_ft: 1
+  rules: MyString
+  wifi: MyString
+  access: MyString
+  monday: false
+  tuesday: false
+  wednesday: false
+  thursday: false
+  friday: false
+  saturday: false
+  sunday: false
+  openTime: 2020-01-08 11:47:14
+  closeTime: 2020-01-08 11:47:14
+  notice: 1
+
+two:
+  host_id: 1
+  address: MyString
+  unit: 1
+  city: MyString
+  state: MyString
+  zip_code: 1
+  title: MyString
+  description: MyText
+  square_ft: 1
+  rules: MyString
+  wifi: MyString
+  access: MyString
+  monday: false
+  tuesday: false
+  wednesday: false
+  thursday: false
+  friday: false
+  saturday: false
+  sunday: false
+  openTime: 2020-01-08 11:47:14
+  closeTime: 2020-01-08 11:47:14
+  notice: 1

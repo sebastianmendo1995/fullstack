@@ -1,0 +1,1 @@
+json.partial! 'api/activities/user', activity: @activity

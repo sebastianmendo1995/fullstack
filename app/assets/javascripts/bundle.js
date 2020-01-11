@@ -86,6 +86,55 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/activity_action.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/activity_action.js ***!
+  \*********************************************/
+/*! exports provided: RECEIVE_ALL_ACTIVITIES, RECEIVE_ACTIVITY, fetchActivities, fetchActivity */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ALL_ACTIVITIES", function() { return RECEIVE_ALL_ACTIVITIES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ACTIVITY", function() { return RECEIVE_ACTIVITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivities", function() { return fetchActivities; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivity", function() { return fetchActivity; });
+/* harmony import */ var _util_activity_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/activity_api_util */ "./frontend/util/activity_api_util.js");
+
+var RECEIVE_ALL_ACTIVITIES = 'RECEIVE_ALL_ACTIVITIES';
+var RECEIVE_ACTIVITY = 'RECEIVE_ACTIVITY';
+
+var receiveAllActivities = function receiveAllActivities(activities) {
+  return {
+    type: RECEIVE_ALL_ACTIVITIES,
+    activities: activities
+  };
+};
+
+var receiveActivity = function receiveActivity(activity) {
+  return {
+    type: RECEIVE_ACTIVITY,
+    activity: activity
+  };
+};
+
+var fetchActivities = function fetchActivities() {
+  return function (dispatch) {
+    return _util_activity_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchActivities"]().then(function (activities) {
+      return dispatch(receiveAllActivities(activities));
+    });
+  };
+};
+var fetchActivity = function fetchActivity(activityId) {
+  return function (dispatch) {
+    return _util_activity_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchActivity"](activityId).then(function (activity) {
+      return dispatch(receiveActivity(activity));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -119,7 +168,7 @@ var closeModal = function closeModal() {
 /*!********************************************!*\
   !*** ./frontend/actions/session_action.js ***!
   \********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_SESSION_ERRORS, signUp, logIn, logOut */
+/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_SESSION_ERRORS, CLEAR_ERRORS, deleteErrors, signUp, logIn, logOut */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -127,6 +176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CURRENT_USER", function() { return RECEIVE_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT_CURRENT_USER", function() { return LOGOUT_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SESSION_ERRORS", function() { return RECEIVE_SESSION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ERRORS", function() { return CLEAR_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteErrors", function() { return deleteErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signUp", function() { return signUp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logIn", function() { return logIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logOut", function() { return logOut; });
@@ -135,6 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+var CLEAR_ERRORS = 'CLEAR_ERROS';
 
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   return {
@@ -156,6 +208,11 @@ var receiveError = function receiveError(errors) {
   };
 };
 
+var deleteErrors = function deleteErrors() {
+  return {
+    type: CLEAR_ERRORS
+  };
+};
 var signUp = function signUp(formUser) {
   return function (dispatch) {
     return Object(_util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["signup"])(formUser).then(function (user) {
@@ -184,6 +241,86 @@ var logOut = function logOut() {
 
 /***/ }),
 
+/***/ "./frontend/actions/space_action.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/space_action.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_ALL_SPACES, RECEIVE_SPACE, REMOVE_SPACE, fetchSpaces, fetchSpace, createSpace, updateSpace, deleteSpace */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ALL_SPACES", function() { return RECEIVE_ALL_SPACES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SPACE", function() { return RECEIVE_SPACE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_SPACE", function() { return REMOVE_SPACE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSpaces", function() { return fetchSpaces; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSpace", function() { return fetchSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSpace", function() { return createSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSpace", function() { return updateSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSpace", function() { return deleteSpace; });
+/* harmony import */ var _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/space_api_util */ "./frontend/util/space_api_util.js");
+
+var RECEIVE_ALL_SPACES = 'RECEIVE_ALL_SPACES';
+var RECEIVE_SPACE = 'RECEIVE_SPACE';
+var REMOVE_SPACE = 'REMOVE_SPACE';
+
+var receiveAllSpaces = function receiveAllSpaces(spaces) {
+  return {
+    type: RECEIVE_ALL_SPACES,
+    spaces: spaces
+  };
+};
+
+var receiveSpace = function receiveSpace(space) {
+  return {
+    type: RECEIVE_SPACE,
+    space: space
+  };
+};
+
+var removeSpace = function removeSpace(spaceId) {
+  return {
+    type: REMOVE_SPACE,
+    spaceId: spaceId
+  };
+};
+
+var fetchSpaces = function fetchSpaces() {
+  return function (dispatch) {
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSpaces"]().then(function (spaces) {
+      return dispatch(receiveAllSpaces(spaces));
+    });
+  };
+};
+var fetchSpace = function fetchSpace(spaceId) {
+  return function (dispatch) {
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSpace"](spaceId).then(function (space) {
+      return dispatch(receiveSpace(space));
+    });
+  };
+};
+var createSpace = function createSpace(space) {
+  return function (dispatch) {
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["createSpace"](space).then(function (space) {
+      return dispatch(receiveSpace(space));
+    });
+  };
+};
+var updateSpace = function updateSpace(space) {
+  return function (dispatch) {
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["updateSpace"](space).then(function (space) {
+      return dispatch(receiveSpace(space));
+    });
+  };
+};
+var deleteSpace = function deleteSpace(spaceId) {
+  return function (dispatch) {
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteSpace"](spaceId).then(dispatch(removeSpace(spaceId)));
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/App.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/App.jsx ***!
@@ -200,6 +337,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal/modal */ "./frontend/components/modal/modal.jsx");
 /* harmony import */ var _home_home_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./home/home_container */ "./frontend/components/home/home_container.jsx");
 /* harmony import */ var _footer_footer_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./footer/footer_container */ "./frontend/components/footer/footer_container.jsx");
+/* harmony import */ var _space_space_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./space/space_container */ "./frontend/components/space/space_container.jsx");
+/* harmony import */ var _adding_space_adding_space_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./adding_space/adding_space_container */ "./frontend/components/adding_space/adding_space_container.jsx");
+
+
 
 
 
@@ -213,12 +354,686 @@ var App = function App() {
     path: "/",
     component: _home_home_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/add-space",
+    component: _space_space_container__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/finish-adding-space",
+    component: _adding_space_adding_space_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
     component: _footer_footer_container__WEBPACK_IMPORTED_MODULE_5__["default"]
   }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/activity/activity_index_item.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/activity/activity_index_item.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var ActivityIndexItem = function ActivityIndexItem(_ref) {
+  var activity = _ref.activity;
+  var image_name = activity.name.split(' ').join('').toLowerCase();
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "temp"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "collection-image-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "collection-image",
+    src: window[image_name]
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "caption"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, activity.name)));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ActivityIndexItem);
+
+/***/ }),
+
+/***/ "./frontend/components/adding_space/adding_space_container.jsx":
+/*!*********************************************************************!*\
+  !*** ./frontend/components/adding_space/adding_space_container.jsx ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/space_action */ "./frontend/actions/space_action.js");
+/* harmony import */ var _adding_space_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./adding_space_form */ "./frontend/components/adding_space/adding_space_form.jsx");
+/* harmony import */ var _actions_activity_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/activity_action */ "./frontend/actions/activity_action.js");
+
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    activities: Object.values(state.entities.activities)
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchActivities: function fetchActivities() {
+      return dispatch(Object(_actions_activity_action__WEBPACK_IMPORTED_MODULE_3__["fetchActivities"])());
+    },
+    processForm: function processForm(space) {
+      return dispatch(Object(_actions_space_action__WEBPACK_IMPORTED_MODULE_1__["createSpace"])(space));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_adding_space_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/adding_space/adding_space_form.jsx":
+/*!****************************************************************!*\
+  !*** ./frontend/components/adding_space/adding_space_form.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var AddingSpaceForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(AddingSpaceForm, _React$Component);
+
+  function AddingSpaceForm(props) {
+    var _this;
+
+    _classCallCheck(this, AddingSpaceForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AddingSpaceForm).call(this, props));
+    _this.state = {
+      hostId: '',
+      address: '',
+      unit: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      title: '',
+      description: '',
+      squareFt: '',
+      rules: '',
+      wifi: '',
+      access: '',
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      sunday: false,
+      openTime: '',
+      closeTime: '',
+      notice: '',
+      price: '',
+      activityIds: [],
+      lat: '',
+      lng: '',
+      photos: [],
+      photosURLs: []
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(AddingSpaceForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var values = query_string__WEBPACK_IMPORTED_MODULE_1___default.a.parse(this.props.location.search);
+      this.props.fetchActivities(); //This doesn't update inmidiatly because is asyncronis
+
+      this.setState({
+        hostId: this.props.currentUser.id,
+        address: values.address,
+        unit: values.unit,
+        city: values.city,
+        state: values.state,
+        zipCode: values.zipCode
+      });
+      $.ajax({
+        method: 'GET',
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=".concat(values.unit, "+").concat(values.address, ",+").concat(values.city, ",+").concat(values.state, "&key=").concat(window.googleAPIKey)
+      }).then(function (result) {
+        return _this2.setState({
+          lat: result.results[0].geometry.location.lat,
+          lng: result.results[0].geometry.location.lng
+        });
+      });
+    }
+  }, {
+    key: "handleCheckbox",
+    value: function handleCheckbox(activityIds) {
+      var _this3 = this;
+
+      return function () {
+        if (!_this3.state.activityIds.includes(activityIds)) {
+          _this3.state.activityIds.push(activityIds);
+
+          console.log(_this3.state); // this.setState({
+          //     activityIds: arr
+          // })
+        } else {
+          var idx = _this3.state.activityIds.indexOf(activityIds);
+
+          var arr = _this3.state.activityIds.slice(0, idx).concat(_this3.state.activityIds.slice(idx + 1));
+
+          _this3.setState({
+            activityIds: arr
+          });
+        }
+      };
+    }
+  }, {
+    key: "handleBooleanInput",
+    value: function handleBooleanInput(type) {
+      var _this4 = this;
+
+      return function (e) {
+        var newVal;
+
+        if (e.target.checked) {
+          newVal = true;
+        } else {
+          newVal = false;
+        }
+
+        return _this4.setState(_defineProperty({}, type, newVal), function () {
+          return console.log(_this4.state);
+        });
+      };
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this5 = this;
+
+      return function (e) {
+        return _this5.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this6 = this;
+
+      e.preventDefault();
+      var formData = new FormData();
+      formData.append('space[host_id]', this.state.hostId);
+      formData.append('space[address]', this.state.address);
+      formData.append('space[unit]', this.state.unit);
+      formData.append('space[city]', this.state.city);
+      formData.append('space[state]', this.state.state);
+      formData.append('space[zip_code]', this.state.zipCode);
+      formData.append('space[title]', this.state.title);
+      formData.append('space[description]', this.state.description);
+      formData.append('space[square_ft]', this.state.squareFt);
+      formData.append('space[rules]', this.state.rules);
+      formData.append('space[wifi]', this.state.wifi);
+      formData.append('space[access]', this.state.access);
+      formData.append('space[monday]', this.state.monday);
+      formData.append('space[tuesday]', this.state.tuesday);
+      formData.append('space[wednesday]', this.state.wednesday);
+      formData.append('space[thursday]', this.state.thursday);
+      formData.append('space[friday]', this.state.friday);
+      formData.append('space[saturday]', this.state.saturday);
+      formData.append('space[sunday]', this.state.sunday);
+      formData.append('space[open_time]', this.state.openTime);
+      formData.append('space[close_time]', this.state.closeTime);
+      formData.append('space[notice]', this.state.notice);
+      formData.append('space[price]', this.state.price);
+      formData.append('space[activity_ids]', this.state.activityIds);
+      formData.append('space[lat]', this.state.lat);
+      formData.append('space[lng]', this.state.lng);
+
+      for (var i = 0; i < this.state.photos.length; i++) {
+        formData.append("space[photos][]", this.state.photos[i]);
+      }
+
+      console.log(formData);
+      this.props.processForm(formData).then(function () {
+        return _this6.props.history.push('/');
+      });
+    }
+  }, {
+    key: "handleFile",
+    value: function handleFile(e) {
+      var _this7 = this;
+
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+
+      fileReader.onloadend = function () {
+        var newPhotos = _this7.state.photos.concat([file]);
+
+        var newPhotosURLs = _this7.state.photosURLs.concat([fileReader.result]);
+
+        _this7.setState({
+          photos: newPhotos,
+          photosURLs: newPhotosURLs
+        });
+      };
+
+      if (file) {
+        fileReader.readAsDataURL(file);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this8 = this;
+
+      var photosPreview = null;
+
+      if (this.state.photosURLs.length > 0) {
+        photosPreview = this.state.photosURLs.map(function (photo, i) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: i
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: photo,
+            className: "uploaded-photos"
+          }));
+        });
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "adding-space-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "adding-space-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit,
+        className: "adding-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Upload photos of your space"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "photos-grid-adding"
+      }, photosPreview), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFile,
+        multiple: true
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Give your Space a Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Example: Downtown Loft with Skyline View",
+        value: this.state.title,
+        onChange: this.update('title'),
+        required: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Add a description for your space"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        placeholder: "Enter your space description",
+        value: this.state.description,
+        onChange: this.update('description'),
+        required: "required"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Minimun 280 characters")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "How big is the space guests can book?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "500 sq ft",
+        value: this.state.squareFt,
+        onChange: this.update('squareFt'),
+        requiredrequired: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "What are your house rules?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        placeholder: "Enter your space description",
+        value: this.state.rules,
+        onChange: this.update('rules'),
+        required: "required"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Minimun 100 characters")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "What\u2019s your wifi name and password?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Example: Name=\"Serendipia\" Password=\"serendipia420\"",
+        value: this.state.wifi,
+        onChange: this.update('wifi'),
+        required: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Which days of the week are your place available?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "grid-adding-space"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('monday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Monday"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('tuesday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Tuesday"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('wednesday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Wednesday"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('thursday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Thursday")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('friday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Friday"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('saturday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Saturday"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('sunday')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Sunday"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Which Activities can be done in your place?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.activities.map(function (activity) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "pretty p-icon p-round p-smooth",
+          key: activity.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "checkbox",
+          value: activity.id,
+          onClick: _this8.handleCheckbox(activity.id)
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "state p-success"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "icon mdi mdi-check"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, activity.name)));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Set your operating hours"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "hour-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "openTime",
+        id: "openTime",
+        value: this.state.openTime,
+        onChange: this.update('openTime'),
+        required: "required"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        defaultValue: true,
+        value: "",
+        disabled: true
+      }, "Open"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "00:00"
+      }, "12:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "00:30"
+      }, "12:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1:00"
+      }, "1:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1:30"
+      }, "1:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2:00"
+      }, "2:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2:30"
+      }, "2:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3:00"
+      }, "3:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3:30"
+      }, "3:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4:00"
+      }, "4:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4:30"
+      }, "4:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5:00"
+      }, "5:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5:30"
+      }, "5:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6:00"
+      }, "6:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6:30"
+      }, "6:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7:00"
+      }, "7:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7:30"
+      }, "7:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "8:00"
+      }, "8:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "8:30"
+      }, "8:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "9:00"
+      }, "9:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "9:30"
+      }, "9:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "10:00"
+      }, "10:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "10:30"
+      }, "10:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "11:00"
+      }, "11:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "11:30"
+      }, "11:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "12:00"
+      }, "12:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "12:30"
+      }, "12:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "13:00"
+      }, "13:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "13:30"
+      }, "13:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "14:00"
+      }, "14:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "14:30"
+      }, "14:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "15:00"
+      }, "15:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "15:30"
+      }, "15:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "16:00"
+      }, "16:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "16:30"
+      }, "16:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "17:00"
+      }, "17:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "17:30"
+      }, "17:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "18:00"
+      }, "18:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "18:30"
+      }, "18:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "19:00"
+      }, "19:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "19:30"
+      }, "19:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "20:00"
+      }, "20:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "20:30"
+      }, "20:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "21:00"
+      }, "21:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "21:30"
+      }, "21:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "22:00"
+      }, "22:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "22:30"
+      }, "22:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "23:00"
+      }, "23:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "23:30"
+      }, "23:30 PM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "closeTime",
+        id: "closeTime",
+        value: this.state.closeTime,
+        onChange: this.update('closeTime'),
+        required: "required"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        defaultValue: true,
+        value: "",
+        disabled: true
+      }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "00:00"
+      }, "12:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "00:30"
+      }, "12:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1:00"
+      }, "1:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1:30"
+      }, "1:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2:00"
+      }, "2:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2:30"
+      }, "2:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3:00"
+      }, "3:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3:30"
+      }, "3:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4:00"
+      }, "4:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4:30"
+      }, "4:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5:00"
+      }, "5:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5:30"
+      }, "5:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6:00"
+      }, "6:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6:30"
+      }, "6:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7:00"
+      }, "7:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7:30"
+      }, "7:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "8:00"
+      }, "8:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "8:30"
+      }, "8:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "9:00"
+      }, "9:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "9:30"
+      }, "9:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "10:00"
+      }, "10:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "10:30"
+      }, "10:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "11:00"
+      }, "11:00 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "11:30"
+      }, "11:30 AM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "12:00"
+      }, "12:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "12:30"
+      }, "12:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "13:00"
+      }, "13:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "13:30"
+      }, "13:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "14:00"
+      }, "14:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "14:30"
+      }, "14:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "15:00"
+      }, "15:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "15:30"
+      }, "15:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "16:00"
+      }, "16:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "16:30"
+      }, "16:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "17:00"
+      }, "17:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "17:30"
+      }, "17:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "18:00"
+      }, "18:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "18:30"
+      }, "18:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "19:00"
+      }, "19:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "19:30"
+      }, "19:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "20:00"
+      }, "20:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "20:30"
+      }, "20:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "21:00"
+      }, "21:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "21:30"
+      }, "21:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "22:00"
+      }, "22:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "22:30"
+      }, "22:30 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "23:00"
+      }, "23:00 PM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "23:30"
+      }, "23:30 PM")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Select you cancellation policies: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "15 notice",
+        value: this.state.notice,
+        onChange: this.update('notice'),
+        required: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Price per hour:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "$200",
+        value: this.state.price,
+        onChange: this.update('price'),
+        required: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "How do guests get access to your space?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        placeholder: "Optional example: We are located at 3rd and Northwood Ave across from Target. There are 10 parking spots in the back and metered parking out front. When you arrive, hit the buzzer for \u2018328\u2019 and ask for Sarah and come up to floor 3, Apt 28.",
+        value: this.state.access,
+        onChange: this.update('access')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Minimun 100 characters")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "btn btn-crete-space"
+      }, "Create Space"))));
+    }
+  }]);
+
+  return AddingSpaceForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (AddingSpaceForm);
 
 /***/ }),
 
@@ -360,6 +1175,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _activity_activity_index_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../activity/activity_index_item */ "./frontend/components/activity/activity_index_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -381,6 +1197,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Home =
 /*#__PURE__*/
 function (_React$Component) {
@@ -397,6 +1214,11 @@ function (_React$Component) {
   }
 
   _createClass(Home, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchActivities();
+    }
+  }, {
     key: "update",
     value: function update(field) {}
   }, {
@@ -442,122 +1264,19 @@ function (_React$Component) {
         className: "text-center-title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Popular Activities"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "activities-collection"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.meetings
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Meetings"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.filmshoots
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Film Shoots"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.birthday
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Birthday Parties"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.photoshoots
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Photo Shoots"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.workshops
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Workshops"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.babyshower
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Baby Shower"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.dinners
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Dinners"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.weddings
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Weddings"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.teamofsides
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Team Offsites"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.launchparties
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Launch Parties"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.outdoor
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Outdoor Events"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "temp"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "collection-image-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "collection-image",
-        src: window.performances
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "caption"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Performances"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, this.props.activities.slice(0, 12).map(function (activity) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_activity_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: activity.id,
+          activity: activity
+        });
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "how-it-works-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center-title"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "How it works")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center-how-it-works"
       }, "Find thousands of hosts with one-of-a-kind spaces where you can meet, create, or celebrate"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "activities-collection"
+        className: "how-it-works-collection"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "how-it-works-elements"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -613,16 +1332,27 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home */ "./frontend/components/home/home.jsx");
+/* harmony import */ var _actions_activity_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/activity_action */ "./frontend/actions/activity_action.js");
+
 
 
 
 var mSTP = function mSTP(state) {
   return {
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    activities: Object.values(state.entities.activities)
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, null)(_home__WEBPACK_IMPORTED_MODULE_1__["default"]));
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchActivities: function fetchActivities() {
+      return dispatch(Object(_actions_activity_action__WEBPACK_IMPORTED_MODULE_2__["fetchActivities"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_home__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -793,7 +1523,9 @@ function (_React$Component) {
       }, "Add-ons")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "dropdown-toggle u",
         onClick: this.toggleDropdown
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, this.props.currentUser.firstName, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.user
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-chevron-down"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "header-dropdown user"
@@ -986,14 +1718,15 @@ var mSTP = function mSTP(state) {
 
 var mDTP = function mDTP(dispatch) {
   return {
+    deleteErrors: function deleteErrors() {
+      return dispatch(Object(_actions_session_action__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+    },
     processForm: function processForm(formUser) {
       return dispatch(Object(_actions_session_action__WEBPACK_IMPORTED_MODULE_1__["logIn"])(formUser));
     },
-    otherForm: react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("button", {
-      onClick: function onClick() {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('login'));
-      }
-    }, "Login"),
+    openSignUp: function openSignUp() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('signup'));
+    },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
     }
@@ -1091,7 +1824,16 @@ function (_React$Component) {
     }
   }, {
     key: "simulateLogin",
-    value: function simulateLogin() {}
+    value: function simulateLogin() {// this.setState({
+      //     email: 'sebastian.mendo1995@gmail.com',
+      //     password: 'orfelinda'
+      // }), () => this.props.processForm(this.state).then(() => this.props.history.push('/'))
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.deleteErrors();
+    }
   }, {
     key: "renderErrors",
     value: function renderErrors() {
@@ -1144,8 +1886,8 @@ function (_React$Component) {
         href: "https://www.peerspace.com/app/password-reset"
       }, "Forgot Password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: ""
-      }, "Don't have an account?", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/signup"
+      }, "Don't have an account?", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        onClick: this.props.openSignUp
       }, "Sign Up"))));
     }
   }]);
@@ -1250,6 +1992,11 @@ function (_React$Component) {
       this.props.closeModal();
     }
   }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.deleteErrors();
+    }
+  }, {
     key: "renderErrors",
     value: function renderErrors() {
       $(".input").each(function () {
@@ -1284,10 +2031,10 @@ function (_React$Component) {
         className: "top-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Join Peerspace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Book unique spaces directly from local hosts")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-social-fb",
-        onClick: this.simulatelogin
+        onClick: this.props.openLogIn
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fab fa-facebook"
-      }), "Simulate Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), "Go to Simulate Log In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "or")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-signup"
@@ -1334,8 +2081,8 @@ function (_React$Component) {
         className: "text-center-password"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "By clicking Sign Up, you agree to Peerspace's Services Agreement and Privacy Policy"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: ""
-      }, "Already have an account", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/login"
+      }, "Already have an account", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        onClick: this.props.openLogIn
       }, "Log In"))));
     }
   }]);
@@ -1377,14 +2124,15 @@ var mSTP = function mSTP(state) {
 
 var mDTP = function mDTP(dispatch) {
   return {
+    deleteErrors: function deleteErrors() {
+      return dispatch(Object(_actions_session_action__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+    },
     processForm: function processForm(formUser) {
       return dispatch(Object(_actions_session_action__WEBPACK_IMPORTED_MODULE_1__["signUp"])(formUser));
     },
-    otherForm: react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("button", {
-      onClick: function onClick() {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('signup'));
-      }
-    }, "Sign Up"),
+    openLogIn: function openLogIn() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('login'));
+    },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
     }
@@ -1392,6 +2140,569 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_session_signup_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/space/space_container.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/space/space_container.jsx ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _space_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./space_form */ "./frontend/components/space/space_form.jsx");
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    openModal: function openModal(modal) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])(modal));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_space_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/space/space_form.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/space/space_form.jsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var SpaceForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(SpaceForm, _React$Component);
+
+  function SpaceForm(props) {
+    var _this;
+
+    _classCallCheck(this, SpaceForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SpaceForm).call(this, props));
+    _this.state = {
+      address: '',
+      unit: '',
+      city: '',
+      state: '',
+      zip_code: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(SpaceForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+
+      if (!this.props.currentUser) {
+        this.props.openModal('login');
+      } else {
+        var _this$state = this.state,
+            address = _this$state.address,
+            city = _this$state.city,
+            unit = _this$state.unit,
+            state = _this$state.state,
+            zip_code = _this$state.zip_code;
+        this.props.history.push("/finish-adding-space?address=".concat(address, "&city=").concat(city, "&unit=").concat(unit, "&state=").concat(state, "&zip_code=").concat(zip_code));
+      }
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "add-space-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "hero-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "hero-content-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "hero-content-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Earn money as a ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), " Peerspace host")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-text"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Join thousands of hosts renting their space for meetings, events, film and photo shoots")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit,
+        className: "space-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "search-input-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Address",
+        value: this.state.address,
+        onChange: this.update('address'),
+        id: "address",
+        required: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Unit",
+        value: this.state.unit,
+        onChange: this.update('unit'),
+        id: "unit",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "search-input-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "City",
+        value: this.state.city,
+        onChange: this.update('city'),
+        id: "city",
+        required: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "state",
+        id: "state",
+        value: this.state.state,
+        onChange: this.update('state'),
+        required: "required"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        defaultValue: true,
+        value: "",
+        disabled: true
+      }, "State"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AL"
+      }, "AL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AK"
+      }, "AK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AS"
+      }, "AS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AZ"
+      }, "AZ"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AR"
+      }, "AR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CA"
+      }, "CA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CO"
+      }, "CO"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CT"
+      }, "CT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "DE"
+      }, "DE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "DC"
+      }, "DC"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "FM"
+      }, "FM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "FL"
+      }, "FL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "GA"
+      }, "GA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "GU"
+      }, "GU"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "HI"
+      }, "HI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "ID"
+      }, "ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "IL"
+      }, "IL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "IN"
+      }, "IN"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "IA"
+      }, "IA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "KS"
+      }, "KS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "KY"
+      }, "KY"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "LA"
+      }, "LA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "ME"
+      }, "ME"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MH"
+      }, "MH"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MD"
+      }, "MD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MA"
+      }, "MA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MI"
+      }, "MI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MN"
+      }, "MN"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MS"
+      }, "MS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MO"
+      }, "MO"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MT"
+      }, "MT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NE"
+      }, "NE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NV"
+      }, "NV"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NH"
+      }, "NH"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NJ"
+      }, "NJ"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NM"
+      }, "NM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NY"
+      }, "NY"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "NC"
+      }, "NC"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "ND"
+      }, "ND"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "MP"
+      }, "MP"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "OH"
+      }, "OH"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "OK"
+      }, "OK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "OR"
+      }, "OR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "PW"
+      }, "PW"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "PA"
+      }, "PA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "PR"
+      }, "PR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "RI"
+      }, "RI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "SC"
+      }, "SC"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "SD"
+      }, "SD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "TN"
+      }, "TN"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "TX"
+      }, "TX"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "UT"
+      }, "UT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "VT"
+      }, "VT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "VI"
+      }, "VI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "VA"
+      }, "VA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "WA"
+      }, "WA"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "WV"
+      }, "WV"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "WI"
+      }, "WI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "WY"
+      }, "WY")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Zip",
+        value: this.state.zip_code,
+        onChange: this.update('zip_code'),
+        id: "zip",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "btn btn-space-form"
+      }, "Get Started"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "hero-content-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.getstarted,
+        height: "100%",
+        width: "100%"
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "fill-your-space"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fill-row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Fill your space's downtime")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fill-row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Everyone from professional photographers and yoga teachers, to Fortune 500 companies need places to meet, create, and celebrate. Get your space in front of the most people searching for spaces like yours."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fill-row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-container data-facts"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-fact-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-value"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " 13,787")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Meetings"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-fact-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-value"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " 10,798")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Film shoots"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-fact-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-value"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " 9,056")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Photo shoots"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-fact-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-value"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " 17,499")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Events"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "center-fact-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fact-value"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "And thousands of others")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "how-to-share"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-to-share-grid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-share"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "share-img",
+        src: window.hostshare,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-share share-text"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Choose how to share"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "You love your space, so you control how you share it. Open your doors to meetings during the week, dinners at night, or just film shoots on the weekends \u2013 whatever works best for you."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Hosts receive ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-red heavy"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "10 inquiries per month")), ", on average, so you can choose what works for you.")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "how-hosting-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-works-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "How hosting works")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-hosting-works-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "number-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "circle-number"
+      }, "1")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "List your space for free")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Set your price, add photos and details, then your listing is ready to be seen by millions of people searching for space."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "number-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "circle-number"
+      }, "2")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome guests to your space")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Message with guests and accept bookings through the Peerspace platform. Once you confirm, your guests will receive information on how to get there and details like your wifi code."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "number-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "circle-number"
+      }, "3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Get paid every time")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Guests are charged upfront through Peerspace\u2019s secure payment system. Your payout is directly deposited after each booking, minus our 15% service fee."))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "every-space"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-every-space"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-every-space"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Every space belongs on Peerspace")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-every-space-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Spaces of all shapes, styles, and sizes do well on Peerspace \u2013 from empty storefronts to industrial lofts. Afterall, it\u2019s the diversity of options that makes Peerspace special.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.homes,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Homes"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.lofts,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Lofts"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.studios,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Studios"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.warehouses,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "warehouses"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.galleries,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Galleries"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.bars,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Bars"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.coworking,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Coworking Spaces"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.venues,
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "every-space-grid-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Event Venues")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "got-your-back"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "got-your-back-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "We've got your back")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-got-your-back"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-got-you-back-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "got-your-back-subtitle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-check-circle fa-1x"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "$1,000,000 liability insurance")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "The Peerspace Host Insurance Policy provides coverage for general liability claims up to $1 million."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "got-your-back-subtitle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-check-circle fa-1x"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Built on trust")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Guests on Peerspace add their picture, so you know who you\u2019re talking to. Hosts and guests review each other after every booking, so people are held accountable."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-how-works"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "got-your-back-subtitle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-check-circle fa-1x"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Support on every booking")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "how-it-works-p"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "In the rare case something goes wrong, our support team is here to help. We\u2019re open every day of the year."))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-got-your-back-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.gotyourback,
+        alt: ""
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "consulation-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-consulation"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-content-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-mobile-alt fa-2x"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Need Consulation?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Our team is here to help. Tell us about your space, and our team will reach out with a helping hand."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "link-consulation-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-consulation",
+        href: "#"
+      }, "Get Started")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "consulation-content-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-clipboard-list fa-2x"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Download App"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "The Peerspace iOS app makes it easy to message your guests and accept bookings right from your phone."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "link-consulation-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-consulation",
+        href: "https://apps.apple.com/us/app/peerspace-book-unique-venues/id823879288?mt=8&ign-mpt=uo%3D4"
+      }, "Download App")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "common-questions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-question"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row-question-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Common questions")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Who can be a Peerspace host?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "All kinds of spaces do well on Peerspace \u2013 from homes and galleries, to photo studios and warehouses. People come to Peerspace looking for places to have meetings, events, and even film and photo shoots. It\u2019s free to list on Peerspace and every booking is supported by our team."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "How do I get pay?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "As soon as you accept a booking, your guest is charged in full through our payment provider Stripe. Hosts are automatically paid via direct deposit at the end of each booking."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Does Peerspace provide insurance?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "The Peerspace Host Insurance Policy protects hosts for up to $1,000,000 for general liability claims. Every booking made on Peerspace is covered automatically."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "question-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "How does Peerspace make money?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "We collect a 15% fee from bookings made on Peerspace, so we only make money when you do. It\u2019s free to list your space."))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "get-started"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "text-center-started"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Create your listing today"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        to: "/add-space",
+        className: "btn btn-get-started"
+      }, "Get Started"))));
+    }
+  }]);
+
+  return SpaceForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (SpaceForm);
 
 /***/ }),
 
@@ -1445,6 +2756,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/activity_reducer.js":
+/*!***********************************************!*\
+  !*** ./frontend/reducers/activity_reducer.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_activity_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/activity_action */ "./frontend/actions/activity_action.js");
+
+
+var ActivityReducer = function ActivityReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var nextState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_activity_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_ACTIVITIES"]:
+      nextState = action.activities;
+      return nextState;
+
+    case _actions_activity_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ACTIVITY"]:
+      nextState[action.activity.id] = action.activity;
+      return nextState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ActivityReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -1456,10 +2803,16 @@ document.addEventListener("DOMContentLoaded", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
+/* harmony import */ var _activity_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activity_reducer */ "./frontend/reducers/activity_reducer.js");
+/* harmony import */ var _space_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./space_reducer */ "./frontend/reducers/space_reducer.js");
+
+
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  spaces: _space_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  activities: _activity_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -1572,6 +2925,9 @@ var _nullErrors = [];
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["CLOSE_MODAL"]:
       return _nullErrors;
 
+    case _actions_session_action__WEBPACK_IMPORTED_MODULE_0__["CLEAR_ERRORS"]:
+      return _nullErrors;
+
     default:
       return state;
   }
@@ -1611,6 +2967,46 @@ var _nullSession = {
       return state;
   }
 });
+
+/***/ }),
+
+/***/ "./frontend/reducers/space_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/space_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/space_action */ "./frontend/actions/space_action.js");
+
+
+var SpaceReducer = function SpaceReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var nextState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_SPACES"]:
+      nextState = action.spaces;
+      return nextState;
+
+    case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SPACE"]:
+      nextState[action.space.id] = action.space;
+      return nextState;
+
+    case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["REMOVE_SPACE"]:
+      delete nextState[action.spaceId];
+      return nextState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SpaceReducer);
 
 /***/ }),
 
@@ -1690,6 +3086,32 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/activity_api_util.js":
+/*!********************************************!*\
+  !*** ./frontend/util/activity_api_util.js ***!
+  \********************************************/
+/*! exports provided: fetchActivities, fetchActivity */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivities", function() { return fetchActivities; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivity", function() { return fetchActivity; });
+var fetchActivities = function fetchActivities() {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/activities'
+  });
+};
+var fetchActivity = function fetchActivity(activityId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/activities/".concat(activityId)
+  });
+};
+
+/***/ }),
+
 /***/ "./frontend/util/session_api_util.js":
 /*!*******************************************!*\
   !*** ./frontend/util/session_api_util.js ***!
@@ -1724,6 +3146,61 @@ var logout = function logout() {
   return $.ajax({
     url: '/api/session',
     method: 'DELETE'
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/space_api_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/space_api_util.js ***!
+  \*****************************************/
+/*! exports provided: fetchSpaces, fetchSpace, createSpace, updateSpace, deleteSpace */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSpaces", function() { return fetchSpaces; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSpace", function() { return fetchSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSpace", function() { return createSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSpace", function() { return updateSpace; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSpace", function() { return deleteSpace; });
+var fetchSpaces = function fetchSpaces() {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/spaces'
+  });
+};
+var fetchSpace = function fetchSpace(spaceId) {
+  return $ajax({
+    method: 'GET',
+    url: "/api/spaces/".concat(spaceId)
+  });
+};
+var createSpace = function createSpace(spaceForm) {
+  return $.ajax({
+    method: 'POST',
+    url: '/api/spaces',
+    data: spaceForm,
+    contentType: false,
+    processData: false
+  });
+};
+var updateSpace = function updateSpace(space) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/spaces/".concat(space.id),
+    data: {
+      space: space
+    },
+    contentType: false,
+    processData: false
+  });
+};
+var deleteSpace = function deleteSpace(spaceId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/spaces/".concat(spaceId)
   });
 };
 
@@ -1818,6 +3295,112 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 module.exports = _inheritsLoose;
+
+/***/ }),
+
+/***/ "./node_modules/decode-uri-component/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/decode-uri-component/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+	try {
+		// Try to decode the entire string first
+		return decodeURIComponent(components.join(''));
+	} catch (err) {
+		// Do nothing
+	}
+
+	if (components.length === 1) {
+		return components;
+	}
+
+	split = split || 1;
+
+	// Split the array in 2 parts
+	var left = components.slice(0, split);
+	var right = components.slice(split);
+
+	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+	try {
+		return decodeURIComponent(input);
+	} catch (err) {
+		var tokens = input.match(singleMatcher);
+
+		for (var i = 1; i < tokens.length; i++) {
+			input = decodeComponents(tokens, i).join('');
+
+			tokens = input.match(singleMatcher);
+		}
+
+		return input;
+	}
+}
+
+function customDecodeURIComponent(input) {
+	// Keep track of all the replacements and prefill the map with the `BOM`
+	var replaceMap = {
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD'
+	};
+
+	var match = multiMatcher.exec(input);
+	while (match) {
+		try {
+			// Decode as big chunks as possible
+			replaceMap[match[0]] = decodeURIComponent(match[0]);
+		} catch (err) {
+			var result = decode(match[0]);
+
+			if (result !== match[0]) {
+				replaceMap[match[0]] = result;
+			}
+		}
+
+		match = multiMatcher.exec(input);
+	}
+
+	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+	replaceMap['%C2'] = '\uFFFD';
+
+	var entries = Object.keys(replaceMap);
+
+	for (var i = 0; i < entries.length; i++) {
+		// Replace all decoded components
+		var key = entries[i];
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+	}
+
+	return input;
+}
+
+module.exports = function (encodedURI) {
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+	}
+
+	try {
+		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+		// Try the built in decoder first
+		return decodeURIComponent(encodedURI);
+	} catch (err) {
+		// Fallback to a more advanced decoder
+		return customDecodeURIComponent(encodedURI);
+	}
+};
+
 
 /***/ }),
 
@@ -4472,6 +6055,320 @@ if (true) {
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ "./node_modules/query-string/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/query-string/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+const strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
+const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
+const splitOnFirst = __webpack_require__(/*! split-on-first */ "./node_modules/split-on-first/index.js");
+
+function encoderForArrayFormat(options) {
+	switch (options.arrayFormat) {
+		case 'index':
+			return key => (result, value) => {
+				const index = result.length;
+				if (value === undefined || (options.skipNull && value === null)) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, [encode(key, options), '[', index, ']'].join('')];
+				}
+
+				return [
+					...result,
+					[encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('')
+				];
+			};
+
+		case 'bracket':
+			return key => (result, value) => {
+				if (value === undefined || (options.skipNull && value === null)) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, [encode(key, options), '[]'].join('')];
+				}
+
+				return [...result, [encode(key, options), '[]=', encode(value, options)].join('')];
+			};
+
+		case 'comma':
+			return key => (result, value) => {
+				if (value === null || value === undefined || value.length === 0) {
+					return result;
+				}
+
+				if (result.length === 0) {
+					return [[encode(key, options), '=', encode(value, options)].join('')];
+				}
+
+				return [[result, encode(value, options)].join(',')];
+			};
+
+		default:
+			return key => (result, value) => {
+				if (value === undefined || (options.skipNull && value === null)) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, encode(key, options)];
+				}
+
+				return [...result, [encode(key, options), '=', encode(value, options)].join('')];
+			};
+	}
+}
+
+function parserForArrayFormat(options) {
+	let result;
+
+	switch (options.arrayFormat) {
+		case 'index':
+			return (key, value, accumulator) => {
+				result = /\[(\d*)\]$/.exec(key);
+
+				key = key.replace(/\[\d*\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = {};
+				}
+
+				accumulator[key][result[1]] = value;
+			};
+
+		case 'bracket':
+			return (key, value, accumulator) => {
+				result = /(\[\])$/.exec(key);
+				key = key.replace(/\[\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = [value];
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+
+		case 'comma':
+			return (key, value, accumulator) => {
+				const isArray = typeof value === 'string' && value.split('').indexOf(',') > -1;
+				const newValue = isArray ? value.split(',') : value;
+				accumulator[key] = newValue;
+			};
+
+		default:
+			return (key, value, accumulator) => {
+				if (accumulator[key] === undefined) {
+					accumulator[key] = value;
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+	}
+}
+
+function encode(value, options) {
+	if (options.encode) {
+		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
+}
+
+function decode(value, options) {
+	if (options.decode) {
+		return decodeComponent(value);
+	}
+
+	return value;
+}
+
+function keysSorter(input) {
+	if (Array.isArray(input)) {
+		return input.sort();
+	}
+
+	if (typeof input === 'object') {
+		return keysSorter(Object.keys(input))
+			.sort((a, b) => Number(a) - Number(b))
+			.map(key => input[key]);
+	}
+
+	return input;
+}
+
+function removeHash(input) {
+	const hashStart = input.indexOf('#');
+	if (hashStart !== -1) {
+		input = input.slice(0, hashStart);
+	}
+
+	return input;
+}
+
+function extract(input) {
+	input = removeHash(input);
+	const queryStart = input.indexOf('?');
+	if (queryStart === -1) {
+		return '';
+	}
+
+	return input.slice(queryStart + 1);
+}
+
+function parseValue(value, options) {
+	if (options.parseNumbers && !Number.isNaN(Number(value)) && (typeof value === 'string' && value.trim() !== '')) {
+		value = Number(value);
+	} else if (options.parseBooleans && value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+		value = value.toLowerCase() === 'true';
+	}
+
+	return value;
+}
+
+function parse(input, options) {
+	options = Object.assign({
+		decode: true,
+		sort: true,
+		arrayFormat: 'none',
+		parseNumbers: false,
+		parseBooleans: false
+	}, options);
+
+	const formatter = parserForArrayFormat(options);
+
+	// Create an object with no prototype
+	const ret = Object.create(null);
+
+	if (typeof input !== 'string') {
+		return ret;
+	}
+
+	input = input.trim().replace(/^[?#&]/, '');
+
+	if (!input) {
+		return ret;
+	}
+
+	for (const param of input.split('&')) {
+		let [key, value] = splitOnFirst(options.decode ? param.replace(/\+/g, ' ') : param, '=');
+
+		// Missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		value = value === undefined ? null : decode(value, options);
+		formatter(decode(key, options), value, ret);
+	}
+
+	for (const key of Object.keys(ret)) {
+		const value = ret[key];
+		if (typeof value === 'object' && value !== null) {
+			for (const k of Object.keys(value)) {
+				value[k] = parseValue(value[k], options);
+			}
+		} else {
+			ret[key] = parseValue(value, options);
+		}
+	}
+
+	if (options.sort === false) {
+		return ret;
+	}
+
+	return (options.sort === true ? Object.keys(ret).sort() : Object.keys(ret).sort(options.sort)).reduce((result, key) => {
+		const value = ret[key];
+		if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
+			// Sort object keys, not values
+			result[key] = keysSorter(value);
+		} else {
+			result[key] = value;
+		}
+
+		return result;
+	}, Object.create(null));
+}
+
+exports.extract = extract;
+exports.parse = parse;
+
+exports.stringify = (object, options) => {
+	if (!object) {
+		return '';
+	}
+
+	options = Object.assign({
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	}, options);
+
+	const formatter = encoderForArrayFormat(options);
+
+	const objectCopy = Object.assign({}, object);
+	if (options.skipNull) {
+		for (const key of Object.keys(objectCopy)) {
+			if (objectCopy[key] === undefined || objectCopy[key] === null) {
+				delete objectCopy[key];
+			}
+		}
+	}
+
+	const keys = Object.keys(objectCopy);
+
+	if (options.sort !== false) {
+		keys.sort(options.sort);
+	}
+
+	return keys.map(key => {
+		const value = object[key];
+
+		if (value === undefined) {
+			return '';
+		}
+
+		if (value === null) {
+			return encode(key, options);
+		}
+
+		if (Array.isArray(value)) {
+			return value
+				.reduce(formatter(key), [])
+				.join('&');
+		}
+
+		return encode(key, options) + '=' + encode(value, options);
+	}).filter(x => x.length > 0).join('&');
+};
+
+exports.parseUrl = (input, options) => {
+	return {
+		url: removeHash(input).split('?')[0] || '',
+		query: parse(extract(input), options)
+	};
+};
 
 
 /***/ }),
@@ -39897,6 +41794,54 @@ if (false) {} else {
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/scheduler-tracing.development.js */ "./node_modules/scheduler/cjs/scheduler-tracing.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/split-on-first/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/split-on-first/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = (string, separator) => {
+	if (!(typeof string === 'string' && typeof separator === 'string')) {
+		throw new TypeError('Expected the arguments to be of type `string`');
+	}
+
+	if (separator === '') {
+		return [string];
+	}
+
+	const separatorIndex = string.indexOf(separator);
+
+	if (separatorIndex === -1) {
+		return [string];
+	}
+
+	return [
+		string.slice(0, separatorIndex),
+		string.slice(separatorIndex + separator.length)
+	];
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/strict-uri-encode/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/strict-uri-encode/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
 
 
 /***/ }),

@@ -43,6 +43,10 @@ class SessionSignupForm extends React.Component {
         this.props.closeModal();
     }
 
+    componentDidMount() {
+        this.props.deleteErrors();
+    }
+
     renderErrors() {
         $(".input").each(function () {
             if ($(this).val().trim() == '')
@@ -84,9 +88,9 @@ class SessionSignupForm extends React.Component {
                     <h3>Join Peerspace</h3>
                     <p>Book unique spaces directly from local hosts</p>
                 </div>
-                <button className="btn btn-social-fb" onClick={this.simulatelogin}>
+                <button className="btn btn-social-fb" onClick={this.props.openLogIn}>
                     <i className="fab fa-facebook"></i>
-                    Simulate Sign Up
+                    Go to Simulate Log In
                 </button>
                 <div className="text-center">
                     <p>or</p>
@@ -145,7 +149,7 @@ class SessionSignupForm extends React.Component {
                 <div className="text-center-password">
                     <p>By clicking Sign Up, you agree to Peerspace's Services Agreement and Privacy Policy</p>
                     <p className="">Already have an account
-                        <Link to='/login'>Log In</Link>
+                        <a onClick={this.props.openLogIn}>Log In</a>
                     </p>
                 </div>
             </div>

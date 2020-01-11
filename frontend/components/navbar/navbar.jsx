@@ -43,7 +43,10 @@ class Navbar extends React.Component {
                     <Link to='/add-ons'>Add-ons</Link>
                 </li>
                 <li className="dropdown-toggle u" onClick={this.toggleDropdown}>
-                    <a>{this.props.currentUser.firstName}<i className="fas fa-chevron-down"></i></a>
+                    <a>
+                        <img src={window.user} /> 
+                        <i className="fas fa-chevron-down"></i>
+                    </a>
                     <ul className='header-dropdown user' >
                         <li><Link to='/reviews'>Reviews</Link></li>
                         <li><Link to='/boards'>Boards</Link></li>

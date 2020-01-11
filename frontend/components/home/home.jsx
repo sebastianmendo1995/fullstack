@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ActivityIndexItem from '../activity/activity_index_item';
 
 class Home extends React.Component {
     constructor(props){
@@ -7,6 +8,10 @@ class Home extends React.Component {
         this.state = {
             
         }
+    }
+
+    componentDidMount(){
+        this.props.fetchActivities();
     }
 
     update(field){
@@ -60,102 +65,11 @@ class Home extends React.Component {
                     </div>
 
                     <div className='activities-collection'>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.meetings} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Meetings</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.filmshoots} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Film Shoots</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.birthday} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Birthday Parties</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.photoshoots} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Photo Shoots</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.workshops} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Workshops</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.babyshower} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Baby Shower</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.dinners} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Dinners</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.weddings} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Weddings</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.teamofsides} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Team Offsites</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.launchparties} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Launch Parties</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.outdoor} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Outdoor Events</h3>
-                            </div>
-                        </div>
-                        <div className="temp">
-                            <div className='collection-image-container'>
-                                <img className='collection-image' src={window.performances} />
-                            </div>
-                            <div className='caption'>
-                                <h3>Performances</h3>
-                            </div>
-                        </div>
+                        {
+                            this.props.activities.slice(0,12).map( (activity) => {
+                                return (<ActivityIndexItem key={activity.id} activity={activity} />)
+                            })
+                        }
                     </div>
                 </section>
                 <section className='how-it-works-section'>
@@ -165,7 +79,7 @@ class Home extends React.Component {
                     <p className="text-center-how-it-works">
                         Find thousands of hosts with one-of-a-kind spaces where you can meet, create, or celebrate
                     </p>
-                    <div className='activities-collection'>
+                    <div className='how-it-works-collection'>
                         <div className='how-it-works-elements'>
                             <i className="fas fa-map-marker-alt fa-2x"></i>
                             <p>Browse homes, lofts,<br/>galleries, and more</p>

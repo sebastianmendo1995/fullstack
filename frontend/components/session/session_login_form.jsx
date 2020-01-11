@@ -37,7 +37,14 @@ class SessionLoginForm extends React.Component {
     }
 
     simulateLogin(){
-        
+        // this.setState({
+        //     email: 'sebastian.mendo1995@gmail.com',
+        //     password: 'orfelinda'
+        // }), () => this.props.processForm(this.state).then(() => this.props.history.push('/'))
+    }
+
+    componentDidMount() {
+        this.props.deleteErrors();
     }
 
     renderErrors() {
@@ -98,7 +105,7 @@ class SessionLoginForm extends React.Component {
                 <div className="text-center-password">
                     <p><a className="forgot-password" href="https://www.peerspace.com/app/password-reset">Forgot Password</a></p>
                     <p className="">Don't have an account?
-                        <Link to='/signup'>Sign Up</Link>
+                        <a onClick={this.props.openSignUp}>Sign Up</a>
                     </p>
                 </div>
             </div>
