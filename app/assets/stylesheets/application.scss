@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- 
+
 /* Navbar CSS */
 .sticky {
   position: fixed;
@@ -1302,4 +1302,152 @@ h3{
 .uploaded-photos{
     width: 100%;
     height: 100%;
+}
+
+// Index 
+
+ .map {
+    z-index: 3;
+    position: absolute;
+    height: 100%;
+    width: 45%;
+    padding: 0px;
+    border-width: 0px;
+    margin: 0px;
+    left: 0px;
+    top: 0px;
+    touch-action: pan-x pan-y;
+}
+
+.spaces{
+    width: 100%;
+    position: fixed;
+    top: 57px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.spaces-index{
+    width: 55%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    height: 100%;
+    
+}
+
+.spaces-content-index{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.page{
+padding-top: 8px;
+color: #6a707a;
+font-size: 16px;
+font-weight: 400;
+}
+
+.space-index-grid{
+    display: grid;
+    grid-gap: 5vmin;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.space-component{
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0,0,0,.1);
+}
+
+
+
+// INDEX ITEM CONTAINER
+
+.slideshow-container {
+  position: relative;
+  margin: auto;
+}
+
+.mySlides {
+    // display: none;
+    min-height: 200px;
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+
+.info-box{
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.info-space-title{
+    margin-left: -15px;
+    margin-right: -15px;
+    h5{
+        color: #343840;
+        margin-bottom: 0;
+        margin-top: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 18px;
+    }
 }

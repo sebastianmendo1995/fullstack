@@ -22,11 +22,11 @@ export const createSpace = spaceForm => (
     })
 )
 
-export const updateSpace = space => (
+export const updateSpace = spaceForm => (
     $.ajax({
         method: 'PATCH',
         url: `/api/spaces/${space.id}`,
-        data: { space },
+        data: space ,
         contentType: false,
         processData: false
     })

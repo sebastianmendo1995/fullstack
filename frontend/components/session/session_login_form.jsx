@@ -37,10 +37,10 @@ class SessionLoginForm extends React.Component {
     }
 
     simulateLogin(){
-        // this.setState({
-        //     email: 'sebastian.mendo1995@gmail.com',
-        //     password: 'orfelinda'
-        // }), () => this.props.processForm(this.state).then(() => this.props.history.push('/'))
+        this.setState({
+            email: 'sebastian.mendo1995@gmail.com',
+            password: 'orfelinda'
+        }, () => this.props.processForm(this.state).then(() => this.props.history.push('/')))
     }
 
     componentDidMount() {
@@ -76,7 +76,7 @@ class SessionLoginForm extends React.Component {
                     <h3>Welcome back</h3>
                     <p>Please Log In</p>
                 </div>
-                <button className="btn btn-social-fb" onClick={this.simulatelogin}>
+                <button className="btn btn-social-fb" onClick={this.simulateLogin}>
                     <i className="fab fa-facebook"></i>
                     Simulate Log In
                 </button>

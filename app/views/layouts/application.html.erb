@@ -7,6 +7,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBBlwjkP7MfdpsRX-mQkDhdIkKT6ruxalo"%>
+
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
   </head>
@@ -47,8 +51,11 @@
       window.gotyourback = "<%= image_url('gotyourback.png') %>"
       window.user = "<%= image_url('user.png') %>"
 
+      //API KEYS
       window.googleAPIKey = "<%= Rails.application.credentials.google[:api_key] %>"
+      window.mapAPIKey = "<%= Rails.application.credentials.google[:api_map_key] %>"
     </script>
     <%= yield %>
+    
   </body>
 </html>
