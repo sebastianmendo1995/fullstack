@@ -5,10 +5,12 @@ export const RECEIVE_SPACE = 'RECEIVE_SPACE';
 export const REMOVE_SPACE = 'REMOVE_SPACE';
 
 
-const receiveAllSpaces = spaces => ({
-    type: RECEIVE_ALL_SPACES,
-    spaces
-})
+const receiveAllSpaces = ({spaces, totalPages}) => {
+    return ({type: RECEIVE_ALL_SPACES,
+    spaces,
+    totalPages
+    })
+}
 
 const receiveSpace = space => ({
     type: RECEIVE_SPACE,
@@ -20,8 +22,8 @@ const removeSpace = spaceId => ({
     spaceId
 })
 
-export const fetchSpaces = () => dispatch => (
-    SpaceAPIUtil.fetchSpaces().then(spaces => dispatch(receiveAllSpaces(spaces)))
+export const fetchSpaces = filters => dispatch => (
+    SpaceAPIUtil.fetchSpaces(filters).then(payLoad => dispatch(receiveAllSpaces(payLoad)))
 )
 
 export const fetchSpace = spaceId => dispatch => (

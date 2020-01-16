@@ -7,7 +7,6 @@ class Navbar extends React.Component {
         this.state = {
             dropdown: false
         }
-        // this.showActivities = this.showActivities.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
     }
 
@@ -16,12 +15,6 @@ class Navbar extends React.Component {
             $('.header-dropdown').toggleClass('show');
         });
     }
-
-    // showActivities(e) {
-    //     $(function () {
-    //         $('.header-dropdown').toggleClass('show');
-    //     });
-    // }
 
     render(){
 

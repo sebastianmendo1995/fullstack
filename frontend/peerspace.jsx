@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Root from './components/root';
 import configureStore from './store/store';
-
+import { fetchSpaces } from './util/space_api_util'; 
 
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("root");
@@ -26,4 +26,5 @@ document.addEventListener("DOMContentLoaded", () => {
     //test
     window.getState = store.getState;
     window.dispatch = store.dispatch; 
+    window.fetchSpaces = fetchSpaces; 
 });

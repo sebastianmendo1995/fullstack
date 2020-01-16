@@ -7,7 +7,17 @@ class Api::SpacesController < ApplicationController
     end
 
     def index
-        @spaces = Space.all
+        spaces = bounds ? Space.in_bounds(bounds) : Space.all
+
+        if params[:maxCapacity]
+            spaces = spaces.where(capacity: capacity_range)
+        end
+        
+        if params[:maxPrice]
+            spaces = spaces.where(price: price_range) 
+        end
+
+        @spaces = spaces.with_attached_photos.page(params[:page])
         render :index
     end
 
@@ -21,7 +31,6 @@ class Api::SpacesController < ApplicationController
     end
 
     def create
-        # debugger
         @space = Space.new(space_params)
 
         if @space.save
@@ -56,6 +65,19 @@ class Api::SpacesController < ApplicationController
     end
 
     private
+
+    def bounds
+        params[:bounds]
+    end
+
+    def capacity_range
+        (0..params[:maxCapacity].to_i)
+    end
+
+    def price_range
+        (0..params[:maxPrice].to_i)
+    end
+
     def space_params
         params.require(:space).permit(:host_id,
             :address,
@@ -82,6 +104,7 @@ class Api::SpacesController < ApplicationController
             :price,
             :lat,
             :lng,
+            :capacity,
             photos: [],
             activity_ids: []
         )

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_222245) do
+ActiveRecord::Schema.define(version: 2020_01_16_003623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 2020_01_10_222245) do
 
   create_table "space_activities", force: :cascade do |t|
     t.integer "space_id", null: false
-    t.integer "activities_id", null: false
+    t.integer "activity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["space_id", "activities_id"], name: "index_space_activities_on_space_id_and_activities_id"
+    t.index ["activity_id", "space_id"], name: "index_space_activities_on_activity_id_and_space_id", unique: true
     t.index ["space_id"], name: "index_space_activities_on_space_id"
   end
 
@@ -80,13 +80,13 @@ ActiveRecord::Schema.define(version: 2020_01_10_222245) do
     t.integer "price"
     t.float "lat"
     t.float "lng"
+    t.integer "capacity"
     t.index ["host_id"], name: "index_spaces_on_host_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.integer "phone_number"
     t.string "company_name"
     t.string "job_title"
     t.string "email", null: false
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_222245) do
     t.string "session_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end

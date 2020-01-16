@@ -31,6 +31,7 @@ class AddingSpaceForm extends React.Component {
             activityIds: [],
             lat: '',
             lng: '',
+            capacity: '',
             photos: [],
             photosURLs: []
         }
@@ -472,6 +473,17 @@ class AddingSpaceForm extends React.Component {
                                 placeholder='$200'
                                 value={this.state.price}
                                 onChange={this.update('price')}
+                                required="required"
+                            />
+                        </label>
+
+                        <h2>What’s the capacity of your place?</h2>
+                        <label>
+                            <input
+                                type="number"
+                                placeholder='250'
+                                value={this.state.capacity}
+                                onChange={this.update('capacity')}
                                 required="required"
                             />
                         </label>

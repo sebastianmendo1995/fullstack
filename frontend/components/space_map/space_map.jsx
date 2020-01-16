@@ -1,37 +1,52 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
-const getCoordsObj = latLng => ({
-    lat: latLng.lat(),
-    lng: latLng.lng()
-});
+import MarkerMananger from '../../util/marker_manager';
 
 const mapOptions = {
     center: {
         lat: 37.773972,
         lng: -122.431297
     }, // San Francisco coords
-    zoom: 13
+    zoom: 12
 };
 
 class SpaceMap extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.handleMarkerClick = this.handleMarkerClick.bind(this);
     }
 
     componentDidMount(){
         const map = this.refs.map;
         this.map = new google.maps.Map(map, mapOptions);
-
+        this.MarkerManager = new MarkerMananger(this.map, this.handleMarkerClick);
+        this.MarkerManager.updateMarkers(this.props.spaces);
+        this.registerListeners();
     }
 
     componentDidUpdate(){
+        this.MarkerManager.updateMarkers(this.props.spaces);
+    }
 
+    registerListeners(){
+        google.maps.event.addListener(this.map, 'idle', () =>{
+            const {north, south, east, west } = this.map.getBounds().toJSON();
+            const bounds = {
+                northEast: { lat: north, lng: east},
+                southWest: { lat:south, lng: west }
+            };
+            this.props.updateFilter('bounds', bounds)
+        })
+    }
+
+    handleMarkerClick(space){
+        // debugger;
+        this.props.history.push(`/spaces/${space.id}`)
     }
 
     render(){
         return(
-            <div className='map' ref='map'>
+            <div className='map' ref='map' onClick={this.handleMapClick}>
                 Map
             </div>
         )
@@ -39,3 +54,8 @@ class SpaceMap extends React.Component{
 }
 
 export default withRouter(SpaceMap);
+
+
+
+
+

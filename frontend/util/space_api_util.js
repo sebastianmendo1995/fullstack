@@ -1,12 +1,20 @@
-export const fetchSpaces = () => (
+// export const fetchSpaces = ( { page, bounds, maxCapacity, maxPrice} ) => (
+//     $.ajax({
+//         method: 'GET',
+//         url: `/api/spaces?page=${page}&bounds=${bounds}&maxCapacity=${maxCapacity}&maxPrice=${maxPrice}`
+//     })
+// )
+
+export const fetchSpaces = data => (
     $.ajax({
         method: 'GET',
-        url: '/api/spaces'
+        url: `/api/spaces`,
+        data
     })
 )
 
 export const fetchSpace = spaceId => (
-    $ajax({
+    $.ajax({
         method: 'GET',
         url: `/api/spaces/${spaceId}`
     })

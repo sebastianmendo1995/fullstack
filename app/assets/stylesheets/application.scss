@@ -1310,7 +1310,7 @@ h3{
     z-index: 3;
     position: absolute;
     height: 100%;
-    width: 45%;
+    width: 40%;
     padding: 0px;
     border-width: 0px;
     margin: 0px;
@@ -1321,15 +1321,15 @@ h3{
 
 .spaces{
     width: 100%;
-    position: fixed;
-    top: 57px;
+    position: absolute;
+    top: 71px;
     right: 0;
     left: 0;
     bottom: 0;
 }
 
 .spaces-index{
-    width: 55%;
+    width: 60%;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -1341,19 +1341,20 @@ h3{
 .spaces-content-index{
     padding-left: 15px;
     padding-right: 15px;
+    overflow-x: hidden;
 }
 
 .page{
-padding-top: 8px;
-color: #6a707a;
-font-size: 16px;
-font-weight: 400;
+    color: #6a707a;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .space-index-grid{
     display: grid;
     grid-gap: 5vmin;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
 }
 
 .space-component{
@@ -1364,20 +1365,30 @@ font-weight: 400;
 
 
 // INDEX ITEM CONTAINER
-
 .slideshow-container {
   position: relative;
   margin: auto;
 }
 
-.mySlides {
-    // display: none;
-    min-height: 200px;
+.slider-container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
-    img{
-        width: 100%;
-        height: 100%;
-    }
+.slider-img{
+    width: 100%;
+    height: 200px;
+}
+
+.mySlides{
+    width: 100%;
+    height: 100%;
+}
+
+.hidden{
+    display: none;
+    height: 0px;
 }
 
 .prev, .next {
@@ -1385,8 +1396,8 @@ font-weight: 400;
   position: absolute;
   top: 50%;
   width: auto;
-  margin-top: -22px;
   padding: 16px;
+  margin-top: -22px;
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -1401,15 +1412,17 @@ font-weight: 400;
 }
 
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+    background-color: #f1f1f1;
+    color: black;
 }
 
 .numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 /* Fading animation */
@@ -1441,13 +1454,257 @@ font-weight: 400;
 .info-space-title{
     margin-left: -15px;
     margin-right: -15px;
+    display: flex;
+    justify-content: center;
     h5{
+        max-width: 85%;
         color: #343840;
         margin-bottom: 0;
-        margin-top: 15px;
+        margin-top: 5px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-size: 18px;
     }
+}
+
+.review-section{
+    color: #6a707a;
+    padding-top: 10px;
+    i{
+        padding: 5px;
+    }
+}
+
+.answer-time{
+    padding: 10px 0;
+    display: block;
+    font-size: 14px;
+    height: 28px;
+    font-family: avenir-heavy;
+    justify-content: space-between;
+    color: #6a707a;
+    p{
+        float: left;
+        font-size: 14px;
+        height: 28px;
+    }
+    button{
+        float: right;
+        color: #52a2b1;
+        font-size: 16px;
+    }
+    i{
+        padding: 0 5px;
+    }
+}
+
+.price-box-wrapper {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #212429;
+    text-align: center;
+    span{
+        font-size: 10px;
+    }
+    strong{
+        font-size: 16px;
+    }
+}
+
+#react-paginate ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#react-paginate li {
+    display: inline-block;
+}
+
+
+// Filter Index
+
+.container-filters {
+    display: block;
+    position: fixed;
+    width: 100%;
+    z-index: 1030;
+    color: #343840;
+}
+
+.filter-tabs{
+    min-height: 62px;
+    background: #fff;
+    border-bottom: 1px solid #dde0e6;
+    padding: 4px 0;
+    font-size: 16px;
+}
+
+.filter-container{
+    height: 100%;
+    padding-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    display: grid;
+    grid-gap: 2vmin;
+    grid-template-columns: repeat(5, 1fr);
+    div{
+        border: 1px solid #ced2da;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        i{
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.spaces-container{
+    display: block;
+    position: fixed;
+    width: 100%;
+    top: 57px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+#attendees, #activity,
+#location, #price, #date{
+    display: block;
+    width: 90%;
+    height: 45px;
+    text-align: left;
+    margin-left: 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #343840;
+    background-color: #fff;
+    background-image: none;
+}
+
+#attendees, #price{
+    border: none;
+}
+
+// PAGINATION STYLING
+
+.pagination-content {
+    width: 100%;
+    min-height: inherit;
+    padding-left: 15px;
+    padding-right: 15px;    
+    color: #343840;
+    border-bottom: 1px solid #dde0e6;
+    h4{
+        width: auto;
+        transform: translateY(250%);
+    }
+}
+
+.pagination-container{
+    width: 50%;
+    min-width: 280px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 0 auto;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    button{
+        z-index: 100;
+    }
+}
+
+.pagination-btn{
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.pagination-btn.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination-btn:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.pagination{
+    min-height: 150px;
+    box-sizing: border-box;
+}
+
+.inactive {
+    i{
+        color: gray;
+    }
+}
+
+.aditional-information{
+    height: 200px;
+}
+
+// SHOW SPACE
+
+.show-content-container {
+    height: auto;
+    margin-top: 56px;
+}
+
+.show-content{
+    position: relative;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #343840;
+    height: inherit;
+}
+
+.slider-img{
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-container{
+    width: 100%;
+    max-height: 450px;
+    overflow: hidden;
+    display: flex;
+}
+
+.prev-show, .next-show {
+    color: #fff;
+    font-size: 24px;
+    position: absolute;
+    padding: 15px 20px;
+    padding-left: 10px;
+    vertical-align: middle;
+    top: 38%;
+    background-color: rgba(255,255,255,.3);
+    transition: background-color .2s linear;
+}
+
+.next-show {
+    right: 12px;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev-show:hover, .next-show:hover {
+    background-color: #f1f1f1;
+    color: black;
 }

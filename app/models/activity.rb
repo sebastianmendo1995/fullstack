@@ -3,9 +3,8 @@ class Activity < ApplicationRecord
     validates :name, presence: true, uniqueness: true
 
     has_many :space_activities,
-        primary_key: :id,
-        foreign_key: :activities_id,
-        class_name: :SpaceActivity
+        dependent: :destroy,
+        inverse_of: :activity
 
     has_many :spaces,
         through: :space_activities,

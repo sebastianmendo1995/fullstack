@@ -40,7 +40,7 @@ class SessionLoginForm extends React.Component {
         this.setState({
             email: 'sebastian.mendo1995@gmail.com',
             password: 'orfelinda'
-        }, () => this.props.processForm(this.state).then(() => this.props.history.push('/')))
+        }, () => this.props.processForm(this.state).then(() => this.props.closeModal()))
     }
 
     componentDidMount() {

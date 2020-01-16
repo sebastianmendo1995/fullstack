@@ -135,6 +135,39 @@ var fetchActivity = function fetchActivity(activityId) {
 
 /***/ }),
 
+/***/ "./frontend/actions/filter_action.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/filter_action.js ***!
+  \*******************************************/
+/*! exports provided: UPDATE_FILTER, changeFilter, updateFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_FILTER", function() { return UPDATE_FILTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeFilter", function() { return changeFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateFilter", function() { return updateFilter; });
+/* harmony import */ var _space_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./space_action */ "./frontend/actions/space_action.js");
+
+var UPDATE_FILTER = 'UPDATE_FILTER';
+var changeFilter = function changeFilter(filter, value) {
+  // debugger; 
+  return {
+    type: UPDATE_FILTER,
+    filter: filter,
+    value: value
+  };
+};
+var updateFilter = function updateFilter(filter, value) {
+  return function (dispatch, getState) {
+    // debugger; 
+    dispatch(changeFilter(filter, value));
+    return Object(_space_action__WEBPACK_IMPORTED_MODULE_0__["fetchSpaces"])(getState().ui.filters)(dispatch);
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -264,10 +297,13 @@ var RECEIVE_ALL_SPACES = 'RECEIVE_ALL_SPACES';
 var RECEIVE_SPACE = 'RECEIVE_SPACE';
 var REMOVE_SPACE = 'REMOVE_SPACE';
 
-var receiveAllSpaces = function receiveAllSpaces(spaces) {
+var receiveAllSpaces = function receiveAllSpaces(_ref) {
+  var spaces = _ref.spaces,
+      totalPages = _ref.totalPages;
   return {
     type: RECEIVE_ALL_SPACES,
-    spaces: spaces
+    spaces: spaces,
+    totalPages: totalPages
   };
 };
 
@@ -285,10 +321,10 @@ var removeSpace = function removeSpace(spaceId) {
   };
 };
 
-var fetchSpaces = function fetchSpaces() {
+var fetchSpaces = function fetchSpaces(filters) {
   return function (dispatch) {
-    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSpaces"]().then(function (spaces) {
-      return dispatch(receiveAllSpaces(spaces));
+    return _util_space_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSpaces"](filters).then(function (payLoad) {
+      return dispatch(receiveAllSpaces(payLoad));
     });
   };
 };
@@ -340,6 +376,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _space_space_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./space/space_container */ "./frontend/components/space/space_container.jsx");
 /* harmony import */ var _adding_space_adding_space_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./adding_space/adding_space_container */ "./frontend/components/adding_space/adding_space_container.jsx");
 /* harmony import */ var _search_search_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./search/search_container */ "./frontend/components/search/search_container.jsx");
+/* harmony import */ var _show_space_show_space_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./show_space/show_space_container */ "./frontend/components/show_space/show_space_container.jsx");
+
 
 
 
@@ -363,6 +401,10 @@ var App = function App() {
     exact: true,
     path: "/finish-adding-space",
     component: _adding_space_adding_space_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/spaces/:spaceId",
+    component: _show_space_show_space_container__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/spaces",
@@ -525,6 +567,7 @@ function (_React$Component) {
       activityIds: [],
       lat: '',
       lng: '',
+      capacity: '',
       photos: [],
       photosURLs: []
     };
@@ -1025,6 +1068,12 @@ function (_React$Component) {
         value: this.state.price,
         onChange: this.update('price'),
         required: "required"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "What\u2019s the capacity of your place?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        placeholder: "250",
+        value: this.state.capacity,
+        onChange: this.update('capacity'),
+        required: "required"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "How do guests get access to your space?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         placeholder: "Optional example: We are located at 3rd and Northwood Ave across from Target. There are 10 parking spots in the back and metered parking out front. When you arrive, hit the buzzer for \u2018328\u2019 and ask for Sarah and come up to floor 3, Apt 28.",
         value: this.state.access,
@@ -1481,8 +1530,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Navbar).call(this, props));
     _this.state = {
       dropdown: false
-    }; // this.showActivities = this.showActivities.bind(this);
-
+    };
     _this.toggleDropdown = _this.toggleDropdown.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -1493,12 +1541,7 @@ function (_React$Component) {
       $(function () {
         $('.header-dropdown').toggleClass('show');
       });
-    } // showActivities(e) {
-    //     $(function () {
-    //         $('.header-dropdown').toggleClass('show');
-    //     });
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -1694,6 +1737,94 @@ var Root = function Root(_ref) {
 
 /***/ }),
 
+/***/ "./frontend/components/search/filter_form.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/search/filter_form.jsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var handleChange = function handleChange(filter, updateFilter) {
+  return function (e) {
+    // debugger
+    return updateFilter(filter, parseInt(e.currentTarget.value));
+  };
+};
+
+var FilterForm = function FilterForm(_ref) {
+  var maxCapacity = _ref.maxCapacity,
+      maxPrice = _ref.maxPrice,
+      updateFilter = _ref.updateFilter;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "filter-tabs"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "filter-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-search"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    id: "activity",
+    placeholder: "Enter your activity"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-map-marker-alt"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    id: "location",
+    placeholder: "Where?"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "far fa-calendar"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "date",
+    id: "date"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    name: "attendees",
+    id: "attendees",
+    value: maxCapacity,
+    onChange: handleChange('maxCapacity', updateFilter)
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    selected: true,
+    disabled: true,
+    hidden: true
+  }, "Attendees"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "10"
+  }, "Up to 10"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "25"
+  }, "Up to 25"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "50"
+  }, "Up to 50"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "100"
+  }, "Up to 100"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "10000"
+  }, "Over 100"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    name: "price",
+    id: "price",
+    value: maxPrice,
+    onChange: handleChange('maxPrice', updateFilter)
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    selected: true,
+    disabled: true,
+    hidden: true
+  }, "Price per hour"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "100"
+  }, "Up to $100"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "250"
+  }, "Up to $250"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "500"
+  }, "Up to $500"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "9999999"
+  }, "No Limit")))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FilterForm);
+
+/***/ }),
+
 /***/ "./frontend/components/search/search.jsx":
 /*!***********************************************!*\
   !*** ./frontend/components/search/search.jsx ***!
@@ -1707,21 +1838,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _space_map_space_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../space_map/space_map */ "./frontend/components/space_map/space_map.jsx");
 /* harmony import */ var _space_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./space_index */ "./frontend/components/search/space_index.jsx");
+/* harmony import */ var _filter_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter_form */ "./frontend/components/search/filter_form.jsx");
+
 
 
 
 
 var Search = function Search(_ref) {
   var spaces = _ref.spaces,
-      fetchSpaces = _ref.fetchSpaces;
+      totalPages = _ref.totalPages,
+      fetchSpaces = _ref.fetchSpaces,
+      updateFilter = _ref.updateFilter,
+      bounds = _ref.bounds,
+      maxCapacity = _ref.maxCapacity,
+      maxPrice = _ref.maxPrice;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "spaces-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-filters"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    totalPages: totalPages,
+    updateFilter: updateFilter
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "spaces"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    spaces: spaces
+    spaces: spaces,
+    updateFilter: updateFilter
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
     spaces: spaces,
-    fetchSpaces: fetchSpaces
-  }));
+    fetchSpaces: fetchSpaces,
+    totalPages: totalPages,
+    bounds: bounds,
+    maxCapacity: maxCapacity,
+    maxPrice: maxPrice,
+    updateFilter: updateFilter
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Search);
@@ -1740,20 +1891,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./search */ "./frontend/components/search/search.jsx");
 /* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/space_action */ "./frontend/actions/space_action.js");
+/* harmony import */ var _actions_filter_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filter_action */ "./frontend/actions/filter_action.js");
+
 
 
 
 
 var mSTP = function mSTP(state) {
+  // debugger
   return {
-    spaces: Object.values(state.entities.spaces)
+    spaces: Object.values(state.entities.spaces),
+    totalPages: state.ui.page.totalPages,
+    bounds: state.ui.filters.bounds,
+    maxCapacity: state.ui.filters.maxCapacity,
+    maxPrice: state.ui.filters.maxPrice
   };
 };
 
 var mDTP = function mDTP(dispatch) {
   return {
-    fetchSpaces: function fetchSpaces() {
-      return dispatch(Object(_actions_space_action__WEBPACK_IMPORTED_MODULE_2__["fetchSpaces"])());
+    fetchSpaces: function fetchSpaces(payLoad) {
+      return dispatch(Object(_actions_space_action__WEBPACK_IMPORTED_MODULE_2__["fetchSpaces"])(payLoad));
+    },
+    updateFilter: function updateFilter(filter, value) {
+      return dispatch(Object(_actions_filter_action__WEBPACK_IMPORTED_MODULE_3__["updateFilter"])(filter, value));
     }
   };
 };
@@ -1784,9 +1945,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -1801,35 +1962,206 @@ function (_React$Component) {
   _inherits(SpaceIndex, _React$Component);
 
   function SpaceIndex(props) {
+    var _this;
+
     _classCallCheck(this, SpaceIndex);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SpaceIndex).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SpaceIndex).call(this, props));
+    _this.state = {
+      page: 1
+    };
+    _this.right = _this.right.bind(_assertThisInitialized(_this));
+    _this.left = _this.left.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(SpaceIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSpaces();
+      this.props.updateFilter('page', this.state.page);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.page !== this.state.page) {
+        // this.props.fetchSpaces({
+        //     page: this.state.page,
+        //     maxCapacity: this.props.maxCapacity,
+        //     maxPrice: this.props.maxPrice
+        // });
+        this.props.updateFilter('page', this.state.page);
+      }
+    }
+  }, {
+    key: "updatePage",
+    value: function updatePage(p) {
+      this.setState({
+        page: p
+      });
+    }
+  }, {
+    key: "makeButtons",
+    value: function makeButtons() {
+      var _this2 = this;
+
+      if (this.props.totalPages) {
+        if (this.state.page <= 2) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "pagination-container"
+          }, this.left(this.state.page), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(1);
+            },
+            className: this.state.page === 1 ? "pagination-btn active" : "pagination-btn"
+          }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(2);
+            },
+            className: this.state.page === 2 ? "pagination-btn active" : "pagination-btn"
+          }, "2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(3);
+            },
+            className: this.state.page === 3 ? "pagination-btn active" : "pagination-btn"
+          }, "3"), this.right(this.state.page));
+        } else if (this.state.page > this.props.totalPages - 2) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "pagination-container"
+          }, this.left(this.state.page), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.props.totalPages - 2);
+            },
+            className: this.state.page === this.props.totalPages - 2 ? "pagination-btn active" : "pagination-btn"
+          }, this.props.totalPages - 2), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.props.totalPages - 1);
+            },
+            className: this.state.page === this.props.totalPages - 1 ? "pagination-btn active" : "pagination-btn"
+          }, this.props.totalPages - 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.props.totalPages);
+            },
+            className: this.state.page === this.props.totalPages ? "pagination-btn active" : "pagination-btn"
+          }, this.props.totalPages), this.right(this.state.page));
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "pagination-container"
+          }, this.left(this.state.page), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.state.page - 1);
+            },
+            className: this.state.page === this.state.page - 1 ? "pagination-btn active" : "pagination-btn"
+          }, this.state.page - 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.state.page);
+            },
+            className: this.state.page === this.state.page ? "pagination-btn active" : "pagination-btn"
+          }, this.state.page), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: function onClick() {
+              return _this2.updatePage(_this2.state.page + 1);
+            },
+            className: this.state.page === this.state.page + 1 ? "pagination-btn active" : "pagination-btn"
+          }, this.state.page + 1), this.right(this.state.page));
+        }
+      }
+    }
+  }, {
+    key: "left",
+    value: function left(page) {
+      var _this3 = this;
+
+      if (page === 1) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "pagination-btn",
+          id: "gray-button",
+          onClick: function onClick() {
+            return _this3.updatePage(_this3.state.page - 1);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-angle-left"
+        }));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "pagination-btn",
+          onClick: function onClick() {
+            return _this3.updatePage(_this3.state.page - 1);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-angle-left"
+        }));
+      }
+    }
+  }, {
+    key: "right",
+    value: function right(page) {
+      var _this4 = this;
+
+      if (page === this.props.totalPages) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "pagination-btn inactive",
+          onClick: function onClick() {
+            return _this4.updatePage(_this4.state.page + 1);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-angle-right"
+        }));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "pagination-btn",
+          onClick: function onClick() {
+            return _this4.updatePage(_this4.state.page + 1);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-angle-right"
+        }));
+      }
+    }
+  }, {
+    key: "pageRange",
+    value: function pageRange() {
+      var start;
+      var end;
+
+      if (this.props.totalPages) {
+        start = 24 * this.state.page - 23;
+        end = 24 * this.state.page;
+      }
+
+      return "".concat(start, " - ").concat(end);
+    }
+  }, {
+    key: "totalSpaces",
+    value: function totalSpaces() {
+      if (this.props.totalPages) {
+        return this.props.totalPages * 24;
+      }
     }
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props.spaces);
-      var totalSpaces = this.props.spaces.length;
+      var paginationButtons = this.makeButtons();
+      var range = this.pageRange();
+      var totalSpaces = this.totalSpaces();
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "spaces-index"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "spaces-content-index"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Showing 1 - 30 of ", totalSpaces)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Showing ", range, " of ", totalSpaces)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "space-index-grid"
       }, this.props.spaces.map(function (space) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: space.id,
           space: space
         });
-      }))));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pagination"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pagination-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Showing ", range, " of ", totalSpaces), paginationButtons)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "aditional-information"
+      })));
     }
   }]);
 
@@ -1852,37 +2184,122 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
-var SpaceIndexItem = function SpaceIndexItem(_ref) {
-  var space = _ref.space;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "space-component"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "slideshow-container"
-  }, // space.photoUrls.map( (photoURL, idx) => (
-  react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "mySlides fade"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "numbertext"
-  }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: space.photoUrls[0]
-  })) // ))
-  , react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "prev"
-  }, "\u276E"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "next"
-  }, "\u276F")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "info-box"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "info-space-title"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, space.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "info-row"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "review-section"
-  }))));
-};
+
+var SpaceIndexItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(SpaceIndexItem, _React$Component);
+
+  function SpaceIndexItem(props) {
+    var _this;
+
+    _classCallCheck(this, SpaceIndexItem);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SpaceIndexItem).call(this, props));
+    _this.state = {
+      slide: 1
+    };
+    return _this;
+  }
+
+  _createClass(SpaceIndexItem, [{
+    key: "handleClick",
+    value: function handleClick(offset) {
+      var newState = this.state.slide + offset;
+
+      if (newState > this.props.space.photoUrls.length) {
+        newState = 1;
+      } else if (newState < 1) {
+        newState = this.props.space.photoUrls.length;
+      }
+
+      this.setState({
+        slide: newState
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var space = this.props.space;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "space-component"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slideshow-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slider-container"
+      }, space.photoUrls.map(function (photoURL, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "mySlides fade",
+          key: "".concat(space.id, "-").concat(idx)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/spaces/".concat(space.id)
+        }, _this2.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider".concat(idx + 1, " slider-img"),
+          src: window.gotyourback
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider".concat(idx + 1, " slider-img hidden"),
+          src: window.gotyourback
+        })));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "price-box-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "from "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "$", space.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " / hr")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "prev",
+        onClick: function onClick() {
+          return _this2.handleClick(-1);
+        }
+      }, "\u276E"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "next",
+        onClick: function onClick() {
+          return _this2.handleClick(1);
+        }
+      }, "\u276F")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "info-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/spaces/".concat(space.id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "info-space-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, space.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "info-row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/spaces/".concat(space.id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "review-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user-friends fa-sm"
+      }), space.capacity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "answer-time"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/spaces/".concat(space.id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Responds within ", Math.round(Math.random() * 8), " hrs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-heart"
+      }), "Save")))));
+    }
+  }]);
+
+  return SpaceIndexItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (SpaceIndexItem);
 
@@ -2032,7 +2449,7 @@ function (_React$Component) {
         password: 'orfelinda'
       }, function () {
         return _this4.props.processForm(_this4.state).then(function () {
-          return _this4.props.history.push('/');
+          return _this4.props.closeModal();
         });
       });
     }
@@ -2347,6 +2764,164 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_session_signup_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/show_space/show_space.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/show_space/show_space.jsx ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var ShowSpace =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ShowSpace, _React$Component);
+
+  function ShowSpace(props) {
+    var _this;
+
+    _classCallCheck(this, ShowSpace);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ShowSpace).call(this, props));
+    _this.state = {
+      slide: 1
+    };
+    return _this;
+  }
+
+  _createClass(ShowSpace, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchSpace(this.props.match.params.spaceId);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(offset) {
+      var newState = this.state.slide + offset;
+
+      if (newState > this.props.space.photoUrls.length) {
+        newState = 1;
+      } else if (newState < 1) {
+        newState = this.props.space.photoUrls.length;
+      }
+
+      this.setState({
+        slide: newState
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var space = this.props.space;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "show-content-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "show-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "show-carousel"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "carousel-container"
+      }, space ? space.photoUrls.map(function (photoURL, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "fade",
+          key: "".concat(space.id, "-").concat(idx)
+        }, _this2.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider-img",
+          src: window.gotyourback
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider-img hidden",
+          src: window.gotyourback
+        }));
+      }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "prev-show",
+        onClick: function onClick() {
+          return _this2.handleClick(-1);
+        }
+      }, "\u276E"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "next-show",
+        onClick: function onClick() {
+          return _this2.handleClick(1);
+        }
+      }, "\u276F"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "save-and-share"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null)))));
+    }
+  }]);
+
+  return ShowSpace;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ShowSpace);
+
+/***/ }),
+
+/***/ "./frontend/components/show_space/show_space_container.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/show_space/show_space_container.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _show_space__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show_space */ "./frontend/components/show_space/show_space.jsx");
+/* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/space_action */ "./frontend/actions/space_action.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+
+
+
+
+
+var mSTP = function mSTP(state, _ref) {
+  var match = _ref.match;
+  var spaceId = parseInt(match.params.spaceId);
+  var space = Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["selectSpace"])(state.entities, spaceId);
+  return {
+    spaceId: spaceId,
+    space: space
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchSpace: function fetchSpace(spaceId) {
+      return dispatch(Object(_actions_space_action__WEBPACK_IMPORTED_MODULE_2__["fetchSpace"])(spaceId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_show_space__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -2925,6 +3500,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _util_marker_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/marker_manager */ "./frontend/util/marker_manager.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2935,9 +3511,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2946,20 +3522,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var getCoordsObj = function getCoordsObj(latLng) {
-  return {
-    lat: latLng.lat(),
-    lng: latLng.lng()
-  };
-};
-
 var mapOptions = {
   center: {
     lat: 37.773972,
     lng: -122.431297
   },
   // San Francisco coords
-  zoom: 13
+  zoom: 12
 };
 
 var SpaceMap =
@@ -2968,9 +3537,13 @@ function (_React$Component) {
   _inherits(SpaceMap, _React$Component);
 
   function SpaceMap(props) {
+    var _this;
+
     _classCallCheck(this, SpaceMap);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SpaceMap).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SpaceMap).call(this, props));
+    _this.handleMarkerClick = _this.handleMarkerClick.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(SpaceMap, [{
@@ -2978,16 +3551,54 @@ function (_React$Component) {
     value: function componentDidMount() {
       var map = this.refs.map;
       this.map = new google.maps.Map(map, mapOptions);
+      this.MarkerManager = new _util_marker_manager__WEBPACK_IMPORTED_MODULE_2__["default"](this.map, this.handleMarkerClick);
+      this.MarkerManager.updateMarkers(this.props.spaces);
+      this.registerListeners();
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {}
+    value: function componentDidUpdate() {
+      this.MarkerManager.updateMarkers(this.props.spaces);
+    }
+  }, {
+    key: "registerListeners",
+    value: function registerListeners() {
+      var _this2 = this;
+
+      google.maps.event.addListener(this.map, 'idle', function () {
+        var _this2$map$getBounds$ = _this2.map.getBounds().toJSON(),
+            north = _this2$map$getBounds$.north,
+            south = _this2$map$getBounds$.south,
+            east = _this2$map$getBounds$.east,
+            west = _this2$map$getBounds$.west;
+
+        var bounds = {
+          northEast: {
+            lat: north,
+            lng: east
+          },
+          southWest: {
+            lat: south,
+            lng: west
+          }
+        };
+
+        _this2.props.updateFilter('bounds', bounds);
+      });
+    }
+  }, {
+    key: "handleMarkerClick",
+    value: function handleMarkerClick(space) {
+      // debugger;
+      this.props.history.push("/spaces/".concat(space.id));
+    }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "map",
-        ref: "map"
+        ref: "map",
+        onClick: this.handleMapClick
       }, "Map");
     }
   }]);
@@ -3014,7 +3625,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
+/* harmony import */ var _util_space_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/space_api_util */ "./frontend/util/space_api_util.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3045,6 +3658,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.fetchSpaces = _util_space_api_util__WEBPACK_IMPORTED_MODULE_4__["fetchSpaces"];
 });
 
 /***/ }),
@@ -3131,6 +3745,44 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 
 /***/ }),
 
+/***/ "./frontend/reducers/filter_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/filter_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_filter_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/filter_action */ "./frontend/actions/filter_action.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var defaultFilters = Object.freeze({
+  bounds: {},
+  maxCapacity: 10000000,
+  maxPrice: 10000000,
+  page: 1
+});
+
+var filterReducer = function filterReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultFilters;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  if (action.type === _actions_filter_action__WEBPACK_IMPORTED_MODULE_0__["UPDATE_FILTER"]) {
+    var newFilter = _defineProperty({}, action.filter, action.value);
+
+    return Object.assign({}, state, newFilter);
+  } else {
+    return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filterReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/modal_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/modal_reducer.js ***!
@@ -3161,6 +3813,36 @@ function modalReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/pages_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/pages_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/space_action */ "./frontend/actions/space_action.js");
+
+
+var PageReducer = function PageReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_SPACES"]:
+      return action.totalPages;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PageReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -3186,6 +3868,28 @@ __webpack_require__.r(__webpack_exports__);
   errors: _errors_reducers__WEBPACK_IMPORTED_MODULE_3__["default"],
   ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
+
+/***/ }),
+
+/***/ "./frontend/reducers/selectors.js":
+/*!****************************************!*\
+  !*** ./frontend/reducers/selectors.js ***!
+  \****************************************/
+/*! exports provided: selectSpace */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectSpace", function() { return selectSpace; });
+var selectSpace = function selectSpace(_ref, spaceId) {
+  var spaces = _ref.spaces;
+  return spaces[spaceId];
+}; // export const selectReviewsForBench = ({ spaces, reviews }, bench) => {
+//     return bench.reviewIds.map(reviewId => reviews[reviewId]);
+// };
+// export const asArray = ({ spaces }) => (
+//     Object.keys(spaces).map(key => spaces[key])
+// );
 
 /***/ }),
 
@@ -3283,7 +3987,7 @@ var SpaceReducer = function SpaceReducer() {
 
   switch (action.type) {
     case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_SPACES"]:
-      nextState = action.spaces;
+      nextState = action.spaces ? action.spaces : {};
       return nextState;
 
     case _actions_space_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SPACE"]:
@@ -3314,10 +4018,16 @@ var SpaceReducer = function SpaceReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
+/* harmony import */ var _pages_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages_reducer */ "./frontend/reducers/pages_reducer.js");
+/* harmony import */ var _filter_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter_reducer */ "./frontend/reducers/filter_reducer.js");
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  page: _pages_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  filters: _filter_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
 
 /***/ }),
@@ -3405,6 +4115,90 @@ var fetchActivity = function fetchActivity(activityId) {
 
 /***/ }),
 
+/***/ "./frontend/util/marker_manager.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/marker_manager.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MarkerManager =
+/*#__PURE__*/
+function () {
+  function MarkerManager(map, handleClick) {
+    _classCallCheck(this, MarkerManager);
+
+    this.map = map;
+    this.handleClick = handleClick;
+    this.markers = {};
+  }
+
+  _createClass(MarkerManager, [{
+    key: "updateMarkers",
+    value: function updateMarkers(spaces) {
+      var _this = this;
+
+      var newMarkers = {};
+      Object.keys(this.markers).forEach(function (key) {
+        _this.markers[key].setMap(null);
+
+        delete _this.markers[key];
+      });
+      Object.keys(spaces).forEach(function (key) {
+        if (!_this.markers[key]) {
+          newMarkers[key] = new google.maps.Marker({
+            position: {
+              lat: spaces[key].lat,
+              lng: spaces[key].lng
+            },
+            map: _this.map,
+            title: spaces[key].name,
+            icon: window.marker
+          });
+        }
+      });
+      this.markers = newMarkers;
+    }
+  }, {
+    key: "createMarkerFromSpace",
+    value: function createMarkerFromSpace(space) {
+      var myLatLng = new google.maps.LatLng({
+        lat: space.lat,
+        lng: space.lng
+      });
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: space.title,
+        icon: window.marker
+      });
+      this.markers[space.id] = marker;
+      marker.setMap(this.map);
+    }
+  }, {
+    key: "removeMarker",
+    value: function removeMarker(markerId) {
+      var marker = this.markers[markerId];
+      marker.setMap(null);
+      delete this.markers[markerId];
+    }
+  }]);
+
+  return MarkerManager;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (MarkerManager);
+
+/***/ }),
+
 /***/ "./frontend/util/session_api_util.js":
 /*!*******************************************!*\
   !*** ./frontend/util/session_api_util.js ***!
@@ -3458,14 +4252,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSpace", function() { return createSpace; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSpace", function() { return updateSpace; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSpace", function() { return deleteSpace; });
-var fetchSpaces = function fetchSpaces() {
+// export const fetchSpaces = ( { page, bounds, maxCapacity, maxPrice} ) => (
+//     $.ajax({
+//         method: 'GET',
+//         url: `/api/spaces?page=${page}&bounds=${bounds}&maxCapacity=${maxCapacity}&maxPrice=${maxPrice}`
+//     })
+// )
+var fetchSpaces = function fetchSpaces(data) {
   return $.ajax({
     method: 'GET',
-    url: '/api/spaces'
+    url: "/api/spaces",
+    data: data
   });
 };
 var fetchSpace = function fetchSpace(spaceId) {
-  return $ajax({
+  return $.ajax({
     method: 'GET',
     url: "/api/spaces/".concat(spaceId)
   });
