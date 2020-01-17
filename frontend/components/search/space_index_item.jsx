@@ -33,9 +33,9 @@ class SpaceIndexItem extends React.Component {
                                             <Link to={`/spaces/${space.id}`}>
                                             {
                                                 (this.state.slide === idx+1) ? (
-                                                    <img className={`slider${idx + 1} slider-img`} src={window.gotyourback} />
+                                                    <img className={`slider${idx + 1} slider-img`} src={photoURL} />
                                                 ) : (
-                                                    <img className={`slider${idx + 1} slider-img hidden`} src={window.gotyourback} />
+                                                    <img className={`slider${idx + 1} slider-img hidden`} src={photoURL} />
                                                 )
                                             }
                                             </Link>

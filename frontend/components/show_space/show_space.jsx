@@ -68,9 +68,9 @@ class ShowSpace extends React.Component{
                                         <div className='fade' key={`${space.id}-${idx}`}>
                                                 {
                                                     (this.state.slide === idx + 1) ? (
-                                                        <img className={`slider-img`} src={window.temporal} />
+                                                        <img className={`slider-img`} src={photoURL} />
                                                     ) : (
-                                                        <img className={`slider-img hidden`} src={window.temporal} />
+                                                        <img className={`slider-img hidden`} src={photoURL} />
                                                     )
                                                 }
                                         </div>
