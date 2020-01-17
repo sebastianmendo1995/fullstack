@@ -3,16 +3,10 @@ import Search from './search';
 import { fetchSpaces } from '../../actions/space_action';
 import { updateFilter } from '../../actions/filter_action';
 
-const mSTP = state => {
-    // debugger
-    return {
+const mSTP = state => ({
         spaces: Object.values(state.entities.spaces),
-        totalPages: state.ui.page.totalPages,
-        bounds: state.ui.filters.bounds,
-        maxCapacity: state.ui.filters.maxCapacity,
-        maxPrice: state.ui.filters.maxPrice
-    }
-}
+        totalPages: state.ui.page.totalPages
+})
 
 const mDTP = dispatch => ({
     fetchSpaces: payLoad => dispatch(fetchSpaces(payLoad)),
@@ -20,3 +14,4 @@ const mDTP = dispatch => ({
 })
 
 export default connect(mSTP, mDTP)(Search);
+

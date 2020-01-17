@@ -3,7 +3,7 @@ import SpaceMap from '../space_map/space_map';
 import SpaceIndex from './space_index';
 import FilterForm from './filter_form';
 
-const Search = ({ spaces, totalPages,fetchSpaces, updateFilter, bounds, maxCapacity, maxPrice }) => {
+const Search = ({ spaces, totalPages,fetchSpaces, updateFilter }) => {
     return(
         <div className='spaces-container'>
             <div className='container-filters'>
@@ -21,9 +21,6 @@ const Search = ({ spaces, totalPages,fetchSpaces, updateFilter, bounds, maxCapac
                     spaces={spaces}
                     fetchSpaces={fetchSpaces} 
                     totalPages={totalPages}
-                    bounds={bounds}
-                    maxCapacity={maxCapacity}
-                    maxPrice = {maxPrice}
                     updateFilter={updateFilter}
                 />
             </div>

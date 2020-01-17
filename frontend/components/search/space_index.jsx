@@ -18,11 +18,6 @@ class SpaceIndex extends React.Component{
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.page !== this.state.page){
-            // this.props.fetchSpaces({
-            //     page: this.state.page,
-            //     maxCapacity: this.props.maxCapacity,
-            //     maxPrice: this.props.maxPrice
-            // });
             this.props.updateFilter('page', this.state.page)
         }
     }
@@ -40,8 +35,8 @@ class SpaceIndex extends React.Component{
                     <div className='pagination-container'>
                         {this.left(this.state.page)}
                         <button onClick={() => this.updatePage(1)} className={this.state.page === 1 ? "pagination-btn active" : "pagination-btn"} >1</button>
-                        <button onClick={() => this.updatePage(2)} className={this.state.page === 2 ? "pagination-btn active" : "pagination-btn"}>2</button>
-                        <button onClick={() => this.updatePage(3)} className={this.state.page === 3 ? "pagination-btn active" : "pagination-btn"}>3</button>
+                        {this.props.totalPages < 2 ? null : <button onClick={() => this.updatePage(2)} className={this.state.page === 2 ? "pagination-btn active" : "pagination-btn"}>2</button>}
+                        {this.props.totalPages < 3 ? null : <button onClick={() => this.updatePage(3)} className={this.state.page === 3 ? "pagination-btn active" : "pagination-btn"}>3</button>}
                         {this.right(this.state.page)}
                     </div>
                 )
@@ -73,7 +68,7 @@ class SpaceIndex extends React.Component{
     left(page) {
         if (page === 1) {
             return (
-                <button className="pagination-btn" id="gray-button" onClick={() => this.updatePage(this.state.page-1)}><i className="fas fa-angle-left"></i></button>
+                <button className="pagination-btn inactive" disabled onClick={() => this.updatePage(this.state.page-1)}><i className="fas fa-angle-left"></i></button>
             )
         } else {
             return (
@@ -85,7 +80,7 @@ class SpaceIndex extends React.Component{
     right(page) {
         if (page === this.props.totalPages) {
             return (
-                <button className="pagination-btn inactive" onClick={() => this.updatePage(this.state.page+1)}><i className="fas fa-angle-right"></i></button>
+                <button className="pagination-btn inactive" disabled onClick={() => this.updatePage(this.state.page+1)}><i className="fas fa-angle-right"></i></button>
             )
         } else {
             return (

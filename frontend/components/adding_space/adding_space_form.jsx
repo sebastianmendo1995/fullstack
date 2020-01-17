@@ -101,6 +101,7 @@ class AddingSpaceForm extends React.Component {
         })
     }
     
+    
     handleSubmit(e){
         e.preventDefault();
 
@@ -131,6 +132,7 @@ class AddingSpaceForm extends React.Component {
         formData.append('space[activity_ids]', this.state.activityIds);
         formData.append('space[lat]', this.state.lat);
         formData.append('space[lng]', this.state.lng);
+        formData.append('space[capacity]', this.state.capacity);
         for (let i = 0; i < this.state.photos.length; i++) {
             formData.append("space[photos][]", this.state.photos[i]);
         }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="18px" viewBox="0 0 26 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>wifi</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="wifi" transform="translate(0.000000, 1.000000)" stroke="#4C4C4C" stroke-width="1.1">
+            <path d="M8.2,11.9 C9.1,10.4 11.1,9.6 13.1,9.6 C15,9.6 16.6,10.4 17.6,11.7" id="Path"></path>
+            <path d="M4.2,9 C6.1,6.5 9.4,4.9 13,4.9 C16.6,4.9 19.7,6.4 21.7,8.8" id="Path"></path>
+            <path d="M0.7,6.5 C3.2,2.8 7.8,0.2 13,0.2 C18.2,0.2 22.8,2.7 25.3,6.3" id="Path"></path>
+            <circle id="Oval" cx="13.2" cy="14.6" r="1.1"></circle>
+        </g>
+    </g>
+</svg>

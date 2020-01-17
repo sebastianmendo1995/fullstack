@@ -1,13 +1,12 @@
 import React from 'react';
 
 const handleChange = (filter, updateFilter) => e => {
-    // debugger
     return updateFilter(filter, parseInt(e.currentTarget.value))
 }
 
 
 
-const FilterForm = ( {maxCapacity, maxPrice, updateFilter} ) => (
+const FilterForm = ( {maxCapacity, maxPrice, updateFilter, activity} ) => (
         <div className='filter-tabs'>
             <div className='filter-container'>
                 <div>
@@ -16,6 +15,7 @@ const FilterForm = ( {maxCapacity, maxPrice, updateFilter} ) => (
                         type="text"
                         id="activity"
                         placeholder='Enter your activity'
+                        value={activity}
                     />
                 </div>
                 <div>

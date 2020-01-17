@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>printer</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="printer" stroke="#4C4C4C" stroke-width="1.1">
+            <path d="M3.9,8.8 L6.9,8.8" id="Path" stroke-linecap="round"></path>
+            <g id="Group">
+                <path d="M4.8,16 L2.2,16 C1.5,16 0.9,15.4 0.9,14.7 L0.9,6.6 C0.9,5.9 1.5,5.3 2.2,5.3 L21.8,5.3 C22.5,5.3 23.1,5.9 23.1,6.6 L23.1,14.7 C23.1,15.4 22.5,16 21.8,16 L19.6,16" id="Path" stroke-linecap="round"></path>
+                <path d="M3.7,12.3 L20.3,12.3" id="Path" stroke-linecap="round"></path>
+                <polyline id="Path" points="4.9 5.3 4.9 0.6 19.6 0.6 19.6 5.3"></polyline>
+                <polyline id="Path" stroke-linecap="round" points="19.6 12.4 19.6 19.4 4.9 19.4 4.9 12.4"></polyline>
+                <path d="M6.7,16.9 L17.6,16.9" id="Path" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

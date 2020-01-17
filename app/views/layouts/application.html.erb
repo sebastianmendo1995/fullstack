@@ -11,11 +11,14 @@
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:api_map_key]}"%>
     
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
   </head>
 
   <body>
+
+
     <script type="text/javascript">
       
       window.logo = "<%= image_url('logo.png') %>"
@@ -51,10 +54,29 @@
 
       window.gotyourback = "<%= image_url('gotyourback.png') %>"
       window.user = "<%= image_url('user.png') %>"
+      window.temporal = "<%= image_url('temporal.jpg') %>"
 
       // Marker SVG
       window.marker = "<%= asset_path('marker.svg') %>"
-      window.marker2 = "<%= asset_path('marker2.svg') %>"
+      window.star = "<%= asset_path('star.svg') %>"
+      window.person = "<%= asset_path('person.svg') %>"
+      window.time = "<%= asset_path('time.svg') %>"
+      window.sqft = "<%= asset_path('sqft.svg') %>"
+      
+      window.wifi = "<%= asset_path('wifi.svg') %>"
+      window.table = "<%= asset_path('table.svg') %>"
+      window.chair = "<%= asset_path('chair.svg') %>"
+      window.projector = "<%= asset_path('projector.svg') %>"
+      window.screen = "<%= asset_path('screen.svg') %>"
+      window.whiteboard = "<%= asset_path('whiteboard.svg') %>"
+      window.conference_phone = "<%= asset_path('conference_phone.svg') %>"
+      window.printer = "<%= asset_path('printer.svg') %>"
+      window.coffee = "<%= asset_path('coffee.svg') %>"
+      window.restrooms = "<%= asset_path('restrooms.svg') %>"
+      window.breakout_room = "<%= asset_path('breakout_room.svg') %>"
+      window.kitchen = "<%= asset_path('kitchen.svg') %>"
+      window.public_transit = "<%= asset_path('public_transit.svg') %>"
+      window.handicap_access = "<%= asset_path('handicap_access.svg') %>"
 
 
       //API KEYS

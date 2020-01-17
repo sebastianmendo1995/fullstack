@@ -5,7 +5,6 @@ class Space < ApplicationRecord
     validates :description, presence: true,  length: { minimum: 280 }
     validates :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, inclusion: { in: [true, false]}
     validates :lat, :lng, presence: true
-    validates :activities, presence: { message: 'must have at least one activity' }
 
     validate :ensure_photos
 

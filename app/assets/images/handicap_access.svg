@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="22px" viewBox="0 0 18 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>handicap_access</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="handicap_access" stroke="#4C4C4C" stroke-width="1.1">
+            <path d="M6.1,6.3 L7,8.9 L8.2,12.2 C8.3,12.5 8.6,12.7 8.9,12.7 L13.5,12.7 C13.9,12.7 14.3,13 14.4,13.3 L16.6,18.8" id="Path"></path>
+            <path d="M12.8,9.1 L7.2,9.1" id="Path"></path>
+            <path d="M12.6,15.8 C12,18.5 9.6,20.6 6.7,20.6 C3.4,20.6 0.7,17.9 0.7,14.6 C0.7,12.2 2.1,10.1 4.1,9.2" id="Path"></path>
+            <circle id="Oval" cx="5.4" cy="2.5" r="1.6"></circle>
+        </g>
+    </g>
+</svg>

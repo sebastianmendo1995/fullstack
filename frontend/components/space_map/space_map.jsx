@@ -46,7 +46,7 @@ class SpaceMap extends React.Component{
 
     render(){
         return(
-            <div className='map' ref='map' onClick={this.handleMapClick}>
+            <div className='map index-map' ref='map' onClick={this.handleMapClick}>
                 Map
             </div>
         )
