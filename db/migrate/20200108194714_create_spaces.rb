@@ -23,6 +23,7 @@ class CreateSpaces < ActiveRecord::Migration[5.2]
       t.time :open_time, null: false
       t.time :close_time, null: false
       t.integer :notice, null: false
+      t.integer :price, null: false
 
       t.timestamps
     end
