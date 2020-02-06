@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-
+import FooterContainer from '../footer/footer_container';
 
 class SpaceForm extends React.Component {
     constructor(props){
@@ -478,7 +478,7 @@ class SpaceForm extends React.Component {
                         <button to='/add-space' className='btn btn-get-started'>Get Started</button>
                     </div>
                 </div>
-
+                <FooterContainer />
             </div>
         )
     }
