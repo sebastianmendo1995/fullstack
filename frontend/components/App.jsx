@@ -7,6 +7,7 @@ import SpaceContainer from './space/space_container';
 import AddingSpaceContainer from './adding_space/adding_space_container';
 import SearchContainer from './search/search_container';
 import ShowSpaceContainer from './show_space/show_space_container';
+import ProfileContainer from './profile/profile_container';
 import ErrorPage from './error_page/error_page.jsx';
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
         <Route exact path="/errors" component={ErrorPage} />  
         
         <Switch>
+            <Route exact path='/profile' component={ProfileContainer} />
             <Route exact path="/add-space" component={SpaceContainer} />
             <Route exact path="/finish-adding-space" component={AddingSpaceContainer} />
             <Route exact path="/spaces/:spaceId" component={ShowSpaceContainer} />

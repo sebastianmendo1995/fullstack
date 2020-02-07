@@ -40,7 +40,6 @@ class SpaceMap extends React.Component{
     }
 
     handleMarkerClick(space){
-        // debugger;
         this.props.history.push(`/spaces/${space.id}`)
     }
 

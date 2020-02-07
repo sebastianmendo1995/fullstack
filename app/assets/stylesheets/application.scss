@@ -2225,3 +2225,157 @@ h3{
     font-size: 14px;
   }
 }
+
+
+// Profile 
+
+.profile_avatar {
+    margin-left: 0;
+    display: table-cell;
+    vertical-align: middle;
+    border: 2px solid #6a707a;
+    border-radius: 50%;
+    width: 97px;
+    height: 97px;
+}
+
+.profile-body{
+    padding-top: 56px;
+    overflow: auto;
+    overflow-x: hidden;
+    min-width: 728px;
+    overflow-y: hidden;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#user-form{
+    width: 100%;
+}
+
+.user-form-header{
+    width: 98%;
+    margin-top: 50px;
+    background-color: #f8f9fa;
+    padding: 0 0 10px 2%;
+}
+
+.user-form-header h3{
+    font-family: Avenir-Heavy,Helvetica,Arial,sans-serif;
+    margin: 0;
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.inner-form {
+    padding-left: 2%;
+    padding-right: 15px;
+    margin-top: -17px;
+}
+
+.inner-form h4{
+    display: block;
+    font-size: 20px;
+    font-family: Avenir-Heavy;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    max-width: 270px;
+    line-height: 1.35em;
+    font-weight: 800;
+    color: #343840;
+}
+
+.profile-avatar-container{
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #e9ebef;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.input-file-avatar::-webkit-file-upload-button {
+  visibility: hidden;
+  display: none;
+}
+
+.input-file-avatar::before{
+    content: 'Select Profile Photo';
+    background-color: #52a2b1;
+    position: relative;
+    display: block;
+    margin: 10px 20px;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: avenir-heavy;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border-width: 1px;
+    cursor: pointer;
+    text-align: center;
+    max-width: 150px;
+    color:  #fff;
+}
+
+.inner-form form > div >label  {
+    font-size: 16px;
+    display: table-cell;
+    width: 30%;
+    vertical-align: middle;
+    margin-bottom: 15px;
+
+
+    font-family: Avenir-Heavy;
+    margin-top: 40px;
+    max-width: 270px;
+    line-height: 1.35em;
+    font-weight: 800;
+    color: #343840;
+}
+
+.input-container {
+    margin-bottom: 5px;
+    position: relative;
+    display: table;
+    width: 100%;
+    max-width: 650px;
+}
+
+.input-container input[type=text]{
+    border: 1px solid #ced2da;
+    width: 60%;
+    margin-top: 3px;
+    padding: 10px 5%;
+    color: #343840;
+    display: table-cell;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Avenir-Roman;
+}
+
+#email-input{
+    color: #6a707a;
+    background-color: #e9ebef;
+}
+
+.btn-update-user{
+    background-color: #e82953;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: avenir-heavy;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border-width: 1px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+}

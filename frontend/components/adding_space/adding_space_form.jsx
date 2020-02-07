@@ -1,6 +1,7 @@
 import React from 'react';
 import queryString from 'query-string';
 
+
 class AddingSpaceForm extends React.Component {
     constructor(props){
         super(props);
@@ -67,7 +68,6 @@ class AddingSpaceForm extends React.Component {
         return () => {
             if(!this.state.activityIds.includes(activityIds)){
                 this.state.activityIds.push(activityIds)
-                console.log(this.state)
                 // this.setState({
                 //     activityIds: arr
                 // })
@@ -91,7 +91,7 @@ class AddingSpaceForm extends React.Component {
             }
             return this.setState({
                 [type]: newVal
-            }, () => console.log(this.state))
+            })
         }
     }
     
@@ -136,8 +136,6 @@ class AddingSpaceForm extends React.Component {
         for (let i = 0; i < this.state.photos.length; i++) {
             formData.append("space[photos][]", this.state.photos[i]);
         }
-
-        console.log(formData);
         
         this.props.processForm(formData)
             .then(() => this.props.history.push('/'))
@@ -183,7 +181,7 @@ class AddingSpaceForm extends React.Component {
                             <input
                                 type="file"
                                 onChange={this.handleFile}
-                                multiple
+                                placeholder='Select Profile Photo'
                             />
                         </label>
 

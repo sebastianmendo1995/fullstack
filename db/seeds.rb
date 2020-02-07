@@ -101,7 +101,6 @@ ActiveRecord::Base.transaction do
         4.times do |i|
             a = i+1
             url = "https://peerspace-seeds.s3-us-west-1.amazonaws.com/spaces/space#{num}/space#{num}_#{a}.jpg"
-            # debugger
             file = open(url)
             space.photos.attach(io: file, filename: "space#{num}_#{a}.jpg")
         end
