@@ -32,9 +32,6 @@ class Navbar extends React.Component {
                 <li className="session u">
                     <Link to='/calendar'>Calendar</Link>
                 </li>
-                <li className="session u">
-                    <Link to='/add-ons'>Add-ons</Link>
-                </li>
                 <li className="dropdown-toggle u" onClick={this.toggleDropdown}>
                     <a>
                         <img src={window.user} /> 

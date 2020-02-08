@@ -5,13 +5,26 @@ class Profile extends React.Component {
         super(props);
         this.state = this.props.currentUser
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFile = this.handleFile.bind(this);
+
+    }
+
+    componentDidMount(){
+        let url = this.props.currentUser.photoUrl || null
+        this.setState({
+            photoFile: null,
+            photoUrl: url
+        })
     }
 
     handleSubmit(e){
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('user[email]', this.props.currentUser.email)
+        if(this.state.photoFile){
+            formData.append('user[photo]', this.state.photoFile);
+        }
+        formData.append('user[email]', this.props.currentUser.email);
         formData.append('user[first_name]', this.state.firstName);
         formData.append('user[last_name]', this.state.lastName);
         formData.append('user[phone_number]', this.state.phoneNumber);
@@ -36,8 +49,26 @@ class Profile extends React.Component {
             }
         }
     }
+
+    handleFile(e){
+        const file = e.currentTarget.files[0];
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+
+            this.setState({
+                photoFile: file,
+                photoUrl: fileReader.result
+            })
+        }
+        if(file){
+            fileReader.readAsDataURL(file);
+        }
+    }
+
+
     
     render() {
+        const preview = this.state.photoUrl ? <img src={this.state.photoUrl} className="profile_avatar" /> : <img src={window.user} className='profile_avatar' />
         return (
             <div className='profile-body'>
                 <div id='user-form'>
@@ -48,7 +79,7 @@ class Profile extends React.Component {
                         <h4>Profile Photo</h4>
                         <hr/>
                         <div className='profile-avatar-container'>
-                            <img src={window.user} className='profile_avatar' alt=""/>
+                            {preview}
                             <input
                                 type="file"
                                 onChange={this.handleFile}
