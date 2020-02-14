@@ -1,6 +1,5 @@
 class Api::UsersController < ApplicationController
 
-
     def new
         @user = User.new
         render :new
@@ -51,6 +50,14 @@ class Api::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :phone_number, :company_name, :job_title, :photo)
+        params.require(:user).permit(:email,
+            :password,
+            :first_name,
+            :last_name,
+            :phone_number, 
+            :company_name,
+            :job_title, 
+            :photo
+        )
     end
 end

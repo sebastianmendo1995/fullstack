@@ -26,7 +26,9 @@ class Home extends React.Component {
         }
     }
 
-    handleSubmit(){
+    handleSubmit(e){
+        e.preventDefault();
+
         
     }
 

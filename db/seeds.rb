@@ -27,6 +27,9 @@ ActiveRecord::Base.transaction do
         {name: 'Retreat'}
     ])
 
+    # url = "https://peerspace-seeds.s3-us-west-1.amazonaws.com/profile/user.png"
+    # file = open(url)
+
     10.times do
         user =  {
             first_name: Faker::Name.first_name,
@@ -38,6 +41,7 @@ ActiveRecord::Base.transaction do
             password: 'orfelinda'
         }
         User.create!(user)
+        # user.photo.attach(io:file, filename: "user.png")
     end
 
     # Creating the demo user
@@ -51,7 +55,8 @@ ActiveRecord::Base.transaction do
         email: 'sebastian.mendo1995@gmail.com',
         password: 'orfelinda'
     )
-
+    # user1.photo.attach(io:file, filename: "user.png")
+    
     users = User.all.map(&:id)
 
     minN = 37.804616,

@@ -1384,7 +1384,9 @@ function (_React$Component) {
     }
   }, {
     key: "handleSubmit",
-    value: function handleSubmit() {}
+    value: function handleSubmit(e) {
+      e.preventDefault();
+    }
   }, {
     key: "render",
     value: function render() {
@@ -1682,7 +1684,9 @@ function (_React$Component) {
       }, "Calendar")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "dropdown-toggle u",
         onClick: this.toggleDropdown
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, this.props.currentUser.photoUrl ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.props.currentUser.photoUrl
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.user
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-chevron-down"
@@ -1695,8 +1699,6 @@ function (_React$Component) {
       }, "Boards")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile"
       }, "Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/details"
-      }, "Details")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/payments"
       }, "Payments")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "link-your-space"
