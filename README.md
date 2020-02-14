@@ -20,7 +20,7 @@ Run the following commands:
 ```
 npm install
 bundle install
-bundle exec peerspace db:create
+bundle exec rails db:create
 bundle exec rails db:seed
 ```
 
