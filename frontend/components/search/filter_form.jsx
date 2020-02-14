@@ -16,6 +16,7 @@ const FilterForm = ( {maxCapacity, maxPrice, updateFilter, activity} ) => (
                         id="activity"
                         placeholder='Enter your activity'
                         value={activity}
+                        onChange={handleChange('filterActivity', updateFilter)}
                     />
                 </div>
                 <div>

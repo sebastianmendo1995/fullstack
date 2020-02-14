@@ -7,15 +7,26 @@ class Home extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            
+            activity: '',
+            date: '',
+            where: ''
         }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
         this.props.fetchActivities();
     }
 
-    update(field){
+    handleChange(field){
+        return e => {
+            this.setState({
+                [type]: e.currentTarget.value
+            })
+        }
+    }
+
+    handleSubmit(){
         
     }
 
@@ -29,10 +40,11 @@ class Home extends React.Component {
                                 <h1>Get together </h1>
                                 <h1>somewhere better</h1>
                                 <p>Book thousands of unique spaces directly from local hosts</p>
-                                <form className='form-home-search'>    
+                                <form className='form-home-search' onSubmit={this.handleSubmit}>    
                                         <input
                                             className='form-home-control what'
                                             type="text"
+                                            value={this.state.activity}
                                             placeholder='What are you planning?'
                                         />
                                         <br/>
@@ -40,13 +52,14 @@ class Home extends React.Component {
                                         <input 
                                             className='form-home-control where'
                                             type="text"
+                                            value={this.state.where}
                                             placeholder='Where?'
                                         />
                                         <input 
                                             className='form-home-control when'
                                             type="date"
-                                            // value={this.state.date}
-                                            // onChange= {update('date')}
+                                            value={this.state.date}
+                                            onChange= {this.handleChange('date')}
                                         />
                                     </div>
                                     <br/>

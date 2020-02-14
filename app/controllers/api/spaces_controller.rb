@@ -16,6 +16,10 @@ class Api::SpacesController < ApplicationController
         if params[:maxPrice]
             spaces = spaces.where(price: price_range) 
         end
+        
+        if params[:filterActivity]
+            spaces = spaces.where()
+        end
 
         @spaces = spaces.with_attached_photos.page(params[:page])
         render :index

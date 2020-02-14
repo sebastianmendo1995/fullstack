@@ -1325,6 +1325,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footer_footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../footer/footer */ "./frontend/components/footer/footer.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1333,9 +1335,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -1357,7 +1359,12 @@ function (_React$Component) {
     _classCallCheck(this, Home);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this, props));
-    _this.state = {};
+    _this.state = {
+      activity: '',
+      date: '',
+      where: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1367,8 +1374,17 @@ function (_React$Component) {
       this.props.fetchActivities();
     }
   }, {
-    key: "update",
-    value: function update(field) {}
+    key: "handleChange",
+    value: function handleChange(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, type, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {}
   }, {
     key: "render",
     value: function render() {
@@ -1381,22 +1397,25 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "search-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Get together "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "somewhere better"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Book thousands of unique spaces directly from local hosts"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "form-home-search"
+        className: "form-home-search",
+        onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-home-control what",
         type: "text",
+        value: this.state.activity,
         placeholder: "What are you planning?"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "search-input-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-home-control where",
         type: "text",
+        value: this.state.where,
         placeholder: "Where?"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-home-control when",
-        type: "date" // value={this.state.date}
-        // onChange= {update('date')}
-
+        type: "date",
+        value: this.state.date,
+        onChange: this.handleChange('date')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-home-search",
         type: "submit"
@@ -2089,7 +2108,8 @@ var FilterForm = function FilterForm(_ref) {
     type: "text",
     id: "activity",
     placeholder: "Enter your activity",
-    value: activity
+    value: activity,
+    onChange: handleChange('filterActivity', updateFilter)
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fas fa-map-marker-alt"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
