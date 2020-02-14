@@ -65,14 +65,24 @@
     color: #52a2b1;
 }
 
+.nav{
+    display: flex;
+    align-items: center;
+}
+
 .nav li{
     cursor: pointer;
     padding-left: 2px;
     padding-right: 2px;
     position: relative;
     height:  100%;
-    float: left;
-    /* display: inline-block; ask why this take out my dropdown */
+    
+}
+
+.session a,
+.link-your-space a{
+    padding: 14px 15px;
+    display: block;
 }
 
 .dropdown-toggle:hover,
@@ -82,32 +92,36 @@
 
 .dropdown-toggle {
     a{
+        box-sizing: border-box;
+        padding: 13px;
+        display: flex;
+        align-items: center;
         img{
-            max-height: 25px;
-            margin-right: 5px;
-        }
-        i{
-            transform: translateY(-25%);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            border: 2px solid #52a2b1;
         }
     }
+}
+
+.fa-chevron-down{
+    margin-left: 5px;
 }
 
 .link-your-space:hover{
     color: #39737e;
 }
-
-.nav li a{
-    padding: 14px 15px;
-    display: block;
-}
  
 .user{
-    transform: translateX(-20%);
+    transform: translateX(-15%);
 }
 
 .u {
     border-left: 1px solid #dde0e6;
 }
+
 .header-dropdown{
     display: none;
     top: 100%;
