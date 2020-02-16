@@ -38,10 +38,34 @@ class SessionLoginForm extends React.Component {
     }
 
     simulateLogin(){
-        this.setState({
-            email: 'sebastian.mendo1995@gmail.com',
-            password: 'orfelinda'
-        }, () => this.props.processForm(this.state).then(() => this.props.closeModal()))
+        let demoEmail = 'sebastian.mendo1995@gmail.com'.split('');
+        let demoPassword = 'orfelinda'.split('');
+
+        const emailInterval = setInterval(() => {
+            const first = demoEmail.splice(0, 1);
+            this.setState(
+                { email: this.state.email + first[0] },
+                () => {
+                    if (!demoEmail.length) {
+                        clearInterval(emailInterval);
+                        const passwordInterval = setInterval(() => {
+                            const first = demoPassword.splice(0, 1);
+                            this.setState(
+                                { password: this.state.password + first[0] },
+                                () => {
+                                    if (!demoPassword.length) {
+                                        clearInterval(passwordInterval)
+                                        this.props.processForm(this.state)
+                                            .then(() => this.props.closeModal())
+                                    }
+
+                                }
+                            )
+                        }, 50)
+                    }
+                }
+            );
+        }, 50);
     }
 
     componentDidMount() {

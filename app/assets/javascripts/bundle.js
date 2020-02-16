@@ -2788,14 +2788,34 @@ function (_React$Component) {
     value: function simulateLogin() {
       var _this4 = this;
 
-      this.setState({
-        email: 'sebastian.mendo1995@gmail.com',
-        password: 'orfelinda'
-      }, function () {
-        return _this4.props.processForm(_this4.state).then(function () {
-          return _this4.props.closeModal();
+      var demoEmail = 'sebastian.mendo1995@gmail.com'.split('');
+      var demoPassword = 'orfelinda'.split('');
+      var emailInterval = setInterval(function () {
+        var first = demoEmail.splice(0, 1);
+
+        _this4.setState({
+          email: _this4.state.email + first[0]
+        }, function () {
+          if (!demoEmail.length) {
+            clearInterval(emailInterval);
+            var passwordInterval = setInterval(function () {
+              var first = demoPassword.splice(0, 1);
+
+              _this4.setState({
+                password: _this4.state.password + first[0]
+              }, function () {
+                if (!demoPassword.length) {
+                  clearInterval(passwordInterval);
+
+                  _this4.props.processForm(_this4.state).then(function () {
+                    return _this4.props.closeModal();
+                  });
+                }
+              });
+            }, 50);
+          }
         });
-      });
+      }, 50);
     }
   }, {
     key: "componentDidMount",
