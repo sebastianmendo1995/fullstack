@@ -4,8 +4,9 @@ import { fetchSpaces } from '../../actions/space_action';
 import { updateFilter } from '../../actions/filter_action';
 
 const mSTP = state => ({
-        spaces: Object.values(state.entities.spaces),
-        totalPages: state.ui.page.totalPages
+    currentUser: state.entities.users[state.session.id],
+    spaces: Object.values(state.entities.spaces),
+    totalPages: state.ui.page.totalPages
 })
 
 const mDTP = dispatch => ({

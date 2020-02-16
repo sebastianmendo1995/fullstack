@@ -124,6 +124,7 @@ class SpaceIndex extends React.Component{
                                 < SpaceIndexItem 
                                     key={space.id}
                                     space={space}
+                                    currentUser = {this.props.currentUser}
                                 />
                             ))
                         } 

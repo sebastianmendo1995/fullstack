@@ -10,7 +10,7 @@ class Profile extends React.Component {
     }
 
     componentDidMount(){
-        let url = this.props.currentUser.photoUrl || null
+        let url = this.props.currentUser.photoUrl
         this.setState({
             photoFile: null,
             photoUrl: url

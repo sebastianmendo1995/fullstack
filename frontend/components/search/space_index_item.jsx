@@ -21,6 +21,10 @@ class SpaceIndexItem extends React.Component {
         })
     }
 
+    handleSaveBoard(space){
+        this.props.currentUser
+    }
+
     render(){
         const space = this.props.space
         return (
@@ -29,8 +33,8 @@ class SpaceIndexItem extends React.Component {
                         <div className='slider-container'>
                             {
                                 space.photoUrls.map( (photoURL, idx) => (
-                                        <div className='mySlides fade' key={`${space.id}-${idx}`}>
-                                            <Link to={`/spaces/${space.id}`}>
+                                    <Link to={`/spaces/${space.id}`} key={`${space.id}-${idx}`}>
+                                        <div className='mySlides fade' >
                                             {
                                                 (this.state.slide === idx+1) ? (
                                                     <img className={`slider${idx + 1} slider-img`} src={photoURL} />
@@ -38,8 +42,8 @@ class SpaceIndexItem extends React.Component {
                                                     <img className={`slider${idx + 1} slider-img hidden`} src={photoURL} />
                                                 )
                                             }
-                                            </Link>
                                         </div>
+                                    </Link>
                                 ))
                             }
                         </div>
@@ -69,7 +73,14 @@ class SpaceIndexItem extends React.Component {
                                 <Link to={`/spaces/${space.id}`}>
                                     <p>Responds within {Math.round(Math.random()*8)} hrs</p>
                                 </Link>
-                                <button><i className="far fa-heart"></i>Save</button>
+                                <button onClick={() => this.handleSaveBoard(space)}>
+                                    {
+                                        // this.props.currentUser.boards.includes(space.id) ?
+                                        // <i className="fas fa-heart"></i> :
+                                        <i className="far fa-heart"></i>
+                                    }
+                                    Save
+                                </button>
                             </div>
                         </div>
                     </div>

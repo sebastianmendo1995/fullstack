@@ -1383,17 +1383,13 @@ h3{
 .slideshow-container {
   position: relative;
   margin: auto;
+  height: 70%;
 }
 
 .slider-container{
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-
-.slider-img{
-    width: 100%;
-    height: 200px;
 }
 
 .mySlides{
@@ -1583,6 +1579,11 @@ h3{
     }
 }
 
+.slider-img{
+    width: 100%;
+    height: 100%;
+}
+
 .spaces-container{
     display: block;
     position: fixed;
@@ -1694,6 +1695,7 @@ h3{
 
 .slider-img{
     width: 100%;
+    max-width: 100%;
     height: 100%;
 }
 

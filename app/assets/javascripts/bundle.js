@@ -1435,9 +1435,9 @@ function (_React$Component) {
         className: "activities-collection"
       }, this.props.activities.slice(0, 12).map(function (activity) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/spaces"
+          to: "/spaces",
+          key: activity.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_activity_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          key: activity.id,
           activity: activity
         }));
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -1872,7 +1872,7 @@ function (_React$Component) {
   _createClass(Profile, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var url = this.props.currentUser.photoUrl || null;
+      var url = this.props.currentUser.photoUrl;
       this.setState({
         photoFile: null,
         photoUrl: url
@@ -2189,7 +2189,8 @@ var Search = function Search(_ref) {
   var spaces = _ref.spaces,
       totalPages = _ref.totalPages,
       fetchSpaces = _ref.fetchSpaces,
-      updateFilter = _ref.updateFilter;
+      updateFilter = _ref.updateFilter,
+      currentUser = _ref.currentUser;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "spaces-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2206,7 +2207,8 @@ var Search = function Search(_ref) {
     spaces: spaces,
     fetchSpaces: fetchSpaces,
     totalPages: totalPages,
-    updateFilter: updateFilter
+    updateFilter: updateFilter,
+    currentUser: currentUser
   })));
 };
 
@@ -2234,6 +2236,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state) {
   return {
+    currentUser: state.entities.users[state.session.id],
     spaces: Object.values(state.entities.spaces),
     totalPages: state.ui.page.totalPages
   };
@@ -2466,6 +2469,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
+
       var paginationButtons = this.makeButtons();
       var range = this.pageRange();
       var totalSpaces = this.totalSpaces();
@@ -2480,7 +2485,8 @@ function (_React$Component) {
       }, this.props.spaces.map(function (space) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: space.id,
-          space: space
+          space: space,
+          currentUser: _this5.props.currentUser
         });
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "pagination"
@@ -2565,6 +2571,11 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "handleSaveBoard",
+    value: function handleSaveBoard(space) {
+      this.props.currentUser;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -2577,11 +2588,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "slider-container"
       }, space.photoUrls.map(function (photoURL, idx) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "mySlides fade",
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/spaces/".concat(space.id),
           key: "".concat(space.id, "-").concat(idx)
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/spaces/".concat(space.id)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "mySlides fade"
         }, _this2.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "slider".concat(idx + 1, " slider-img"),
           src: photoURL
@@ -2619,7 +2630,13 @@ function (_React$Component) {
         className: "answer-time"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/spaces/".concat(space.id)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Responds within ", Math.round(Math.random() * 8), " hrs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Responds within ", Math.round(Math.random() * 8), " hrs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this2.handleSaveBoard(space);
+        }
+      }, // this.props.currentUser.boards.includes(space.id) ?
+      // <i className="fas fa-heart"></i> :
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-heart"
       }), "Save")))));
     }

@@ -85,8 +85,8 @@ class Home extends React.Component {
                             {
                                 this.props.activities.slice(0,12).map( (activity) => {
                                     return (
-                                        <Link to='/spaces'>
-                                            <ActivityIndexItem key={activity.id} activity={activity} />
+                                        <Link to='/spaces' key={activity.id}>
+                                            <ActivityIndexItem  activity={activity} />
                                         </Link>
                                     )
                                 })
