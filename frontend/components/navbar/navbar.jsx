@@ -86,6 +86,7 @@ class Navbar extends React.Component {
             <div className="nav-bar-container sticky">
                 <div className="logo">
                     <Link to='/'><img className="brand-logo" src={window.logo} /></Link>
+                    <h3>Spaces</h3>
                     <ul>
                         <li>
                             <span><i className="fas fa-search"></i>Search</span>
