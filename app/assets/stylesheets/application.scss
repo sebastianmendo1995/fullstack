@@ -39,6 +39,11 @@
     justify-content: center;
 }
 
+.logo > a {
+    display: flex;
+    align-items: center;
+}
+
 .logo h3{
     font-family: 'Sriracha', cursive;
     padding: 0;
@@ -69,9 +74,7 @@
     height: 38px;
 }
 
-.link-your-space{
-    color: #52a2b1;
-}
+
 
 .nav{
     display: flex;
@@ -91,6 +94,15 @@
 .link-your-space a{
     padding: 14px 15px;
     display: block;
+}
+
+.link-your-space {
+    background-color: #46bc93;
+    color: #fff;
+}
+
+.link-your-space:hover{
+    background-color: #3b737d;
 }
 
 .dropdown-toggle:hover,
@@ -116,10 +128,6 @@
 
 .fa-chevron-down{
     margin-left: 5px;
-}
-
-.link-your-space:hover{
-    color: #39737e;
 }
  
 .user{
@@ -165,6 +173,14 @@
     line-height: 1.8;
     color: #6a707a;
     white-space: nowrap;
+}
+
+#link-your-space {
+    color: #52a2b1;
+}
+
+#link-your-space:hover {
+    color: #3b737d;
 }
 
 .show{
@@ -574,6 +590,45 @@ h3{
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.autocomplete{
+    position: relative;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+
+
+
+
 
 /* Footeer  */
 

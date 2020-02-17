@@ -46,7 +46,7 @@ class Navbar extends React.Component {
                         <li><Link to='/boards'>Boards</Link></li>
                         <li><Link to='/profile'>Profile</Link></li>
                         <li><Link to='/payments'>Payments</Link></li>
-                        <li className="link-your-space"><Link to='/add-space'>List Your Space</Link></li>
+                        <li><Link to='/add-space' id="link-your-space">List Your Space</Link></li>
                         <li onClick={this.props.logout}><Link to=''>Log Out</Link></li>
                     </ul>
                 </li>
@@ -85,8 +85,10 @@ class Navbar extends React.Component {
         return (
             <div className="nav-bar-container sticky">
                 <div className="logo">
-                    <Link to='/'><img className="brand-logo" src={window.logo} /></Link>
-                    <h3>Spaces</h3>
+                    <Link to='/'>
+                        <img className="brand-logo" src={window.logo} />
+                        <h3>Spaces</h3>
+                    </Link>
                     <ul>
                         <li>
                             <span><i className="fas fa-search"></i>Search</span>
