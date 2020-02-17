@@ -145,21 +145,25 @@ class Home extends React.Component {
                                         />
                                     </div>    
                                     <br/>
-                                    <div className='search-input-container autocomplete'>
-                                        <input 
-                                            className='form-home-control where'
-                                            type="text"
-                                            value={this.state.city}
-                                            id='myCities'
-                                            onChange={this.handleChange('city')}
-                                            placeholder='Where? (City)'
-                                        />
-                                        <input 
-                                            className='form-home-control when'
-                                            type="date"
-                                            value={this.state.date}
-                                            onChange= {this.handleChange('date')}
-                                        />
+                                    <div className='search-input-container'>
+                                        <div className='home-search autocomplete'>
+                                            <input 
+                                                className='form-home-control'
+                                                type="text"
+                                                value={this.state.city}
+                                                id='myCities'
+                                                onChange={this.handleChange('city')}
+                                                placeholder='Where? (City)'
+                                            />
+                                        </div>
+                                        <div className='home-search'>
+                                            <input 
+                                                className='form-home-control'
+                                                type="date"
+                                                value={this.state.date}
+                                                onChange= {this.handleChange('date')}
+                                            />
+                                        </div>
                                     </div>
                                     <br/>
                                     <button className='btn btn-home-search' type="submit">Search</button>

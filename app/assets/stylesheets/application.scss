@@ -67,7 +67,6 @@
 }
 
 .brand-logo{
-    /* margin-top: 3px; */
     margin-right: 10px;
     padding: 8px 0;
     margin-left: 15px;
@@ -393,17 +392,15 @@ input[type='password'],
     width: 100%;
 }
 
-.where{
-    width: 48%;
-}
-.when {
-    width: 48%;
-}
-
 .search-input-container{
     display: flex;
     justify-content: space-between;
+    .home-search{
+        width: 48%;
+    }
 }
+
+
 
 .btn-home-search {
     width: 40%;
@@ -596,15 +593,17 @@ h3{
 }
 
 .autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
+    width: 100%;
+    position: absolute;
+    max-width: 100%;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
 }
 
 .autocomplete-items div {
@@ -1630,7 +1629,9 @@ h3{
     display: grid;
     grid-gap: 2vmin;
     grid-template-columns: repeat(5, 1fr);
-    div{
+    // display: flex;
+    // justify-content: space-around;
+    .index-filters{
         border: 1px solid #ced2da;
         display: flex;
         flex-direction: row;
