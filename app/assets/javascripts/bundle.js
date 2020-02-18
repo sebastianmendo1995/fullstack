@@ -1489,6 +1489,15 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      this.props.history.push({
+        pathname: '/spaces',
+        // search: '?query=abc',
+        state: {
+          activity: this.state.activity,
+          date: this.state.date,
+          city: this.state.city
+        }
+      });
     }
   }, {
     key: "render",
@@ -1535,7 +1544,7 @@ function (_React$Component) {
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-home-search",
         type: "submit"
-      }, "Search")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Submit")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "right-side"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.home
@@ -2233,6 +2242,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(FilterForm).call(this, props));
     _this.state = {
       activity: '',
+      date: '',
       city: ''
     };
     return _this;
@@ -2241,6 +2251,16 @@ function (_React$Component) {
   _createClass(FilterForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      debugger;
+
+      if (this.props.activity && this.props.city && this.props.date) {
+        this.setState({
+          activity: this.props.activity,
+          date: this.props.date,
+          city: this.props.city
+        });
+      }
+
       this.props.fetchActivities();
       var city_names = ["Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "Alexandria", "Allentown", "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch", "Apple Valley", "Appleton", "Arlington", "Arvada", "Asheville", "Athens", "Atlanta", "Atlantic City", "Augusta", "Aurora", "Austin", "Bakersfield", "Baltimore", "Barnstable", "Baton Rouge", "Beaumont", "Bel Air", "Bellevue", "Berkeley", "Bethlehem", "Billings", "Birmingham", "Bloomington", "Boise", "Boise City", "Bonita Springs", "Boston", "Boulder", "Bradenton", "Bremerton", "Bridgeport", "Brighton", "Brownsville", "Bryan", "Buffalo", "Burbank", "Burlington", "Cambridge", "Canton", "Cape Coral", "Carrollton", "Cary", "Cathedral City", "Cedar Rapids", "Champaign", "Chandler", "Charleston", "Charlotte", "Chattanooga", "Chesapeake", "Chicago", "Chula Vista", "Cincinnati", "Clarke County", "Clarksville", "Clearwater", "Cleveland", "College Station", "Colorado Springs", "Columbia", "Columbus", "Concord", "Coral Springs", "Corona", "Corpus Christi", "Costa Mesa", "Dallas", "Daly City", "Danbury", "Davenport", "Davidson County", "Dayton", "Daytona Beach", "Deltona", "Denton", "Denver", "Des Moines", "Detroit", "Downey", "Duluth", "Durham", "El Monte", "El Paso", "Elizabeth", "Elk Grove", "Elkhart", "Erie", "Escondido", "Eugene", "Evansville", "Fairfield", "Fargo", "Fayetteville", "Fitchburg", "Flint", "Fontana", "Fort Collins", "Fort Lauderdale", "Fort Smith", "Fort Walton Beach", "Fort Wayne", "Fort Worth", "Frederick", "Fremont", "Fresno", "Fullerton", "Gainesville", "Garden Grove", "Garland", "Gastonia", "Gilbert", "Glendale", "Grand Prairie", "Grand Rapids", "Grayslake", "Green Bay", "GreenBay", "Greensboro", "Greenville", "Gulfport-Biloxi", "Hagerstown", "Hampton", "Harlingen", "Harrisburg", "Hartford", "Havre de Grace", "Hayward", "Hemet", "Henderson", "Hesperia", "Hialeah", "Hickory", "High Point", "Hollywood", "Honolulu", "Houma", "Houston", "Howell", "Huntington", "Huntington Beach", "Huntsville", "Independence", "Indianapolis", "Inglewood", "Irvine", "Irving", "Jackson", "Jacksonville", "Jefferson", "Jersey City", "Johnson City", "Joliet", "Kailua", "Kalamazoo", "Kaneohe", "Kansas City", "Kennewick", "Kenosha", "Killeen", "Kissimmee", "Knoxville", "Lacey", "Lafayette", "Lake Charles", "Lakeland", "Lakewood", "Lancaster", "Lansing", "Laredo", "Las Cruces", "Las Vegas", "Layton", "Leominster", "Lewisville", "Lexington", "Lincoln", "Little Rock", "Long Beach", "Lorain", "Los Angeles", "Louisville", "Lowell", "Lubbock", "Macon", "Madison", "Manchester", "Marina", "Marysville", "McAllen", "McHenry", "Medford", "Melbourne", "Memphis", "Merced", "Mesa", "Mesquite", "Miami", "Milwaukee", "Minneapolis", "Miramar", "Mission Viejo", "Mobile", "Modesto", "Monroe", "Monterey", "Montgomery", "Moreno Valley", "Murfreesboro", "Murrieta", "Muskegon", "Myrtle Beach", "Naperville", "Naples", "Nashua", "Nashville", "New Bedford", "New Haven", "New London", "New Orleans", "New York", "New York City", "Newark", "Newburgh", "Newport News", "Norfolk", "Normal", "Norman", "North Charleston", "North Las Vegas", "North Port", "Norwalk", "Norwich", "Oakland", "Ocala", "Oceanside", "Odessa", "Ogden", "Oklahoma City", "Olathe", "Olympia", "Omaha", "Ontario", "Orange", "Orem", "Orlando", "Overland Park", "Oxnard", "Palm Bay", "Palm Springs", "Palmdale", "Panama City", "Pasadena", "Paterson", "Pembroke Pines", "Pensacola", "Peoria", "Philadelphia", "Phoenix", "Pittsburgh", "Plano", "Pomona", "Pompano Beach", "Port Arthur", "Port Orange", "Port Saint Lucie", "Port St. Lucie", "Portland", "Portsmouth", "Poughkeepsie", "Providence", "Provo", "Pueblo", "Punta Gorda", "Racine", "Raleigh", "Rancho Cucamonga", "Reading", "Redding", "Reno", "Richland", "Richmond", "Richmond County", "Riverside", "Roanoke", "Rochester", "Rockford", "Roseville", "Round Lake Beach", "Sacramento", "Saginaw", "Saint Louis", "Saint Paul", "Saint Petersburg", "Salem", "Salinas", "Salt Lake City", "San Antonio", "San Bernardino", "San Buenaventura", "San Diego", "San Francisco", "San Jose", "Santa Ana", "Santa Barbara", "Santa Clara", "Santa Clarita", "Santa Cruz", "Santa Maria", "Santa Rosa", "Sarasota", "Savannah", "Scottsdale", "Scranton", "Seaside", "Seattle", "Sebastian", "Shreveport", "Simi Valley", "Sioux City", "Sioux Falls", "South Bend", "South Lyon", "Spartanburg", "Spokane", "Springdale", "Springfield", "St. Louis", "St. Paul", "St. Petersburg", "Stamford", "Sterling Heights", "Stockton", "Sunnyvale", "Syracuse", "Tacoma", "Tallahassee", "Tampa", "Temecula", "Tempe", "Thornton", "Thousand Oaks", "Toledo", "Topeka", "Torrance", "Trenton", "Tucson", "Tulsa", "Tuscaloosa", "Tyler", "Utica", "Vallejo", "Vancouver", "Vero Beach", "Victorville", "Virginia Beach", "Visalia", "Waco", "Warren", "Washington", "Waterbury", "Waterloo", "West Covina", "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", "York", "Youngstown"];
       var activities = ['Meetings', 'Film Shoots', 'Birthday Parties', 'Photo Shoots', 'Workshops', 'Baby Shower', 'Dinners', 'Weddings', 'Team Offsites', 'Launch Parties', 'Outdoor Events', 'Performances', 'Corporate Event', 'Networking', 'Party', 'Fitness Class', 'Retreat'];
@@ -2363,7 +2383,7 @@ function (_React$Component) {
         type: "text",
         id: "activity",
         placeholder: "Enter your activity",
-        value: this.props.activity,
+        value: this.state.activity,
         onChange: this.handleChange('filterActivity', this.props.updateFilter)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters autocomplete"
@@ -2372,6 +2392,7 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         id: "location",
+        value: this.state.city,
         placeholder: "Where?"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters"
@@ -2379,7 +2400,8 @@ function (_React$Component) {
         className: "far fa-calendar"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "date",
-        id: "date"
+        id: "date",
+        value: this.state.date
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -2445,39 +2467,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _space_map_space_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../space_map/space_map */ "./frontend/components/space_map/space_map.jsx");
 /* harmony import */ var _space_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./space_index */ "./frontend/components/search/space_index.jsx");
 /* harmony import */ var _filter_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter_form */ "./frontend/components/search/filter_form.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
+ // const Search = ({ spaces, totalPages, fetchSpaces, updateFilter, currentUser, fetchActivities,  }) => 
 
-var Search = function Search(_ref) {
-  var spaces = _ref.spaces,
-      totalPages = _ref.totalPages,
-      fetchSpaces = _ref.fetchSpaces,
-      updateFilter = _ref.updateFilter,
-      currentUser = _ref.currentUser,
-      fetchActivities = _ref.fetchActivities;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "spaces-container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container-filters"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    totalPages: totalPages,
-    updateFilter: updateFilter,
-    fetchActivities: fetchActivities
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "spaces"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    spaces: spaces,
-    updateFilter: updateFilter
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    spaces: spaces,
-    fetchSpaces: fetchSpaces,
-    totalPages: totalPages,
-    updateFilter: updateFilter,
-    currentUser: currentUser
-  })));
-};
+var Search =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Search, _React$Component);
+
+  function Search(props) {
+    _classCallCheck(this, Search);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Search).call(this, props));
+  }
+
+  _createClass(Search, [{
+    key: "render",
+    value: function render() {
+      if (this.props.location.state.activity && this.props.location.state.city && this.props.location.state.date) {
+        console.log(this.props.location.state.date);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "spaces-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container-filters"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          totalPages: this.props.totalPages,
+          updateFilter: this.props.updateFilter,
+          fetchActivities: this.props.fetchActivities,
+          activity: this.props.location.state.activity,
+          city: this.props.location.state.city,
+          date: this.props.location.state.date
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "spaces"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          spaces: this.props.spaces,
+          updateFilter: this.props.updateFilter
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          spaces: this.props.spaces,
+          fetchSpaces: this.props.fetchSpaces,
+          totalPages: this.props.totalPages,
+          updateFilter: this.props.updateFilter,
+          currentUser: this.props.currentUser
+        })));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "spaces-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container-filters"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          totalPages: this.props.totalPages,
+          updateFilter: this.props.updateFilter,
+          fetchActivities: this.props.fetchActivities
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "spaces"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          spaces: this.props.spaces,
+          updateFilter: this.props.updateFilter
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          spaces: this.props.spaces,
+          fetchSpaces: this.props.fetchSpaces,
+          totalPages: this.props.totalPages,
+          updateFilter: this.props.updateFilter,
+          currentUser: this.props.currentUser
+        })));
+      }
+    }
+  }]);
+
+  return Search;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Search);
 

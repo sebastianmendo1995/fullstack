@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ActivityIndexItem from '../activity/activity_index_item';
 import Footer from '../footer/footer';
 
@@ -119,8 +119,15 @@ class Home extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-
-        
+        this.props.history.push({
+            pathname: '/spaces',
+            // search: '?query=abc',
+            state: {
+                activity: this.state.activity,
+                date: this.state.date,
+                city: this.state.city
+            }
+        })
     }
 
     render(){
@@ -166,7 +173,9 @@ class Home extends React.Component {
                                         </div>
                                     </div>
                                     <br/>
-                                    <button className='btn btn-home-search' type="submit">Search</button>
+                                    <button className='btn btn-home-search' type="submit">
+                                        Submit
+                                    </button>
                                 </form>
                             </div>
                         </div>
