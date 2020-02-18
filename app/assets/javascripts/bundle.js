@@ -1491,7 +1491,7 @@ function (_React$Component) {
       e.preventDefault();
       this.props.history.push({
         pathname: '/spaces',
-        // search: '?query=abc',
+        search: "?act=".concat(this.state.activity, "&date=").concat(this.state.date, "&city=").concat(this.state.city),
         state: {
           activity: this.state.activity,
           date: this.state.date,
@@ -1665,6 +1665,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _session_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../session/login_form_container */ "./frontend/components/session/login_form_container.jsx");
 /* harmony import */ var _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session/signup_form_container */ "./frontend/components/session/signup_form_container.jsx");
+/* harmony import */ var _search_search_modal_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../search/search_modal_container */ "./frontend/components/search/search_modal_container.jsx");
+
 
 
 
@@ -1688,6 +1690,10 @@ var Modal = function Modal(_ref) {
 
     case 'signup':
       component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      break;
+
+    case 'search':
+      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_search_modal_container__WEBPACK_IMPORTED_MODULE_5__["default"], null);
       break;
 
     default:
@@ -1889,7 +1895,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "brand-logo",
         src: window.logo
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Spaces")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Spaces")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: function onClick() {
+          return _this2.props.openModal('search');
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-search"
       }), "Search")))), ulElement);
     }
@@ -2211,6 +2221,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2251,8 +2263,6 @@ function (_React$Component) {
   _createClass(FilterForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      debugger;
-
       if (this.props.activity && this.props.city && this.props.date) {
         this.setState({
           activity: this.props.activity,
@@ -2298,7 +2308,7 @@ function (_React$Component) {
             b.addEventListener("click", function (e) {
               inp.value = this.getElementsByTagName("input")[0].value;
 
-              if (inp.id === 'myActivities') {
+              if (inp.id === 'activity') {
                 that.setState({
                   activity: inp.value
                 });
@@ -2369,6 +2379,15 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "handleInput",
+    value: function handleInput(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2384,7 +2403,7 @@ function (_React$Component) {
         id: "activity",
         placeholder: "Enter your activity",
         value: this.state.activity,
-        onChange: this.handleChange('filterActivity', this.props.updateFilter)
+        onChange: this.handleInput('activity')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters autocomplete"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -2393,7 +2412,8 @@ function (_React$Component) {
         type: "text",
         id: "location",
         value: this.state.city,
-        placeholder: "Where?"
+        placeholder: "Where?",
+        onChange: this.handleInput('city')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -2401,7 +2421,8 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "date",
         id: "date",
-        value: this.state.date
+        value: this.state.date,
+        onChange: this.handleInput('date')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "index-filters"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -2467,6 +2488,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _space_map_space_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../space_map/space_map */ "./frontend/components/space_map/space_map.jsx");
 /* harmony import */ var _space_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./space_index */ "./frontend/components/search/space_index.jsx");
 /* harmony import */ var _filter_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter_form */ "./frontend/components/search/filter_form.jsx");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2488,6 +2511,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
  // const Search = ({ spaces, totalPages, fetchSpaces, updateFilter, currentUser, fetchActivities,  }) => 
 
 var Search =
@@ -2504,53 +2528,51 @@ function (_React$Component) {
   _createClass(Search, [{
     key: "render",
     value: function render() {
-      if (this.props.location.state.activity && this.props.location.state.city && this.props.location.state.date) {
-        console.log(this.props.location.state.date);
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "spaces-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "container-filters"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      var filterForm;
+
+      if (this.props.location.state) {
+        filterForm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           totalPages: this.props.totalPages,
           updateFilter: this.props.updateFilter,
           fetchActivities: this.props.fetchActivities,
           activity: this.props.location.state.activity,
           city: this.props.location.state.city,
           date: this.props.location.state.date
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "spaces"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          spaces: this.props.spaces,
-          updateFilter: this.props.updateFilter
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          spaces: this.props.spaces,
-          fetchSpaces: this.props.fetchSpaces,
+        });
+      } else if (this.props.location.search) {
+        var values = query_string__WEBPACK_IMPORTED_MODULE_4___default.a.parse(this.props.location.search);
+        filterForm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           totalPages: this.props.totalPages,
           updateFilter: this.props.updateFilter,
-          currentUser: this.props.currentUser
-        })));
+          fetchActivities: this.props.fetchActivities,
+          activity: values.act,
+          city: values.city,
+          date: values.date
+        });
       } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "spaces-container"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "container-filters"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        filterForm = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_form__WEBPACK_IMPORTED_MODULE_3__["default"], {
           totalPages: this.props.totalPages,
           updateFilter: this.props.updateFilter,
           fetchActivities: this.props.fetchActivities
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "spaces"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          spaces: this.props.spaces,
-          updateFilter: this.props.updateFilter
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          spaces: this.props.spaces,
-          fetchSpaces: this.props.fetchSpaces,
-          totalPages: this.props.totalPages,
-          updateFilter: this.props.updateFilter,
-          currentUser: this.props.currentUser
-        })));
+        });
       }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "spaces-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-filters"
+      }, filterForm), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "spaces"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_map_space_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        spaces: this.props.spaces,
+        updateFilter: this.props.updateFilter
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_space_index__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        spaces: this.props.spaces,
+        fetchSpaces: this.props.fetchSpaces,
+        totalPages: this.props.totalPages,
+        updateFilter: this.props.updateFilter,
+        currentUser: this.props.currentUser
+      })));
     }
   }]);
 
@@ -2604,6 +2626,290 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_search__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/search/search_modal.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/search/search_modal.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var SearchModal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(SearchModal, _React$Component);
+
+  function SearchModal(props) {
+    var _this;
+
+    _classCallCheck(this, SearchModal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SearchModal).call(this, props));
+    _this.state = {
+      activity: '',
+      date: '',
+      city: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleCancel = _this.handleCancel.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(SearchModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var city_names = ["Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "Alexandria", "Allentown", "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch", "Apple Valley", "Appleton", "Arlington", "Arvada", "Asheville", "Athens", "Atlanta", "Atlantic City", "Augusta", "Aurora", "Austin", "Bakersfield", "Baltimore", "Barnstable", "Baton Rouge", "Beaumont", "Bel Air", "Bellevue", "Berkeley", "Bethlehem", "Billings", "Birmingham", "Bloomington", "Boise", "Boise City", "Bonita Springs", "Boston", "Boulder", "Bradenton", "Bremerton", "Bridgeport", "Brighton", "Brownsville", "Bryan", "Buffalo", "Burbank", "Burlington", "Cambridge", "Canton", "Cape Coral", "Carrollton", "Cary", "Cathedral City", "Cedar Rapids", "Champaign", "Chandler", "Charleston", "Charlotte", "Chattanooga", "Chesapeake", "Chicago", "Chula Vista", "Cincinnati", "Clarke County", "Clarksville", "Clearwater", "Cleveland", "College Station", "Colorado Springs", "Columbia", "Columbus", "Concord", "Coral Springs", "Corona", "Corpus Christi", "Costa Mesa", "Dallas", "Daly City", "Danbury", "Davenport", "Davidson County", "Dayton", "Daytona Beach", "Deltona", "Denton", "Denver", "Des Moines", "Detroit", "Downey", "Duluth", "Durham", "El Monte", "El Paso", "Elizabeth", "Elk Grove", "Elkhart", "Erie", "Escondido", "Eugene", "Evansville", "Fairfield", "Fargo", "Fayetteville", "Fitchburg", "Flint", "Fontana", "Fort Collins", "Fort Lauderdale", "Fort Smith", "Fort Walton Beach", "Fort Wayne", "Fort Worth", "Frederick", "Fremont", "Fresno", "Fullerton", "Gainesville", "Garden Grove", "Garland", "Gastonia", "Gilbert", "Glendale", "Grand Prairie", "Grand Rapids", "Grayslake", "Green Bay", "GreenBay", "Greensboro", "Greenville", "Gulfport-Biloxi", "Hagerstown", "Hampton", "Harlingen", "Harrisburg", "Hartford", "Havre de Grace", "Hayward", "Hemet", "Henderson", "Hesperia", "Hialeah", "Hickory", "High Point", "Hollywood", "Honolulu", "Houma", "Houston", "Howell", "Huntington", "Huntington Beach", "Huntsville", "Independence", "Indianapolis", "Inglewood", "Irvine", "Irving", "Jackson", "Jacksonville", "Jefferson", "Jersey City", "Johnson City", "Joliet", "Kailua", "Kalamazoo", "Kaneohe", "Kansas City", "Kennewick", "Kenosha", "Killeen", "Kissimmee", "Knoxville", "Lacey", "Lafayette", "Lake Charles", "Lakeland", "Lakewood", "Lancaster", "Lansing", "Laredo", "Las Cruces", "Las Vegas", "Layton", "Leominster", "Lewisville", "Lexington", "Lincoln", "Little Rock", "Long Beach", "Lorain", "Los Angeles", "Louisville", "Lowell", "Lubbock", "Macon", "Madison", "Manchester", "Marina", "Marysville", "McAllen", "McHenry", "Medford", "Melbourne", "Memphis", "Merced", "Mesa", "Mesquite", "Miami", "Milwaukee", "Minneapolis", "Miramar", "Mission Viejo", "Mobile", "Modesto", "Monroe", "Monterey", "Montgomery", "Moreno Valley", "Murfreesboro", "Murrieta", "Muskegon", "Myrtle Beach", "Naperville", "Naples", "Nashua", "Nashville", "New Bedford", "New Haven", "New London", "New Orleans", "New York", "New York City", "Newark", "Newburgh", "Newport News", "Norfolk", "Normal", "Norman", "North Charleston", "North Las Vegas", "North Port", "Norwalk", "Norwich", "Oakland", "Ocala", "Oceanside", "Odessa", "Ogden", "Oklahoma City", "Olathe", "Olympia", "Omaha", "Ontario", "Orange", "Orem", "Orlando", "Overland Park", "Oxnard", "Palm Bay", "Palm Springs", "Palmdale", "Panama City", "Pasadena", "Paterson", "Pembroke Pines", "Pensacola", "Peoria", "Philadelphia", "Phoenix", "Pittsburgh", "Plano", "Pomona", "Pompano Beach", "Port Arthur", "Port Orange", "Port Saint Lucie", "Port St. Lucie", "Portland", "Portsmouth", "Poughkeepsie", "Providence", "Provo", "Pueblo", "Punta Gorda", "Racine", "Raleigh", "Rancho Cucamonga", "Reading", "Redding", "Reno", "Richland", "Richmond", "Richmond County", "Riverside", "Roanoke", "Rochester", "Rockford", "Roseville", "Round Lake Beach", "Sacramento", "Saginaw", "Saint Louis", "Saint Paul", "Saint Petersburg", "Salem", "Salinas", "Salt Lake City", "San Antonio", "San Bernardino", "San Buenaventura", "San Diego", "San Francisco", "San Jose", "Santa Ana", "Santa Barbara", "Santa Clara", "Santa Clarita", "Santa Cruz", "Santa Maria", "Santa Rosa", "Sarasota", "Savannah", "Scottsdale", "Scranton", "Seaside", "Seattle", "Sebastian", "Shreveport", "Simi Valley", "Sioux City", "Sioux Falls", "South Bend", "South Lyon", "Spartanburg", "Spokane", "Springdale", "Springfield", "St. Louis", "St. Paul", "St. Petersburg", "Stamford", "Sterling Heights", "Stockton", "Sunnyvale", "Syracuse", "Tacoma", "Tallahassee", "Tampa", "Temecula", "Tempe", "Thornton", "Thousand Oaks", "Toledo", "Topeka", "Torrance", "Trenton", "Tucson", "Tulsa", "Tuscaloosa", "Tyler", "Utica", "Vallejo", "Vancouver", "Vero Beach", "Victorville", "Virginia Beach", "Visalia", "Waco", "Warren", "Washington", "Waterbury", "Waterloo", "West Covina", "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", "York", "Youngstown"];
+      var activities = ['Meetings', 'Film Shoots', 'Birthday Parties', 'Photo Shoots', 'Workshops', 'Baby Shower', 'Dinners', 'Weddings', 'Team Offsites', 'Launch Parties', 'Outdoor Events', 'Performances', 'Corporate Event', 'Networking', 'Party', 'Fitness Class', 'Retreat'];
+      this.autocomplete(document.getElementById("myactivity"), activities);
+      this.autocomplete(document.getElementById("mylocation"), city_names);
+    }
+  }, {
+    key: "autocomplete",
+    value: function autocomplete(inp, arr) {
+      var currentFocus;
+      var that = this;
+      inp.addEventListener("input", function (e) {
+        var a,
+            b,
+            i,
+            val = this.value;
+        closeAllLists();
+
+        if (!val) {
+          return false;
+        }
+
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+
+        for (i = 0; i < arr.length; i++) {
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            b = document.createElement("DIV");
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            b.addEventListener("click", function (e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+
+              if (inp.id === 'myactivity') {
+                that.setState({
+                  activity: inp.value
+                });
+              } else {
+                that.setState({
+                  city: inp.value
+                });
+              }
+
+              closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+      });
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+
+        if (e.keyCode == 40) {
+          currentFocus++;
+          addActive(x);
+        } else if (e.keyCode == 38) {
+          currentFocus--;
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          e.preventDefault();
+
+          if (currentFocus > -1) {
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+
+      function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = x.length - 1;
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+
+      function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+
+      function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "handleCancel",
+    value: function handleCancel() {
+      this.setState({
+        activity: '',
+        date: '',
+        city: ''
+      });
+      this.props.closeModal();
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      debugger;
+      this.props.history.push({
+        pathname: '/spaces',
+        // search: '?query=abc',
+        state: {
+          activity: this.state.activity,
+          date: this.state.date,
+          city: this.state.city
+        }
+      });
+      this.props.closeModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-banner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleCancel
+      }, "x")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "top-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Find a Space")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "search-modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "",
+        onSubmit: this.handleSubmit,
+        autoComplete: "off"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "autocomplete"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "search-modal-input",
+        type: "text",
+        value: this.state.activity,
+        id: "myactivity",
+        onChange: this.handleChange('activity'),
+        placeholder: "What are you planning?"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "autocomplete"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "search-modal-input",
+        type: "text",
+        value: this.state.city,
+        id: "mylocation",
+        onChange: this.handleChange('city'),
+        placeholder: "Where? (City)"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "search-modal-input",
+        type: "date",
+        value: this.state.date,
+        onChange: this.handleChange('date')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-home-search",
+        type: "submit"
+      }, " Submit"))));
+    }
+  }]);
+
+  return SearchModal;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (SearchModal);
+
+/***/ }),
+
+/***/ "./frontend/components/search/search_modal_container.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/search/search_modal_container.jsx ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _search_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./search_modal */ "./frontend/components/search/search_modal.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    openModal: function openModal(modal) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])(modal));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mSTP, mDTP)(_search_modal__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 

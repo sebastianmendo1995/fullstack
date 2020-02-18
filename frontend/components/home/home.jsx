@@ -121,7 +121,7 @@ class Home extends React.Component {
         e.preventDefault();
         this.props.history.push({
             pathname: '/spaces',
-            // search: '?query=abc',
+            search: `?act=${this.state.activity}&date=${this.state.date}&city=${this.state.city}`,
             state: {
                 activity: this.state.activity,
                 date: this.state.date,

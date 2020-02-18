@@ -187,6 +187,35 @@
 }
 
 
+// Search Modal
+.search-modal {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
+    form{
+        width: 80%;
+        button{
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.search-modal-input{
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #343840;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ced2da;
+    border-radius: 5px;
+    text-align: left;
+}
 
 /* Log In / Sign Up   -- CSS */
 .modal-screen {

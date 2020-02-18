@@ -90,7 +90,7 @@ class Navbar extends React.Component {
                         <h3>Spaces</h3>
                     </Link>
                     <ul>
-                        <li>
+                        <li onClick={() => this.props.openModal('search')}>
                             <span><i className="fas fa-search"></i>Search</span>
                         </li>
                     </ul>
