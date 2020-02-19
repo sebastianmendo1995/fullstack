@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  rebooking: false
+  rating: 
+  space_id: 
+  reviewer_id: 
+
+two:
+  title: MyString
+  body: MyText
+  rebooking: false
+  rating: 
+  space_id: 
+  reviewer_id: 
