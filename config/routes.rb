@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
     resources :activities, only: [:index, :show]
 
+    resources :reviews 
+
     resource :session, only: [:create, :destroy]
 
   end
