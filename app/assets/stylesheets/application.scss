@@ -2155,7 +2155,8 @@ h3{
 
 .amenitites-section, .about-section,
 .location-section, .rules-section,
-.operation-section, .cancel-policy-section{
+.operation-section, .cancel-policy-section,
+.review-section{
     // padding: 40px 0;
     margin: 0;
     display: block;
@@ -2163,7 +2164,8 @@ h3{
 
 .amenities-content, .about-content,
 .location-content, .cancel-policy-content,
-.rules-content, .operation-content{
+.rules-content, .operation-content,
+.reviews-content{
     width: 70%;
     padding-bottom: 40px;
     border-bottom: 1px solid #e9ebef;
@@ -2198,7 +2200,8 @@ h3{
 
 .about-container, .listingAmenities,
 .location-container, .rules-container,
-.operation-container, .cancel-policy-container{
+.operation-container, .cancel-policy-container
+.reviews-container{
     margin-left: -15px;
     margin-right: -15px;
     p{

@@ -6,9 +6,9 @@ const reviewsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_REVIEWS:
-            nextState = Object.assign({} , state);
-            action.reviews.forEach(review => nextState[review.id] = review);
-            return nextState;
+            // nextState = Object.assign({} , state);
+            // action.reviews.forEach(review => nextState[review.id] = review);
+            return action.reviews;
         case RECEIVE_REVIEW:
             return Object.assign({}, state, {[action.review.id]: action.review});
         case REMOVE_REVIEW:

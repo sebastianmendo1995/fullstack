@@ -13,7 +13,8 @@ class ShowSpace extends React.Component{
     }
 
     componentDidMount(){
-        this.props.fetchSpace(this.props.match.params.spaceId)
+        this.props.fetchSpace(this.props.spaceId);
+        this.props.requestReviews(this.props.spaceId);
     }
 
     handleClick(offset) {
@@ -56,6 +57,14 @@ class ShowSpace extends React.Component{
         let open = space.openTime
         let close = space.closeTime
 
+        let rules = space.rules ? (<section className='rules-section'>
+            <div className='rules-container'>
+                <div className='rules-content'>
+                    <h2>Rules</h2>
+                    <p><span>{space.rules}</span></p>
+                </div>
+            </div>
+        </section>) : null
 
         return(
             <div>
@@ -103,21 +112,21 @@ class ShowSpace extends React.Component{
                                         <h1>{space.title}</h1>
                                         <p><i className="fas fa-map-marker-alt"></i> {`${space.address}, ${space.city}, ${space.state}`}</p>
                                         <ul>
-                                            <li>
+                                            <li key={`${space.id}-reviews`}>
                                                 <div className='stars-container'>
                                                     {stars}
                                                     <span>324 reviews</span>
                                                 </div>
                                             </li>
-                                            <li>
+                                            <li key={`${space.id}-capacity`}>
                                                 <img src={window.person} alt=""/>
                                                 <span>{space.capacity} people</span>
                                             </li>
-                                            <li>
+                                            <li key={`${space.id}-time`}>
                                                 <img src={window.time} alt="" />
                                                 <span>4 min</span>
                                             </li>
-                                            <li>
+                                            <li key={`${space.id}-person`}>
                                                 <img src={window.person} alt="" />
                                                 <span>{space.square_ft} sq ft</span>
                                             </li>
@@ -148,7 +157,7 @@ class ShowSpace extends React.Component{
                                         <div className='row-form'>
                                             <div className='fee-cal'>
                                                 <div className='select-date-time'>
-                                                    <ShowForm space={space}/>
+                                                    <ShowForm key={space.id} space={space}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,18 +213,7 @@ class ShowSpace extends React.Component{
                                 </div>
                             </div>
                         </section>
-                        {
-                            space.rules ? (
-                                <section className='rules-section'>
-                                    <div className='rules-container'>
-                                        <div className='rules-content'>
-                                            <h2>Rules</h2>
-                                            <p><span>{space.rules}</span></p>
-                                        </div>
-                                    </div>
-                                </section>
-                            ) : null
-                        }
+                        { rules }
                         <section className='operation-section'>
                             <div className='operation-container'>
                                 <div className='operation-content'>
@@ -249,6 +247,18 @@ class ShowSpace extends React.Component{
                                         7 days and 24 hours before the event start time and receive a 50%
                                         refund (excluding Fees) of their Booking Price. Booking cancellations 
                                         submitted less than 24 hours before the Event start time are not refundable.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section className='reviews-section'>
+                            <div className='reviews-container'>
+                                <div className='reviews-content'>
+                                    <h2>Reviews</h2>
+                                    <ul>
+                                        {
+                                            // this.props.reviews.map( review => <ReviewContainer review={review}/>)
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                         </section>

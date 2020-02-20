@@ -4049,7 +4049,8 @@ function (_React$Component) {
   _createClass(ShowSpace, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchSpace(this.props.match.params.spaceId);
+      this.props.fetchSpace(this.props.spaceId);
+      this.props.requestReviews(this.props.spaceId);
     }
   }, {
     key: "handleClick",
@@ -4098,6 +4099,13 @@ function (_React$Component) {
 
       var open = space.openTime;
       var close = space.closeTime;
+      var rules = space.rules ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "rules-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "rules-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "rules-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Rules"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, space.rules))))) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "show-content-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4153,15 +4161,23 @@ function (_React$Component) {
         className: "space-information"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, space.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-map-marker-alt"
-      }), " ", "".concat(space.address, ", ").concat(space.city, ", ").concat(space.state)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), " ", "".concat(space.address, ", ").concat(space.city, ", ").concat(space.state)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: "".concat(space.id, "-reviews")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "stars-container"
-      }, stars, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "324 reviews"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, stars, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "324 reviews"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: "".concat(space.id, "-capacity")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.person,
         alt: ""
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, space.capacity, " people")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, space.capacity, " people")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: "".concat(space.id, "-time")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.time,
         alt: ""
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "4 min")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "4 min")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: "".concat(space.id, "-person")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.person,
         alt: ""
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, space.square_ft, " sq ft"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4192,6 +4208,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "select-date-time"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        key: space.id,
         space: space
       })))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "amenities-section"
@@ -4247,13 +4264,7 @@ function (_React$Component) {
         className: "location-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Location"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_map__WEBPACK_IMPORTED_MODULE_3__["default"], {
         space: space
-      })))), space.rules ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "rules-section"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "rules-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "rules-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Rules"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, space.rules))))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      })))), rules, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "operation-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "operation-container"
@@ -4267,7 +4278,13 @@ function (_React$Component) {
         className: "cancel-policy-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "cancel-policy-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cancellation Policy"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Grace Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "All Bookings are subject to Peerspace\u2019s Grace Period policy which provides a full refund for Bookings cancelled within 24 hours from receipt of a Booking Confirmation but no later than 48 hours prior to the Event start time."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Flexible"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Guests may cancel their Booking until 7 days before the event start time and will receive a full refund (including all Fees) of their Booking Price. Guests may cancel their Booking between 7 days and 24 hours before the event start time and receive a 50% refund (excluding Fees) of their Booking Price. Booking cancellations submitted less than 24 hours before the Event start time are not refundable.")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_footer_footer__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cancellation Policy"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Grace Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "All Bookings are subject to Peerspace\u2019s Grace Period policy which provides a full refund for Bookings cancelled within 24 hours from receipt of a Booking Confirmation but no later than 48 hours prior to the Event start time."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Flexible"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Guests may cancel their Booking until 7 days before the event start time and will receive a full refund (including all Fees) of their Booking Price. Guests may cancel their Booking between 7 days and 24 hours before the event start time and receive a 50% refund (excluding Fees) of their Booking Price. Booking cancellations submitted less than 24 hours before the Event start time are not refundable.")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "reviews-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "reviews-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "reviews-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Reviews"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null)))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_footer_footer__WEBPACK_IMPORTED_MODULE_4__["default"], null));
     }
   }]);
 
@@ -4291,6 +4308,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _show_space__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show_space */ "./frontend/components/show_space/show_space.jsx");
 /* harmony import */ var _actions_space_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/space_action */ "./frontend/actions/space_action.js");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _actions_review_action__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/review_action */ "./frontend/actions/review_action.js");
+
 
 
 
@@ -4308,6 +4327,9 @@ var mSTP = function mSTP(state, _ref) {
 
 var mDTP = function mDTP(dispatch) {
   return {
+    requestReviews: function requestReviews(spaceId) {
+      return dispatch(Object(_actions_review_action__WEBPACK_IMPORTED_MODULE_4__["requestReviews"])(spaceId));
+    },
     fetchSpace: function fetchSpace(spaceId) {
       return dispatch(Object(_actions_space_action__WEBPACK_IMPORTED_MODULE_2__["fetchSpace"])(spaceId));
     }
@@ -5259,11 +5281,9 @@ var reviewsReducer = function reviewsReducer() {
 
   switch (action.type) {
     case _actions_review_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_REVIEWS"]:
-      nextState = Object.assign({}, state);
-      action.reviews.forEach(function (review) {
-        return nextState[review.id] = review;
-      });
-      return nextState;
+      // nextState = Object.assign({} , state);
+      // action.reviews.forEach(review => nextState[review.id] = review);
+      return action.reviews;
 
     case _actions_review_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_REVIEW"]:
       return Object.assign({}, state, _defineProperty({}, action.review.id, action.review));
@@ -5662,7 +5682,7 @@ __webpack_require__.r(__webpack_exports__);
 var fetchReviews = function fetchReviews(spaceId) {
   return $.ajax({
     method: 'GET',
-    url: "/api/reviews/".concat(spaceId, "/reviews")
+    url: "/api/spaces/".concat(spaceId, "/reviews")
   });
 };
 var createReview = function createReview(spaceId, review) {

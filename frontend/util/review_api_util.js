@@ -1,7 +1,7 @@
 export const fetchReviews = spaceId => (
     $.ajax({
         method: 'GET',
-        url: `/api/reviews/${spaceId}/reviews`
+        url: `/api/spaces/${spaceId}/reviews`
     })
 );
 

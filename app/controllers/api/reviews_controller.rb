@@ -3,7 +3,7 @@ class Api::ReviewsController < ApplicationController
 
     def index
         @reviews = Space.find(params[:space_id]).reviews
-        render json: @reviews
+        render :index
     end
 
     def create
@@ -12,7 +12,7 @@ class Api::ReviewsController < ApplicationController
         if @review.save
             render :show
         else
-            render :json @review.errors.full_messages, status: 404
+            render json: @review.errors.full_messages, status: 404
         end
     end
 
@@ -26,7 +26,7 @@ class Api::ReviewsController < ApplicationController
 
         if @review
             @review.update(review_params)
-            render json: @review
+            render :show
         else
             render json: @review.errors.full_messages, status: 422
         end
