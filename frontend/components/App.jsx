@@ -12,7 +12,7 @@ import ErrorPage from './error_page/error_page.jsx';
 
 const App = () => (
     <div>
-        <Modal />
+        <Route component={Modal} />
         <header>
             <NavbarContainer />
         </header>

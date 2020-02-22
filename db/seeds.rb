@@ -86,7 +86,7 @@ ActiveRecord::Base.transaction do
             title: newTitle,
             description: Faker::Lorem.characters(number: 280),
             square_ft: rand(150..1000),
-            rules: Faker::Lorem.characters(number: 100),
+            rules: 'Our space is a free-spirited space, but if you are looking to throw a late-night party, we do require security booked through us. Outside food and drinks are more than welcome. Please help us recycle though! ',
             wifi: "Name=#{Faker::Internet.username } Password=#{Faker::Internet.password(min_length: 6)}",
             access: Faker::Lorem.characters(number: 100),
             monday: Faker::Boolean.boolean(true_ratio: 0.8),

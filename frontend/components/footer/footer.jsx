@@ -13,8 +13,11 @@ class Footer extends React.Component{
                 <div className='container-fluid-footer'>
                     <div className='footer-left'>
                         <div className='footer-left-container'>
-                            <img src={window.footerlogo} className='footer-logo' />
-                            <p>© Peerspace - Terms - Privacy</p>
+                            <div>
+                                <img src={window.logo1} className='footer-logo' />
+                                <h2>Spaces</h2>
+                            </div>
+                            <p>© Spaces - Terms - Privacy</p>
                         </div>
                     </div>
                     <div className='footer-right'>

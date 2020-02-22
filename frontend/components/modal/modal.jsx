@@ -1,9 +1,11 @@
 import React from 'react';
+import {Route} from 'react-router-dom';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
 import SearchModalContainer from '../search/search_modal_container';
+import ReviewModalContainer from '../reviews/review_form_container'
 
 
 const  Modal = ({ modal, closeModal }) => {
@@ -21,6 +23,9 @@ const  Modal = ({ modal, closeModal }) => {
         case 'search':
             component = <SearchModalContainer />;
             break;
+        case 'review':
+            component = <Route path='/spaces/:spaceId' component={ReviewModalContainer} />;
+            break
         default:
             return null;
     }
@@ -33,7 +38,7 @@ const  Modal = ({ modal, closeModal }) => {
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         modal: state.ui.modal
     };

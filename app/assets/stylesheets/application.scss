@@ -720,6 +720,15 @@ h3{
 .footer-left-container {
     padding-left: 50px;
     color: white;
+    div{
+        display: flex;
+        align-items: center;
+        h2 {
+            color: #ccc;
+            font-family: 'Sriracha', cursive;
+            padding-left: 10px;
+        }
+    }
 }
 
 .errors li{
@@ -1807,7 +1816,7 @@ h3{
     padding: 15px 20px;
     padding-left: 10px;
     vertical-align: middle;
-    top: 8%;
+    top: 6%;
     background-color: rgba(255,255,255,.3);
     transition: background-color .2s linear;
 }
@@ -2153,13 +2162,14 @@ h3{
     min-height: 2px;
 }
 
-.amenitites-section, .about-section,
+.amenities-section, .about-section,
 .location-section, .rules-section,
 .operation-section, .cancel-policy-section,
-.review-section{
-    // padding: 40px 0;
-    margin: 0;
+.reviews-section{
+    padding: 20px 0;
     display: block;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .amenities-content, .about-content,
@@ -2200,15 +2210,16 @@ h3{
 
 .about-container, .listingAmenities,
 .location-container, .rules-container,
-.operation-container, .cancel-policy-container
+.operation-container, .cancel-policy-container,
 .reviews-container{
-    margin-left: -15px;
-    margin-right: -15px;
+    // margin-left: -15px;
+    // margin-right: -15px;
     p{
         width: 100%;
         margin-bottom: 0;
         white-space: pre-wrap;
         overflow-wrap: break-word;
+        text-align: justify;
     }
 }
 
@@ -2489,6 +2500,173 @@ hr {
     border-width: 1px;
     cursor: pointer;
     text-align: center;
-    display: inline-block;
     color: #fff;
 }
+
+// Review
+
+.review-row {
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    ul {
+        div {
+            display: flex;
+            div{
+                width: 10%;
+                height: 30%;
+                vertical-align: top;
+                img {
+                    display: block;
+                    width: 100%;
+                    max-width: 90px;
+                    border-radius: 50%;
+                    margin-right: auto;
+                    margin-bottom: 5px;
+                    background-color: #e9ebef;
+                }
+            }
+        }
+        li {
+            width: 100%;
+            padding: 0 15px;
+            h4 {
+                margin: 0;
+                font-family: Avenir-Roman,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                color: #343840;
+                font-size: 18px;
+                padding: 5px 0;
+            }
+            h5 {
+                margin: 0;
+                font-family: Avenir-Roman,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                color: #6a707a;
+                font-size: 16px;
+                padding: 5px 0;
+            }
+            span {
+                color: #6a707a;
+                font-size: 14px;
+                padding: 5px 0;
+            }
+            p {
+                font-family: Avenir-Roman,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 16px;
+                line-height: 1.5;
+                color: #343840;
+                padding: 5px 0;
+            }
+            .fa-check{
+                color: #46bc93;
+                padding-right: 8px;
+            }
+            .fa-times{
+                color: #d0314e;
+                padding-right: 8px;
+            }
+        }
+    }
+
+    .btn-review{
+        height: 45px;
+        width: 200px;
+        font-size: 18px;
+        padding: 4px;
+        border-radius: 5px;
+        border-width: 1px;
+        color: #fff;
+        background-color: #e82953;
+        border-color: #e82953;
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        white-space: nowrap;
+    }
+}
+
+// star-rating -------------
+
+.rating {
+  line-height: 1;
+  display: inline-block;
+  &-item {
+    display: inline;
+    font-size: 0;
+    &::before {
+      font-size: 18px;
+      content: "★";
+      color: lightgray;
+    }
+  }
+  &-input {
+    position: absolute;
+    visibility: hidden;
+  }
+}
+.rating:hover .rating-item::before {
+  color: gold;
+}
+.rating-item:hover ~ .rating-item::before {
+  color: lightgray;
+}
+.rating-item-selected::before {
+  color: gold;
+}
+
+// Review Form
+
+#review-body {
+    width: 80%;
+    height: 60px;
+    padding: 10px 20px;
+    font: 14px/22px "Lato", Arial, sans-serif;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    resize: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ced2da;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#review-title {
+    display: block;
+    width: 80%;
+    height: 30px;
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 10px;
+    color: #343840;
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ced2da;
+    border-radius: 5px;
+}
+
+.btn-review-submit {
+    height: 45px;
+    width: 100px;
+    font-size: 18px;
+    padding: 4px;
+    border-radius: 5px;
+    border-width: 1px;
+    color: #fff;
+    background-color: #e82953;
+    border-color: #e82953;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+}
+

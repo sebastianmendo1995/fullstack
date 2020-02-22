@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import ShowForm from './show_form';
 import ShowMap from './show_map';
 import Footer from '../footer/footer';
+import ReviewContainer from '../reviews/review_container'; 
 
 class ShowSpace extends React.Component{
     constructor(props){
@@ -14,7 +15,7 @@ class ShowSpace extends React.Component{
 
     componentDidMount(){
         this.props.fetchSpace(this.props.spaceId);
-        this.props.requestReviews(this.props.spaceId);
+        this.props.requestReviews(this.props.spaceId).then(() => console.log(this.props.reviews));
     }
 
     handleClick(offset) {
@@ -254,11 +255,7 @@ class ShowSpace extends React.Component{
                             <div className='reviews-container'>
                                 <div className='reviews-content'>
                                     <h2>Reviews</h2>
-                                    <ul>
-                                        {
-                                            // this.props.reviews.map( review => <ReviewContainer review={review}/>)
-                                        }
-                                    </ul>
+                                    <ReviewContainer reviews={this.props.reviews} space={this.props.space} />
                                 </div>
                             </div>
                         </section>
