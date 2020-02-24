@@ -2506,8 +2506,22 @@ function (_React$Component) {
   _createClass(ReviewForm, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault();
-      console.log(this.state);
+      var _this2 = this;
+
+      e.preventDefault(); // const formData = new FormData();
+      // formData.append('review[title]', this.state.title);
+      // formData.append('review[body]', this.state.body);
+      // formData.append('review[rebooking]', this.state.rebooking);
+      // formData.append('review[rating]', this.state.rating);
+      // formData.append('review[space_id]', this.props.spaceId);
+      // formData.append('review[user_id]', this.props.currentUser.id);
+
+      var formReview = this.state;
+      formReview['space_id'] = this.props.spaceId;
+      formReview['user_id'] = this.props.currentUser.id;
+      this.props.createReview(this.props.spaceId, formReview).then(function () {
+        return _this2.props.closeModal();
+      });
     }
   }, {
     key: "handleCancel",
@@ -2523,16 +2537,16 @@ function (_React$Component) {
   }, {
     key: "update",
     value: function update(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+        return _this3.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
     key: "handleBooleanInput",
     value: function handleBooleanInput(type) {
-      var _this3 = this;
+      var _this4 = this;
 
       return function (e) {
         var newVal;
@@ -2543,13 +2557,13 @@ function (_React$Component) {
           newVal = false;
         }
 
-        return _this3.setState(_defineProperty({}, type, newVal));
+        return _this4.setState(_defineProperty({}, type, newVal));
       };
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-banner"
@@ -2565,7 +2579,7 @@ function (_React$Component) {
         max: 5,
         value: this.state.rating,
         onChange: function onChange(rating) {
-          _this4.setState({
+          _this5.setState({
             rating: rating
           });
         }
