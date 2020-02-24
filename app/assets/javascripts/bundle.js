@@ -2507,6 +2507,7 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      console.log(this.state);
     }
   }, {
     key: "handleCancel",
@@ -2529,9 +2530,26 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "handleBooleanInput",
+    value: function handleBooleanInput(type) {
+      var _this3 = this;
+
+      return function (e) {
+        var newVal;
+
+        if (e.target.checked) {
+          newVal = true;
+        } else {
+          newVal = false;
+        }
+
+        return _this3.setState(_defineProperty({}, type, newVal));
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-banner"
@@ -2547,7 +2565,7 @@ function (_React$Component) {
         max: 5,
         value: this.state.rating,
         onChange: function onChange(rating) {
-          _this3.setState({
+          _this4.setState({
             rating: rating
           });
         }
@@ -2555,14 +2573,21 @@ function (_React$Component) {
         type: "text",
         id: "review-title",
         placeholder: "Title: Booked a meeting for 7 people.",
-        value: this.update("title"),
+        value: this.state.title,
         onChange: this.update("title")
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "review-body",
         placeholder: "Write your experience renting this place.",
-        value: this.update("body"),
+        value: this.state.body,
         onChange: this.update("body")
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pretty p-switch p-fill review-rebooking"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        onClick: this.handleBooleanInput('rebooking')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "state p-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Would you book this place again?"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-review-submit"
       }, "Submit")));
     }

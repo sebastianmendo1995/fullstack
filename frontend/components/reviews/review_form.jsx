@@ -43,7 +43,7 @@ class ReviewForm extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-        
+        console.log(this.state)
     }
 
     handleCancel() {
@@ -61,6 +61,20 @@ class ReviewForm extends React.Component {
             [field]: e.currentTarget.value 
         });
     };
+
+    handleBooleanInput(type) {
+        return e => {
+            let newVal;
+            if (e.target.checked) {
+                newVal = true
+            } else {
+                newVal = false
+            }
+            return this.setState({
+                [type]: newVal
+            })
+        }
+    }
 
     render(){
         return(
@@ -84,16 +98,27 @@ class ReviewForm extends React.Component {
                         type="text"
                         id='review-title'
                         placeholder='Title: Booked a meeting for 7 people.'
-                        value={this.update("title")}
+                        value={this.state.title}
                         onChange={this.update("title")}  
                     />
 
                     <textarea
                         id='review-body'
                         placeholder='Write your experience renting this place.'
-                        value={this.update("body")}
+                        value={this.state.body}
                         onChange={this.update("body")} 
                     />
+
+                    <div className="pretty p-switch p-fill review-rebooking">
+                        <input
+                            type="checkbox"
+                            onClick={this.handleBooleanInput('rebooking')}
+                        />
+                        <div className="state p-primary">
+                            <label>Would you book this place again?</label>
+                        </div>
+                    </div>
+
                     <button className='btn btn-review-submit'>Submit</button>
                 </form>
             </div>
