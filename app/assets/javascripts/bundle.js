@@ -2519,6 +2519,7 @@ function (_React$Component) {
       var formReview = this.state;
       formReview['space_id'] = this.props.spaceId;
       formReview['user_id'] = this.props.currentUser.id;
+      console.log(formReview);
       this.props.createReview(this.props.spaceId, formReview).then(function () {
         return _this2.props.closeModal();
       });
@@ -6109,7 +6110,7 @@ var fetchReviews = function fetchReviews(spaceId) {
 var createReview = function createReview(spaceId, review) {
   return $.ajax({
     method: 'POST',
-    url: "/api/todos/".concat(spaceId, "/steps"),
+    url: "/api/spaces/".concat(spaceId, "/reviews"),
     data: {
       review: review
     }
@@ -6118,7 +6119,7 @@ var createReview = function createReview(spaceId, review) {
 var updateReview = function updateReview(review) {
   return $.ajax({
     method: 'PATCH',
-    url: "/api/steps/".concat(review.id),
+    url: "/api/reviews/".concat(review.id),
     data: {
       review: review
     }
@@ -6127,7 +6128,7 @@ var updateReview = function updateReview(review) {
 var destroyReview = function destroyReview(review) {
   return $.ajax({
     method: 'DELETE',
-    url: "/api/steps/".concat(review.id)
+    url: "/api/reviews/".concat(review.id)
   });
 };
 

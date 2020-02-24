@@ -58,7 +58,8 @@ class ReviewForm extends React.Component {
         formReview['space_id'] = this.props.spaceId;
         formReview['user_id'] = this.props.currentUser.id;
 
-
+        console.log(formReview)
+        
         this.props.createReview(this.props.spaceId ,formReview)
             .then(() => this.props.closeModal())
 
