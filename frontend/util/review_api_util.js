@@ -8,7 +8,7 @@ export const fetchReviews = spaceId => (
 export const createReview = (spaceId, review) => (
     $.ajax({
         method: 'POST',
-        url: `/api/todos/${spaceId}/steps`,
+        url: `/api/spaces/${spaceId}/reviews`,
         data: { review }
     })
 );
@@ -16,7 +16,7 @@ export const createReview = (spaceId, review) => (
 export const updateReview = review => (
     $.ajax({
         method: 'PATCH',
-        url: `/api/steps/${review.id}`,
+        url: `/api/reviews/${review.id}`,
         data: { review }
     })
 );
@@ -24,6 +24,6 @@ export const updateReview = review => (
 export const destroyReview = review => (
     $.ajax({
         method: 'DELETE',
-        url: `/api/steps/${review.id}`
+        url: `/api/reviews/${review.id}`
     })
 );
