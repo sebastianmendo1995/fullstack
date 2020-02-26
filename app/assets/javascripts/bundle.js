@@ -2297,6 +2297,42 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var range = function range(min, max) {
+  return Array(max - min + 1).fill().map(function (_, i) {
+    return min + i;
+  });
+};
+
+var RatingItem = function RatingItem(_ref) {
+  var checked = _ref.checked,
+      colored = _ref.colored,
+      value = _ref.value;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: "rating-y-item ".concat(colored ? 'rating-y-item-selected' : '')
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    checked: checked,
+    className: "rating-y-input",
+    type: "radio",
+    value: value
+  }));
+};
+
+var Rating = function Rating(_ref2) {
+  var min = _ref2.min,
+      max = _ref2.max,
+      value = _ref2.value;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "rating-y"
+  }, range(min, max).map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RatingItem, {
+      key: item,
+      colored: value >= item,
+      checked: value === item,
+      value: item
+    });
+  }));
+};
+
 var Review =
 /*#__PURE__*/
 function (_React$Component) {
@@ -2339,14 +2375,23 @@ function (_React$Component) {
           className: "fas fa-times"
         });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "review-content",
           key: review.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "review-user-picture"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: window.user,
           alt: ""
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, review.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "User Job Title"), icon, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, rebookingText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, review.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, review.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "User Job Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "review-starts-rebooking"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Rating, {
+          min: 1,
+          max: 5,
+          value: review.rating
+        }), icon, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, rebookingText)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, review.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "span-review"
         }, review.createdAt.slice(0, 10))));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-review",
         onClick: this.handleClick
       }, "Make a Review"));
@@ -2508,14 +2553,7 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       var _this2 = this;
 
-      e.preventDefault(); // const formData = new FormData();
-      // formData.append('review[title]', this.state.title);
-      // formData.append('review[body]', this.state.body);
-      // formData.append('review[rebooking]', this.state.rebooking);
-      // formData.append('review[rating]', this.state.rating);
-      // formData.append('review[space_id]', this.props.spaceId);
-      // formData.append('review[user_id]', this.props.currentUser.id);
-
+      e.preventDefault();
       var formReview = this.state;
       formReview['space_id'] = this.props.spaceId;
       formReview['user_id'] = this.props.currentUser.id;

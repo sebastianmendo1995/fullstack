@@ -1,5 +1,31 @@
 import React from 'react';
 
+const range = (min, max) => Array(max - min + 1).fill().map((_, i) => min + i)
+
+const RatingItem = ({ checked, colored, value }) => (
+    <label className={`rating-y-item ${colored ? 'rating-y-item-selected' : ''}`}>
+        <input
+            checked={checked}
+            className='rating-y-input'
+            type="radio"
+            value={value} />
+    </label>)
+
+const Rating = ({ min, max, value }) => {
+    return (
+        <div className='rating-y'>
+            {range(min, max).map(item => (
+                <RatingItem key={item}
+                    colored={value >= item}
+                    checked={value === item}
+                    value={item} />
+            ))
+            }
+        </div>
+    )
+}
+
+
 class Review extends React.Component {
     constructor(props){
         super(props);
@@ -28,14 +54,19 @@ class Review extends React.Component {
                             let icon;
                             icon = review.rebooking ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i>
                             return(
-                                <div key= { review.id }>
-                                    <div>
+                                <div className='review-content' key= { review.id }>
+                                    <div className='review-user-picture'>
                                         <img src={window.user} alt="" />
                                     </div>
                                     <li >
                                         <h4>{review.title}</h4>
                                         <h5>User Job Title</h5>
-                                        {icon}<span>{rebookingText}</span>
+                                        <div className='review-starts-rebooking'>
+                                            <Rating min={1} max={5}
+                                                value={review.rating}
+                                            />
+                                            {icon}<span>{rebookingText}</span>
+                                        </div>
                                         <p>{review.body}</p>
                                         <span className='span-review'>{review.createdAt.slice(0,10)}</span>
                                     </li>
@@ -45,9 +76,6 @@ class Review extends React.Component {
                         })
                     }
                 </ul>
-                <br/>
-                <hr />
-                <br/>
                 <button className='btn btn-review' onClick={this.handleClick}>Make a Review</button>
             </div>
         )
