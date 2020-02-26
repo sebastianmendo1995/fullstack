@@ -2510,9 +2510,9 @@ hr {
     padding-left: 15px;
     padding-right: 15px;
     ul {
-        div {
+        .review-content {
             display: flex;
-            div{
+            .review-user-picture{
                 width: 10%;
                 height: 30%;
                 vertical-align: top;
@@ -2568,6 +2568,7 @@ hr {
     }
 
     .btn-review{
+        margin-top: 20px;
         height: 45px;
         width: 200px;
         font-size: 18px;
@@ -2615,6 +2616,30 @@ hr {
   color: lightgray;
 }
 .rating-item-selected::before {
+  color: gold;
+}
+
+// static-rating -------------
+
+.rating-y {
+  line-height: 1;
+  display: inline-block;
+  margin-right: 20px;
+  &-item {
+    display: inline;
+    font-size: 0;
+    &::before {
+      font-size: 18px;
+      content: "★";
+      color: lightgray;
+    }
+  }
+  &-input {
+    position: absolute;
+    visibility: hidden;
+  }
+}
+.rating-y-item-selected::before {
   color: gold;
 }
 
@@ -2672,4 +2697,9 @@ hr {
 
 .review-rebooking{
     width: 280px;
+}
+
+.review-starts-rebooking {
+    display: flex;
+    align-items: center;
 }
