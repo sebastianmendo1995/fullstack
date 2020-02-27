@@ -29,7 +29,12 @@ const Rating = ({ min, max, value }) => {
 class Review extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            allReviews: false,
+            index: 3
+        }
         this.handleClick = this.handleClick.bind(this);
+        this.handleReviews = this.handleReviews.bind(this);
     }
 
     handleClick(e){
@@ -41,18 +46,34 @@ class Review extends React.Component {
         }
     }
 
+    handleReviews(){
+        if(this.state.allReviews){
+            this.setState({
+                allReviews: false,
+                index: 3
+            })
+        } else {
+            this.setState({
+                allReviews: true,
+                index: Object.values(this.props.reviews).length + 1
+            })
+        }
+    }
+
     render(){
         const reviews = Object.values(this.props.reviews)
+        const reviewsButton = (this.state.allReviews) ? 
+            <button className='btn btn-default' onClick={this.handleReviews}>Show Less</button> : 
+            <button className='btn btn-default' onClick={this.handleReviews}>Show More Comments</button>
 
         return (
             <div className='review-row'>
                 <ul>
                     {
-                        reviews.slice(0,5).map(review => {
+                        reviews.slice(0,this.state.index).map(review => {
                             let rebookingText;
                             rebookingText = review.rebooking ? 'Yes, I would book again.' : 'No, I would not book again.'
-                            let icon;
-                            icon = review.rebooking ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i>
+                            let icon = review.rebooking ? <i className="fas fa-check"></i> : <i className="fas fa-times"></i>
                             return(
                                 <div className='review-content' key= { review.id }>
                                     <div className='review-user-picture'>
@@ -76,6 +97,9 @@ class Review extends React.Component {
                         })
                     }
                 </ul>
+                <div className='review-button-container'>
+                    {reviewsButton}
+                </div>
                 <button className='btn btn-review' onClick={this.handleClick}>Make a Review</button>
             </div>
         )

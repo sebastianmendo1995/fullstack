@@ -2344,7 +2344,12 @@ function (_React$Component) {
     _classCallCheck(this, Review);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Review).call(this, props));
+    _this.state = {
+      allReviews: false,
+      index: 3
+    };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.handleReviews = _this.handleReviews.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2360,16 +2365,37 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "handleReviews",
+    value: function handleReviews() {
+      if (this.state.allReviews) {
+        this.setState({
+          allReviews: false,
+          index: 3
+        });
+      } else {
+        this.setState({
+          allReviews: true,
+          index: Object.values(this.props.reviews).length + 1
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var reviews = Object.values(this.props.reviews);
+      var reviewsButton = this.state.allReviews ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-default",
+        onClick: this.handleReviews
+      }, "Show Less") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-default",
+        onClick: this.handleReviews
+      }, "Show More Comments");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "review-row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, reviews.slice(0, 5).map(function (review) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, reviews.slice(0, this.state.index).map(function (review) {
         var rebookingText;
         rebookingText = review.rebooking ? 'Yes, I would book again.' : 'No, I would not book again.';
-        var icon;
-        icon = review.rebooking ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        var icon = review.rebooking ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-check"
         }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-times"
@@ -2391,7 +2417,9 @@ function (_React$Component) {
         }), icon, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, rebookingText)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, review.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "span-review"
         }, review.createdAt.slice(0, 10))));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "review-button-container"
+      }, reviewsButton), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-review",
         onClick: this.handleClick
       }, "Make a Review"));

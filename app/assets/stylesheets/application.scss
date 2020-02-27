@@ -2703,3 +2703,29 @@ hr {
     display: flex;
     align-items: center;
 }
+
+.btn-default {
+    color: #494e57;
+    background-color: #fff;  
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Avenir-Heavy,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 8px 16px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 1px solid #dde0e6;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.review-button-container{
+    width: 100%;
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+}
