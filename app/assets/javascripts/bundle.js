@@ -3746,6 +3746,42 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var range = function range(min, max) {
+  return Array(max - min + 1).fill().map(function (_, i) {
+    return min + i;
+  });
+};
+
+var RatingItem = function RatingItem(_ref) {
+  var checked = _ref.checked,
+      colored = _ref.colored,
+      value = _ref.value;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: "rating-y-item ".concat(colored ? 'rating-y-item-selected' : '')
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    checked: checked,
+    className: "rating-y-input",
+    type: "radio",
+    value: value
+  }));
+};
+
+var Rating = function Rating(_ref2) {
+  var min = _ref2.min,
+      max = _ref2.max,
+      value = _ref2.value;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "rating-y"
+  }, range(min, max).map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RatingItem, {
+      key: item,
+      colored: value >= item,
+      checked: value === item,
+      value: item
+    });
+  }));
+};
+
 var SpaceIndexItem =
 /*#__PURE__*/
 function (_React$Component) {
@@ -3789,6 +3825,19 @@ function (_React$Component) {
       var _this2 = this;
 
       var space = this.props.space;
+      var reviews = space.reviews.map(function (review) {
+        return review.rating;
+      });
+      var avg;
+
+      if (reviews.length < 1) {
+        avg = 0;
+      } else {
+        avg = reviews.reduce(function (prev, curr) {
+          return curr += prev;
+        }) / reviews.length;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "space-component"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3832,9 +3881,15 @@ function (_React$Component) {
         to: "/spaces/".concat(space.id)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "review-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "review-starts-rebooking"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-user-friends fa-sm"
-      }), space.capacity)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, space.capacity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Rating, {
+        min: 1,
+        max: 5,
+        value: avg
+      }), reviews.length))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "answer-time"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/spaces/".concat(space.id)

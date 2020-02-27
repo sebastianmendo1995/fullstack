@@ -4,6 +4,7 @@ json.set! :spaces do
       json.partial! 'space', space: space
       json.photoUrls space.photos.map { |file| url_for(file) }
       json.activityIds space.activity_ids
+      json.reviews space.reviews
     end
   end
 end

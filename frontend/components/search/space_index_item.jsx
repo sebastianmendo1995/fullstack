@@ -1,6 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const range = (min, max) => Array(max - min + 1).fill().map((_, i) => min + i)
+
+const RatingItem = ({ checked, colored, value }) => (
+    <label className={`rating-y-item ${colored ? 'rating-y-item-selected' : ''}`}>
+        <input
+            checked={checked}
+            className='rating-y-input'
+            type="radio"
+            value={value} />
+    </label>)
+
+const Rating = ({ min, max, value }) => {
+    return (
+        <div className='rating-y'>
+            {range(min, max).map(item => (
+                <RatingItem key={item}
+                    colored={value >= item}
+                    checked={value === item}
+                    value={item} />
+            ))
+            }
+        </div>
+    )
+}
+
 class SpaceIndexItem extends React.Component {
     constructor(props){
         super(props);
@@ -27,6 +52,13 @@ class SpaceIndexItem extends React.Component {
 
     render(){
         const space = this.props.space
+        const reviews = space.reviews.map(review => review.rating)
+        let avg;
+            if(reviews.length < 1){
+                avg = 0;
+            } else {
+                avg = reviews.reduce( (prev, curr) => curr += prev ) / reviews.length;
+            }
         return (
             <div className='space-component'>
                     <div className="slideshow-container">
@@ -65,8 +97,14 @@ class SpaceIndexItem extends React.Component {
                         <div className='info-row'>
                             <Link to={`/spaces/${space.id}`}>
                                 <div className='review-section'>
-                                    <i className="fas fa-user-friends fa-sm"></i>
-                                    {space.capacity}
+                                    <div className='review-starts-rebooking'>
+                                        <i className="fas fa-user-friends fa-sm"></i>
+                                        <p>{space.capacity}</p>
+                                        <Rating min={1} max={5}
+                                            value={avg}
+                                        />
+                                        {reviews.length}
+                                    </div>
                                 </div>
                             </Link>
                             <div className='answer-time'>
