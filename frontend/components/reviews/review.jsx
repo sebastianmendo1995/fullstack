@@ -48,7 +48,7 @@ class Review extends React.Component {
             <div className='review-row'>
                 <ul>
                     {
-                        reviews.map(review => {
+                        reviews.slice(0,5).map(review => {
                             let rebookingText;
                             rebookingText = review.rebooking ? 'Yes, I would book again.' : 'No, I would not book again.'
                             let icon;

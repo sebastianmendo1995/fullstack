@@ -2365,7 +2365,7 @@ function (_React$Component) {
       var reviews = Object.values(this.props.reviews);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "review-row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, reviews.map(function (review) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, reviews.slice(0, 5).map(function (review) {
         var rebookingText;
         rebookingText = review.rebooking ? 'Yes, I would book again.' : 'No, I would not book again.';
         var icon;
