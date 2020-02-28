@@ -61,7 +61,6 @@ ActiveRecord::Base.transaction do
     all_users.each do |user|
         url ="https://peerspace-seeds.s3-us-west-1.amazonaws.com/profile/user.png"
         file = open(url)
-        debugger
         user.photo.attach(io:file, filename: "user.png") 
     end
     
@@ -119,6 +118,21 @@ ActiveRecord::Base.transaction do
         end
         
         space.save!
+    end
+
+    all_spaces = Space.all
+
+    all_spaces.each do |space|
+        5.times do |i|
+            Review.create!(
+                title: 'This is a review Title',
+                body: Faker::Restaurant.review,
+                rebooking: Faker::Boolean.boolean(true_ratio: 0.8),
+                rating: Faker::Number.between(from: 1, to: 5),
+                space_id: space.id,
+                user_id: users.sample()
+            )
+        end
     end
 
 end

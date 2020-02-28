@@ -34,11 +34,7 @@ class Navbar extends React.Component {
                 </li>
                 <li className="dropdown-toggle u" onClick={this.toggleDropdown}>
                     <a>
-                        {
-                            this.props.currentUser.photoUrl ?
-                                <img src={this.props.currentUser.photoUrl} /> :
-                                <img src={window.user} /> 
-                        }
+                        <img src={this.props.currentUser.photoUrl} /> 
                         <i className="fas fa-chevron-down"></i>
                     </a>
                     <ul className='header-dropdown user' >
@@ -81,6 +77,8 @@ class Navbar extends React.Component {
                 </li>
             </ul>
         )
+
+        debugger
 
         return (
             <div className="nav-bar-container sticky">

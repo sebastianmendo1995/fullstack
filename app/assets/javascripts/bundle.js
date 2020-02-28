@@ -1901,10 +1901,8 @@ function (_React$Component) {
       }, "Calendar")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "dropdown-toggle u",
         onClick: this.toggleDropdown
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, this.props.currentUser.photoUrl ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.currentUser.photoUrl
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.user
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-chevron-down"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -1974,6 +1972,7 @@ function (_React$Component) {
           return _this2.props.openModal('login');
         }
       }, "Log In")));
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-bar-container sticky"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
