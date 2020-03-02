@@ -121,7 +121,7 @@ class SearchModal extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-        debugger
+        
         this.props.history.push({
             pathname: '/spaces',
             // search: '?query=abc',

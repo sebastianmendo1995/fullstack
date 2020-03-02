@@ -15,7 +15,8 @@ class ShowSpace extends React.Component{
 
     componentDidMount(){
         this.props.fetchSpace(this.props.spaceId);
-        this.props.requestReviews(this.props.spaceId).then(() => console.log(this.props.reviews));
+        this.props.requestReviews(this.props.spaceId)
+            // .then(() => console.log(this.props.reviews));
     }
 
     handleClick(offset) {

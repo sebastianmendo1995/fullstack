@@ -1972,7 +1972,6 @@ function (_React$Component) {
           return _this2.props.openModal('login');
         }
       }, "Log In")));
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-bar-container sticky"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2584,7 +2583,6 @@ function (_React$Component) {
       var formReview = this.state;
       formReview['space_id'] = this.props.spaceId;
       formReview['user_id'] = this.props.currentUser.id;
-      console.log(formReview);
       this.props.createReview(this.props.spaceId, formReview).then(function () {
         return _this2.props.closeModal();
       });
@@ -3359,7 +3357,6 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      debugger;
       this.props.history.push({
         pathname: '/spaces',
         // search: '?query=abc',
@@ -4582,12 +4579,8 @@ function (_React$Component) {
   _createClass(ShowSpace, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
       this.props.fetchSpace(this.props.spaceId);
-      this.props.requestReviews(this.props.spaceId).then(function () {
-        return console.log(_this2.props.reviews);
-      });
+      this.props.requestReviews(this.props.spaceId); // .then(() => console.log(this.props.reviews));
     }
   }, {
     key: "handleClick",
@@ -4607,7 +4600,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var space = this.props.space;
       if (!space) return null;
@@ -4655,7 +4648,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "fade",
           key: "".concat(space.id, "-").concat(idx)
-        }, _this3.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, _this2.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "slider-img",
           src: photoURL
         }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -4665,12 +4658,12 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "prev-show",
         onClick: function onClick() {
-          return _this3.handleClick(-1);
+          return _this2.handleClick(-1);
         }
       }, "\u276E"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "next-show",
         onClick: function onClick() {
-          return _this3.handleClick(1);
+          return _this2.handleClick(1);
         }
       }, "\u276F"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "save-and-share"

@@ -78,8 +78,6 @@ class Navbar extends React.Component {
             </ul>
         )
 
-        debugger
-
         return (
             <div className="nav-bar-container sticky">
                 <div className="logo">
