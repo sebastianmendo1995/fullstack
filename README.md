@@ -2,6 +2,8 @@
 
 Peerspaces is a fullstack web applocation clone. On a high level, Peerspace is a Rails API connected to a PostgreSQL DB, serving data to a React & Redux frontend. This application is hosted on Heroku and static data is served from AWS. Also use Google API such Google Maps and Google Geolocation.
 
+![App preview](https://github.com/sebastianmendo1995/fullstack/blob/master/app/assets/images/spaces.png)
+
 You can test this project [here](https://fullstack-peerspace.herokuapp.com/#/)
 
 # Setup and Installation 
