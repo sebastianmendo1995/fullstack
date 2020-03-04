@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import ShowForm from './show_form';
 import ShowMap from './show_map';
 import Footer from '../footer/footer';
