@@ -15,7 +15,7 @@ class User < ApplicationRecord
     has_many :spaces,
         primary_key: :id,
         foreign_key: :host_id,
-        class_name: :User
+        class_name: :Space
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
