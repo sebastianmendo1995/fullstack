@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ActivityIndexItem from '../activity/activity_index_item';
 import Footer from '../footer/footer';
 

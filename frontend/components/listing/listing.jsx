@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import ListingItem from './listing_item';
 
 class Listing extends React.Component {
     constructor(props){
         super(props);
     } 
-
 
     render() {
         let showSpaces;
@@ -18,7 +18,15 @@ class Listing extends React.Component {
         } else {
             showSpaces = (
                 <div>
-                    Render all the spaces with the delete bottom
+                    {
+                        this.props.currentUser.spaces.map( space => (
+                            <ListingItem 
+                                space={space}
+                                deleteSpace={this.props.deleteSpace} 
+                                fetchSpace = {this.props.fetchSpace}
+                            />
+                        ))
+                    }
                 </div>
             )
         }
