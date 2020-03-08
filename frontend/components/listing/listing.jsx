@@ -21,6 +21,7 @@ class Listing extends React.Component {
                     {
                         this.props.currentUser.spaces.map( space => (
                             <ListingItem 
+                                key={space.id}
                                 space={space}
                                 deleteSpace={this.props.deleteSpace} 
                                 fetchSpace = {this.props.fetchSpace}
