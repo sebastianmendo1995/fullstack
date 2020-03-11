@@ -1782,30 +1782,27 @@ function (_React$Component) {
   _createClass(Listing, [{
     key: "render",
     value: function render() {
-      var showSpaces; // if(this.props.currentUser.spaces.length < 1){
-      //     showSpaces = (
-      //         <div class="mylisting-nospaces">
-      //             Add a space to get started
-      //         </div>
-      //     )
-      // } else {
-      //     showSpaces = (
-      //         <div>
-      //             {
-      //                 this.props.currentUser.spaces.map( space => (
-      //                     <ListingItem 
-      //                         key={space.id}
-      //                         space={space}
-      //                         deleteSpace={this.props.deleteSpace} 
-      //                         fetchSpace = {this.props.fetchSpace}
-      //                     />
-      //                 ))
-      //             }
-      //         </div>
-      //     )
-      // }
+      var _this = this;
 
-      console.log(this.props.currentUser);
+      var showSpaces;
+      var spaces = Object.values(this.props.currentUser.spaces);
+
+      if (spaces.length < 1) {
+        showSpaces = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          "class": "mylisting-nospaces"
+        }, "Add a space to get started");
+      } else {
+        showSpaces = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, spaces.map(function (space) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            key: space.id,
+            space: space,
+            deleteSpace: _this.props.deleteSpace,
+            fetchSpace: _this.props.fetchSpace
+          });
+        }));
+      } // console.log(this.props.currentUser)
+
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1883,6 +1880,7 @@ var mDTP = function mDTP(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1900,6 +1898,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -1932,8 +1931,25 @@ function (_React$Component) {
       this.props.deleteSpace(this.props.space.id);
     }
   }, {
+    key: "handleClick",
+    value: function handleClick(offset) {
+      var newState = this.state.slide + offset;
+
+      if (newState > this.props.space.photoUrls.length) {
+        newState = 1;
+      } else if (newState < 1) {
+        newState = this.props.space.photoUrls.length;
+      }
+
+      this.setState({
+        slide: newState
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var space = this.props.space;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "listing-space-item"
@@ -1941,7 +1957,32 @@ function (_React$Component) {
         className: "listing-space-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "carousel-listing"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "slider-container"
+      }, space.photoUrls.map(function (photoURL, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/spaces/".concat(space.id),
+          key: "".concat(space.id, "-").concat(idx)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "mySlides fade"
+        }, _this2.state.slide === idx + 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider".concat(idx + 1, " slider-img"),
+          src: photoURL
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "slider".concat(idx + 1, " slider-img hidden"),
+          src: photoURL
+        })));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "prev-listing",
+        onClick: function onClick() {
+          return _this2.handleClick(-1);
+        }
+      }, "\u276E"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "next-listing",
+        onClick: function onClick() {
+          return _this2.handleClick(1);
+        }
+      }, "\u276F")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "listing-space-info"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, space.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, space.city, ", ", space.state), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "from $", space.price, "/hr"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn-listing-container"

@@ -2860,3 +2860,33 @@ hr {
     align-items: center;
     justify-content: center;
 }
+
+.prev-listing,
+.next-listing {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.carousel-listing{
+    position: relative;
+}
+
+.next-listing {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev-listing:hover, .next-listing:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
