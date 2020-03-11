@@ -9,28 +9,30 @@ class Listing extends React.Component {
 
     render() {
         let showSpaces;
-        if(this.props.currentUser.spaces.length < 1){
-            showSpaces = (
-                <div class="mylisting-nospaces">
-                    Add a space to get started
-                </div>
-            )
-        } else {
-            showSpaces = (
-                <div>
-                    {
-                        this.props.currentUser.spaces.map( space => (
-                            <ListingItem 
-                                key={space.id}
-                                space={space}
-                                deleteSpace={this.props.deleteSpace} 
-                                fetchSpace = {this.props.fetchSpace}
-                            />
-                        ))
-                    }
-                </div>
-            )
-        }
+        // if(this.props.currentUser.spaces.length < 1){
+        //     showSpaces = (
+        //         <div class="mylisting-nospaces">
+        //             Add a space to get started
+        //         </div>
+        //     )
+        // } else {
+        //     showSpaces = (
+        //         <div>
+        //             {
+        //                 this.props.currentUser.spaces.map( space => (
+        //                     <ListingItem 
+        //                         key={space.id}
+        //                         space={space}
+        //                         deleteSpace={this.props.deleteSpace} 
+        //                         fetchSpace = {this.props.fetchSpace}
+        //                     />
+        //                 ))
+        //             }
+        //         </div>
+        //     )
+        // }
+        console.log(this.props.currentUser)
+
         return(
             <div className='main-container'>
                 <div className='mylistings-container'>

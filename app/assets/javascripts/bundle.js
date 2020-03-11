@@ -1782,25 +1782,30 @@ function (_React$Component) {
   _createClass(Listing, [{
     key: "render",
     value: function render() {
-      var _this = this;
+      var showSpaces; // if(this.props.currentUser.spaces.length < 1){
+      //     showSpaces = (
+      //         <div class="mylisting-nospaces">
+      //             Add a space to get started
+      //         </div>
+      //     )
+      // } else {
+      //     showSpaces = (
+      //         <div>
+      //             {
+      //                 this.props.currentUser.spaces.map( space => (
+      //                     <ListingItem 
+      //                         key={space.id}
+      //                         space={space}
+      //                         deleteSpace={this.props.deleteSpace} 
+      //                         fetchSpace = {this.props.fetchSpace}
+      //                     />
+      //                 ))
+      //             }
+      //         </div>
+      //     )
+      // }
 
-      var showSpaces;
-
-      if (this.props.currentUser.spaces.length < 1) {
-        showSpaces = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          "class": "mylisting-nospaces"
-        }, "Add a space to get started");
-      } else {
-        showSpaces = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.spaces.map(function (space) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_listing_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            key: space.id,
-            space: space,
-            deleteSpace: _this.props.deleteSpace,
-            fetchSpace: _this.props.fetchSpace
-          });
-        }));
-      }
-
+      console.log(this.props.currentUser);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
