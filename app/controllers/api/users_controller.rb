@@ -57,6 +57,11 @@ class Api::UsersController < ApplicationController
             :phone_number, 
             :company_name,
             :job_title, 
+            :name, 
+            :password_confirmation, 
+            :remember_me,
+            :provider,
+            :uid,
             :photo
         )
     end

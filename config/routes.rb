@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   root to: 'static_pages#root'
 
+  
   namespace :api, defaults: { format: :json } do
     resources :users
+    
+    devise_for :users, :controllers => { 
+      :omniauth_callbacks => "omniauth_callbacks" 
+    }
     
     resources :spaces do 
       resources :reviews, only: [:index, :create]
@@ -21,6 +26,6 @@ Rails.application.routes.draw do
     end
 
   end
-
+  
 end
 

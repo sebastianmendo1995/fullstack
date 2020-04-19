@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+    devise :confirmable
+    devise :omniauthable, :omniauth_providers => [:facebook]
+    # attr_accessible :email, :name, :password, :password_confirmation, :remember_me
     
     attr_reader :password
 
@@ -9,6 +15,7 @@ class User < ApplicationRecord
 
     before_validation :ensure_session_token
 
+    has_many :authorizations, :dependent => :destroy
     has_one_attached :photo
     has_many :reviews
 
@@ -41,4 +48,19 @@ class User < ApplicationRecord
         self.save
         self.session_token
     end
+
+    def self.find_or_create_by_facebook_oauth(auth)
+     user = User.where(:provider => auth.provider, :uid => auth.uid).first
+
+     unless user
+        user = User.create!(
+            provider: auth.provider,
+            uid: auth.uid,
+            email: auth.info.email,
+            password: Devise.friendly_token[0,20]
+        )
+     end
+
+    user
+  end
 end

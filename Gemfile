@@ -35,7 +35,6 @@ gem 'mini_magick', '~> 4.8'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 
-
 gem 'kaminari'
 gem 'pry-rails'
 gem 'jquery-rails'
@@ -43,6 +42,19 @@ gem "figaro"
 gem 'rails_12factor'
 gem 'aws-sdk-s3'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
+
+## OmniAuth Gems
+gem 'devise'
+
+# Gemfile
+gem 'omniauth'
+# providers
+gem 'omniauth-facebook'
+# gem 'omniauth-twitter'
+# gem 'omniauth-google'
+
+gem 'uuidtools'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,6 +71,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'annotate'
+  gem 'letter_opener'
 
 end
 

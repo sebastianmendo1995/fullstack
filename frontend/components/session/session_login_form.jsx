@@ -105,6 +105,7 @@ class SessionLoginForm extends React.Component {
                     <i className="fab fa-facebook"></i>
                     Simulate Log In
                 </button>
+
                 <div className="text-center">
                     <p>or</p>
                 </div>
