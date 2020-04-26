@@ -38,7 +38,6 @@ class Navbar extends React.Component {
                         <i className="fas fa-chevron-down"></i>
                     </a>
                     <ul className='header-dropdown user' >
-                        <li><Link to='/reviews'>Reviews</Link></li>
                         <li><Link to='/boards'>Boards</Link></li>
                         <li><Link to='/profile'>Profile</Link></li>
                         <li><Link to='/payments'>Payments</Link></li>
