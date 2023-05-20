@@ -6,8 +6,8 @@
     "npm": "6.4.1"
   },
   "dependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.7.4",
     "babel-loader": "^8.0.6",
     "pretty-checkbox": "^3.0.3",
