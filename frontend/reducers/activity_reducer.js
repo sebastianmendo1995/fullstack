@@ -1,6 +1,5 @@
 import {RECEIVE_ALL_ACTIVITIES, RECEIVE_ACTIVITY} from '../actions/activity_action';
 
-
 const ActivityReducer = ( state = {}, action) => {
     Object.freeze(state);
     let nextState = Object.assign({}, state);
